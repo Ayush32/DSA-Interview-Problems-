@@ -29,10 +29,11 @@ public:
         int right = 1;
         while(right < nums.size())
         {
-            if(nums[left] != 0)
+            if(nums[left] != 0){// i tb move kro jb i pointer ki value 0 ni ho
                 left++;
-
-            swap(nums[left],nums[right]);
+            
+            swap(nums[left],nums[right]);  // agar i pointer ki value 0 h us tym ye cond hogi and swap hoga i and j ki value 
+            //  and increment hoga right pointer
             right++;
         }
     }

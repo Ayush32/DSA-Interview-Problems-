@@ -214,8 +214,8 @@ public:
         return singleNumberInArray;
         
       /*  Approach - 2 - To more optimize
-      we can think of XOR method, we can XOR of all element in an array, and then we only our single element
-      which is present in an array,because all element present twice in array which they cancel out when we taking XOR after end of iteration we have only get single number i.e our ans;
+      we can think of XOR method, we can XOR of all element in an array, and then we get our single element
+      which is present in an array,because all element present twice in array which they cancel out when we taking XOR after end of iteration we have only  single number i.e our ans;
         T.C - O(N)
         S.C - O(1);
         [4,1,2,1,2], O/p =  4
