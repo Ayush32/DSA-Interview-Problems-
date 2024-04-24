@@ -1,0 +1,31 @@
+1 - Increment -> ++
+postIncrement - first it will be assigned then Increment -
+b = 3
+int a = b++
+a = 3
+b = 4
+preIncrement - first it will increase then assigned
+b = 4
+int a = ++b
+a = 4
+b = 4
+
+2 - Ternary Operator
+syntax - (condition) ? (True Statement) : False Statement
+ex - (a == 5) ? cout << "YES" : cout << "No"
+
+3 - Logical Operator
+a - OR(||)
+b - AND(&&)
+c - NOT(!)
+d - XOR(^) - if both are same then OUTPUT is False 
+             if both are different then OUTPUT is True
+
+4 - Bitwise Operator
+a - &
+b - |
+c - ^
+
+
+
+

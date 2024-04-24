@@ -1,0 +1,656 @@
+Priority_queue<template datatype> is a very famous STL Container generally used when we need to use Heap Data structure.
+
+ The Characteristics of the heap data structure are:
+
+O(1) or constant time retrieval of min/max in the list.
+O(log N) time for insertion and deletion.
+
+p riority_queue<data_type, container, comparator> ds; -- syntax
+
+Why do we need a Custom Comparator?
+Say in the above code we have either got the Maximum most element at the top of the priority queue (Max Heap) or the Minimum most element at the top of the priority queue (Min heap).
+In Complex objects or pairs of data, we may need a different set of orders that are not entirely Ascending or Descending.
+Comparator in the case of priority_queue decides the ordering of elements, which is basically in the competition among the elements, it decides who needs to be at the top of the priority queue.
+In the case of Min-Heap, the greater<int> was used.
+
+Custom Comparator in priority_queue
+Likewise, how we passed greater<datatype> an inbuilt comparator, we can also pass a user-defined comparator to priority_queue.
+You should declare a class Compare and overload operator() function.
+class Compare {
+    public:
+       bool operator()(T a, T b){
+           if(cond){
+               return true;
+           }
+           return false;
+      }
+};
+When true is returned, it means the order is correct and NO swapping of elements takes place.
+When false is returned, it means the order is NOT correct and swapping of elements takes place.
+
+Problem - 1 - Last Stone Weight
+
+class Solution {
+public:
+    int lastStoneWeight(vector<int>& stones) {
+        priority_queue<int>minHeap;
+        int n = stones.size();
+
+        for(int i = 0; i < n;i++)
+        {
+            minHeap.push(stones[i]);
+        }
+
+        while(minHeap.size() != 1)
+        {
+            int x = minHeap.top();
+            minHeap.pop();
+            int y = minHeap.top();
+            minHeap.pop();
+           
+            y = abs(y - x);
+            minHeap.push(y);
+        }
+
+        return minHeap.top();
+    }
+};
+
+Problem - 2 - 3rd Maximum Number
+
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        long long max1 = LLONG_MIN;
+        long long max2 = LLONG_MIN;
+        long long max3 = LLONG_MIN;
+        int n = nums.size();
+        
+        for(int i = 0;i<n;i++)
+        {
+            // first maximum number
+            if(nums[i] > max1) {
+                max3 = max2;
+                max2 = max1;
+                max1 = nums[i];
+            }
+            //second maximum number
+            else if(nums[i] > max2 && nums[i] != max1)
+            {
+                max3 = max2;
+                max2 = nums[i];
+            }
+            // third maximum
+            else if(nums[i] > max3 && nums[i] != max1 && nums[i] != max2)
+            {
+                max3 = nums[i];
+            }
+            
+        }
+        if(max3 == LLONG_MIN)
+            return max1; // if we can't find the third maximum number it means max3 hold the negative value then we return the first maximum number
+        return max3; // else we return the third maximum number
+        
+    }
+};
+
+Problem - 4 - K closest points to Origin
+
+class Solution {
+public:
+// T.C - O(Nlogn)
+// S.C - O(k)
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        priority_queue<pair<int,pair<int,int>>>pq;
+        int n = points.size();
+        for(int i = 0; i < n ;i++)
+        {
+            long long int square = points[i][0] * points[i][0] + points[i][1] * points[i][1];
+            
+            pq.push({square,{points[i][0],points[i][1]}});
+            
+            if(pq.size() > k)
+                pq.pop();
+        }
+        vector<vector<int>>ans;
+        while(!pq.empty())
+        {
+            ans.push_back({pq.top.second.first,pq.top().second.second});
+            pq.pop();
+        }
+        return ans;
+    }
+};
+
+Problem - 3 - Kth Largest Element in Stream.
+
+
+class KthLargest {
+public:
+    
+    priority_queue<int,vector<int>,greater<int>>pq; // stream 
+    int kth; // declare
+    KthLargest(int k, vector<int>& nums) {
+        kth = k; // initialize the object with the integer k
+        
+        for(auto it : nums)
+        {
+            pq.push(it);
+        }
+        while(pq.size() > kth){ // pop untit the size of queue is become the size of th k
+            pq.pop();
+        }
+        
+    }
+    
+    int add(int val) {
+        pq.push(val);
+        
+        while(pq.size() > kth){
+            pq.pop();
+        }
+        return pq.top();
+    }
+};
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * KthLargest* obj = new KthLargest(k, nums);
+ * int param_1 = obj->add(val);
+ */
+
+ Problem - 4 - Kth Smallest Element in a Sorted Matrix
+
+ class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        //Approach -1 
+        // T.C - O(N2logk)
+        // S.C - O(K)
+        priority_queue<int>pq;
+        int n = matrix.size();
+        int m = matrix[0].size();
+        for(int i = 0; i < n;i++)
+        {
+            for(int j = 0;j < m;j++)
+            {
+                pq.push(matrix[i][j]);
+
+                while(pq.size() > k){
+                 pq.pop();
+                }
+            }
+        }
+
+        
+        return pq.top();
+    }
+};
+
+ Problem - 5 -  Sort Chracter by frequency
+
+ class Solution {
+public:
+    string frequencySort(string s) {
+        /*
+        Declare a unordered map of char as key and its count as value and iterate in the string and fill the map.
+    Now iterating in the map to fill the priority queue, by default cpp offers max heap sorted by first element of the pair. Therefore the top element will be the one with highest frequency.
+        T.C - O(Nlogn) + O(N)
+        
+        */
+        int n = s.size();
+        unordered_map<char,int>mp; // to count the frequency of every character
+        for(int i = 0;i < n;i++)
+        {
+            mp[s[i]]++;
+        }
+        // priority_queue - minHeap
+        // the idea behind to use minHeap is because  minHeap maintains the order in decreasing order when we pop the top of queue we will get the character with higher frequency and will  add the chracter in our ans array say n times 
+        priority_queue<pair<int,char>>pq;
+        // pair<character, frequency>
+    
+        for(auto it : mp)
+        {
+            pq.push({it.second,it.first});
+        }
+        string ans = "";
+        
+        while(!pq.empty()){
+            auto it = pq.top();
+            int freq = it.first;
+            char temp = it.second;
+            pq.pop();
+            while(freq--){
+                ans += temp;
+            }
+            
+        }
+    return ans;
+    }
+
+     /* Approach 2  - Instead using Priorty Queue we can use Pair of Vector<char,int> then sort the array
+       by second element 
+       */
+
+       int n = s.size();
+        unordered_map<char,int>mp; // to count the frequency of every character
+        for(int i = 0;i < n;i++)
+        {
+            mp[s[i]]++;
+        }
+        vector<pair<char,int>>v;
+         for(auto it : mp)
+        {
+            v.push_back({it.first,it.second});
+        }
+        int n = v.size();
+        sort(v.begin(),v.end());
+        for(int i = n -1;i>0;i--)
+        {
+            while(v[i].second--){
+                ans += v[i].first;
+            }
+        }  
+        return ans;  
+ }
+};
+
+Problem - 6 - Top k frequent Element
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        /*
+
+        T.C - (NlogN)
+        Intuition
+        first we should the count the frequency of each element
+        // then we choose which number has most frequency because that will be out most frequent number which appears many times in an array, we choose k diffrent element
+        */
+        /*
+        Approach -1 
+        1) - use Map to count the frequency of each element
+        2) - traverse the map and push all the map element to Priority queue and minHeap maintains the order in 
+        descending order
+        3) - after that we take the most frequent element with higher frequency from queue and push into our ans array, we doing this at least k times
+        */
+
+        unordered_map<int,int>mp;
+        int n = nums.size();
+        vector<int>ans;
+        for(int i = 0; i < n ;i++)
+        {
+            mp[nums[i]]++;
+        }
+
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+
+        for(auto it : mp)
+        {
+            pq.push({it.second,it.first});
+
+            while(pq.size() > k){
+                pq.pop();
+            }
+        }
+        /* 2nd MEthod
+                priority_queue<pair<int,int>>>pq;
+
+                 for(auto it : mp)
+        {
+            pq.push({it.second,it.first});
+
+            for(int i = 0;i < k;i ++)
+            {
+                ans.push_back(pq.top().second);
+                pq.pop();
+            }
+        }
+        */
+        while(!pq.empty())
+        {
+            ans.push_back(pq.top().second);
+            pq.pop();
+        }
+
+        
+        return ans;
+    }
+};
+
+Problem - 9 - Top K frequent Words
+
+struct Compare {
+    bool operator() (pair<int, string> a, pair<int, string> b) {
+        if(a.first == b.first)
+            return a.second > b.second;
+        else
+            return a.first < b.first;
+    }
+};
+class Solution {
+public:
+    /*
+    Intuition 
+    Think about how to count and get maximum freq sepratley this should lead u to  mapHashmap and Heap data structures the rest is simple mechanics.
+    */
+
+    // Approach
+    /*
+    Simple counting the freq of words and use max heap to store (adjust the heap construction for same frequency words so that lexicographical order is preserved using custom comparator) and pop the first k elements.
+
+    T.C - O(N
+    */ 
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        unordered_map<string,int>mp;
+        int n = words.size();
+        for(int i = 0; i < n;i++)
+        {
+            mp[words[i]]++;
+        }
+
+        priority_queue<pair<int,string>,vector<pair<int,string>>,Compare>pq;
+
+        for(auto it : mp)
+        {
+            pq.push({it.second,it.first});
+        }
+        vector<string>ans;
+
+        while(k--)
+        {
+            ans.push_back(pq.top().second);
+            pq.pop();
+        }
+        return ans;
+    }
+};
+
+Problem - 10 - find k smallest pair sum
+
+class Solution {
+public:
+    vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
+
+        /*
+        Method  -  1
+        Intuition
+        1) - Find all the pair sum store in the array T.C - O(N1*N2)
+        2) then sort the array which store the sum then return the first k pair sum O(log n1*n2)
+        T.C - O(N1*n2*logN1*N2)
+        S.C - O(N1*N2);
+        */
+        
+        // method 2 -  T.C- O(N*logn)
+        /*
+        1) traverse both the array pick one element from array1 and same for array2 then find the sum and 
+        2) check if the heap size is smaller than k or not if it is push the sum with the pair of nums[i],nums[j]       
+        3) - if the sum is smaller than the sum int the top of queuee then pop that and 
+        */
+        int n1 = nums1.size();
+        int n2 = nums2.size();
+        priority_queue<pair<int,pair<int,int>>>pq; 
+        // {sum,{nums[i],nums[j]}};
+        vector<vector<int>>ans;
+       
+        for(int i = 0; i < n1;i++)
+        {
+            for(int j = 0;j < n2;j++)
+            {
+                int sum = nums1[i] + nums2[j];
+
+                if(pq.size() < k){
+                    pq.push({sum,{nums1[i],nums2[j]}});
+                }
+                else if(sum < pq.top().first)
+                {
+                    pq.pop();
+                    pq.push({sum,{nums1[i],nums2[j]}});
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        while(!pq.empty()){
+            ans.push_back({pq.top().second.first,pq.top().second.second});
+            pq.pop();
+        }
+        return ans;
+    }
+};
+
+Problem - 11 - Merge K Sorted Lists
+
+class Solution {
+public:
+    // ListNode* mergeKLists(vector<ListNode*>& lists) {
+    //     /* Brute Force
+    //     // extract all nodes value and store into a temp array
+    //     sort the temp array, then pick one element at a time and create a dummy new List with -1 and take on pointer to traverse on that dummy list which point the head of he dummy linked list
+    //      make new node of them and attach the next node with next pointer
+    //     and last return newNode next
+    //     */
+
+    //     vector<int>v;
+    //     int n = lists.size();
+    //     T.C - O(N*K*LogK)) 
+    //     S.C - O(K)
+    //     for(int i = 0; i< n;i++)
+    //     {
+    //         ListNode* head = lists[i];
+    //         while(head){
+    //             v.push_back(head->val);
+    //             head = head->next;
+    //         }
+    //     }
+    //     sort(v.begin(),v.end());
+    //     ListNode* newList = new ListNode(-1);
+    //     ListNode* temp = newList;
+
+    //     for(int i = 0; i < v.size();i++)
+    //     {
+    //         temp->next = new ListNode(v[i]);
+    //         temp = temp->next;
+    //     }
+
+    //     return newList->next;  
+    // }
+
+    
+
+    /* Approach 2 - We Use the Divide and conquer technique 
+
+    Time Complexity: O(N * K * log K), As outer while loop in function mergeKLists() runs log K times and every time it processes N*K elements.
+Auxiliary Space: O(N * K), Because recursion is used in SortedMerge() and to merge the final 2 linked lists of size N/2, N recursive calls will be made.
+       1)- Using Merge Sort Algo 
+    */
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+          if(lists.size() == 0)
+            return NULL;
+        
+        return mergeListHelper(lists,0,lists.size() - 1);
+    }
+
+    ListNode* mergeListHelper(vector<ListNode*>& lists,int start, int end)
+    {
+        // if start and end is equal means size of lists is 1 and we return the first index row
+        if(start == end)
+            return lists[start];
+
+        if(start + 1 == end)
+        {
+            return merge(lists[start],lists[end]);
+        } 
+        int mid = start + (end - start)/2;
+        ListNode* left =  mergeListHelper(lists,start,mid);
+        ListNode* right = mergeListHelper(lists,mid + 1,end);
+        return merge(left,right);
+    }
+
+
+    // function to merge the two linkedlist in sorted way
+    ListNode* merge(ListNode* l1,ListNode* l2)
+    {
+        ListNode* dummy = new ListNode(-1);
+        ListNode* temp = dummy;
+        while(l1 != NULL && l2 != NULL)
+        {
+            if(l1->val > l2->val){
+                temp->next = l2;
+                l2 = l2->next;
+            }
+            else{
+                temp->next = l1;
+                l1 = l1->next;
+            }
+            temp = temp->next;
+        }
+        temp->next = l1 ? l1 : l2;
+        return dummy->next;
+    }
+
+     /* Apporach -3 Using MinHeap
+    This approach is based on Min Heap Approach, we know minHeap maintains the order of element in ascending order, we ick the element from minHeap and make a new Node in dummy linkedlist and same for other element and atttach with the new node with next pointer
+
+    */
+
+    
+        priority_queue<int,vector<int>,greater<int>>pq;
+        int n = lists.size();
+        // T.C - O(N*K*LogK)) 
+        // S.C - O(K)
+        for(int i = 0; i< n;i++)
+        {
+            ListNode* head = lists[i];
+            while(head){
+                pq.push(head->val);
+                head = head->next;
+            }
+        }
+        ListNode* newList = new ListNode(-1);
+        ListNode* temp = newList;
+
+        while(!pq.empty()){
+            temp->next = new ListNode(pq.top());
+            pq.pop();
+            temp = temp->next;
+        }
+
+        return newList->next;  
+    }
+
+};
+
+Problem  - 15 - Car Pooling
+
+class Solution {
+    
+public:
+    static bool comp(vector<int>lhs,vector<int>rhs)
+    {
+        if(lhs[1] < rhs[1] || lhs[1] == rhs[1] && lhs[2] < rhs[2])
+            return true;
+        return false;
+    }
+    bool carPooling(vector<vector<int>>& trips, int capacity) {
+        // sort the given according to from and to location
+        // let curr be our current passenger whose inital value is zero
+        /*
+        Approach -1 - we have to remove all passenger whose destination is less than or equal to their current locations and subtract the number of passenger from curr
+        2 ) - add the numpassenger[i] to the curr
+        3 )- if curr is greater than capactity just return false;
+        */
+        
+        sort(trips.begin(),trips.end(),comp); // sort the given according to from and to location
+        int n = trips.size();
+        int curr = 0;
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        // {destination,passenger}
+        
+        for(int i = 0;i<n;i++)
+        {
+            while(!pq.empty() && pq.top().first <= trips[i][1]){
+                curr -= pq.top().second;
+                pq.pop();
+            }
+            
+            // steps - 2
+            pq.push({trips[i][2],trips[i][0]});
+            curr += trips[i][0];
+            
+            if(curr >  capacity)
+                return false;
+        }
+        
+        return true;
+        
+//         T.C - O(nlogn) - sorting the vector an also using heap internally;
+//         S.C - o(N) - FOR USING HEAP    
+    }
+};
+
+Problem - 16 - Meeting Room
+
+class Solution
+{
+    public:
+    //Function to find the maximum number of meetings that can
+    //be performed in a meeting room.
+    int maxMeetings(int start[], int end[], int n)
+    {
+        
+        vector<pair<int,int>>meeting_time;
+        
+        // Your code here'
+        
+        if(n == 0)
+            return 0;
+
+        for(int i = 0; i < n;i++)
+        {
+            meeting_time.push_back({end[i],start[i]});
+        }
+        sort(meeting_time.begin(),meeting_time.end());
+        int prev = 0;
+        int possibleMeeting = 1;
+        for(int i = 0; i < meeting_time.size();i++)
+        {
+            int prev_end = meeting_time[prev].first;
+            int curr_start = meeting_time[i].second;
+            
+            if(prev_end < curr_start){
+                possibleMeeting++;
+                prev = i;
+            }
+        }
+        return possibleMeeting;
+    }
+};
+
+Problem - 17 - Meetings Room - 2
+
+#include <bits/stdc++.h> 
+int minRooms(vector<vector<int>> intervals)
+{
+    // Write your code here
+    int n = intervals.size();
+    int required_room = 1;
+    vector<pair<int,int>>v;
+    for(int i = 0 ;i < n; i++)
+    {
+        v.push_back({intervals[i][0],intervals[i][1]});
+    }
+    sort(v.begin(),v.end());
+
+    for(int i = 1; i <n;i++)
+    {
+        int prev_end = v[i-1].second;
+        int curr_end = v[i].first;
+        
+        if(prev_end > curr_end){
+            required_room++;
+        }
+        return required_room;
+    }
+
+}

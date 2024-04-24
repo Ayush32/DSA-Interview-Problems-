@@ -1,0 +1,753 @@
+// Problem - 2 - Linked List Cycle - I
+
+    // Approach 1 - Using Hash table
+    /*
+    we need to keep track of  all the node,that we have visited till now,so that once we visit the same node again, we can say that there is cycle detected
+    1- store the nodes in hashtable
+    2 - iterate over the list
+    3 - if the current node is already present in hashtable then we return true, that cycle is detected
+    4 - it the current node is not present then we can say that this is the first we visit this node and we have to insert this node into hashtable.
+    5- if we reach the end of the list and there is no cycle detected we return false;
+    T.C - O(N),
+    S.C - O(N)
+    */
+        unordered_set<ListNode*>s;
+        ListNode* curr = head;
+        while(curr != NULL) {
+            if(s.find(curr) != s.end())
+                return true;
+            s.insert(curr);
+            curr = curr->next;
+        }
+        return false;
+        
+        /*
+        Approach 2 - using Tortoise Approach or Two pointer
+        1 - We take two pointer slow and fast,both pointing each of the head list.
+        2 - move slow by one step and fast by 2 step
+         3- iterate the list until fast pointer become null or 
+        4 - at some moment slow and fast pointer collide then we can say that cycle is present/
+        */
+        if(head == NULL)
+            return false;
+        
+        ListNode* slow = head;
+        ListNode* fast = head;
+        
+        while(fast->next != NULL && fast->next->next != NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+            
+            if(slow == fast)
+                return true;
+        }
+        return false;
+
+}
+
+Problem - 3 - LinkedList Cycle Method - 2;
+
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        // T.C - O(N);
+        //S.C - O(N)
+//         unordered_set<ListNode*>s;
+        
+//         ListNode* curr = head;
+        
+//         while(curr != NULL)
+//         {
+//             if(s.find(curr) != s.end()){
+//                 return curr;
+//             }
+//             else {
+//                 s.insert(curr);
+//             }
+//             curr = curr->next;
+//         }
+        // Approach -2 using Two Pointer
+//         T.C - O(N)
+        // S.C - (1)
+         if(head == NULL)
+            return NULL;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        ListNode* entry = head;
+        
+        while(fast->next && fast->next->next){
+            slow = slow->next;
+            fast = fast->next->next;
+            
+            
+            if(slow == fast){
+                while(slow != entry){
+                    slow = slow->next;
+                    entry = entry->next;
+                }
+                return slow;
+            }
+        }
+        return NULL;
+    }
+};
+
+Problem - 3 - Merge Two Sorted List
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+//     Take Two pointer-> we have to create one dummy list it will have the value zero and point to null, this will be our head of new linkedlist, and another pointer which keep  track of dummy list name temp,
+        // l1 is pointing to head of list1
+//         l2 is pointing to head of the list2
+//        we compare the node val of first list with the node val of list2 and find the smallest one
+        // store the data in the new list
+        // move the pointer to the next node whose value store in the new list
+        // if the node value of second list is smaller than the node val of list1 then we point node of second list to the next of temp
+//         repeat it until till any one of the head pointer reached null
+        
+        // copy remaining node of the list whose head is not null in the new list.
+        
+        // T.C - O(N+M) let N be the no. of nodes in list1 and M be the no. of nodes in list2
+        // S.C - O(N+M) becase we creating another list which stores (N+M) nodes in the list.
+//         ListNode* dummyList = new ListNode(-1);
+//         ListNode* temp = dummyList;
+//         ListNode* l1 = list1;
+//         ListNode* l2 = list2;
+//         while(l1 != NULL && l2 != NULL){
+//             if(l1->val > l2->val){
+//                 temp->next = l2;
+//                 l2 = l2->next;
+//             }   
+//             else {
+//                 temp->next = l1;
+//                 l1 = l1->next;
+//             }
+//             temp = temp->next;
+//         }
+//         if(l1){
+//             temp->next = l1;
+//         }
+//         if(l2)
+//         {
+//             temp->next = l2;
+//         }        
+//         return dummyList->next;
+        
+        ListNode* l1 = list1;
+        ListNode* l2 = list2;
+//         ListNode* dummy = new ListNode(-1);
+//         ListNode* temp = dummy;
+        
+//         while(l1 != NULL && l2 != NULL)
+//         {
+//             if(l1->val >= l2->val) {
+//                 temp->next = l2;
+//                 l2 = l2->next;
+//             }
+//             else {
+//                 temp->next = l1;
+//                 l1 = l1->next;
+//             }
+//             temp = temp->next;
+//         }
+        
+//         if(l1 != NULL){
+//             temp->next= l1;
+//             // temp = temp->next;
+//         }
+//         if(l2 != NULL){
+//             temp->next= l2;
+//             // temp = temp->next;
+//         }
+        
+        
+//         return dummy->next;
+        if(l1 == NULL)
+            return l2;
+        if(l2 == NULL)
+            return l1;
+        
+        if(l1->val > l2->val)
+            swap(l1,l2);
+    
+        ListNode* res = l1;
+        
+        while(l1 != NULL && l2 != NULL){
+            ListNode* temp = NULL;
+            while(l1 != NULL && l1->val <= l2->val){
+                temp = l1;
+                l1 = l1->next;
+            }
+            temp->next = l2;
+            swap(l1,l2);
+        }
+        return res;
+    }
+};
+
+Problem  - 4 - nest Greater node
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> nextLargerNodes(ListNode* head) {
+        ListNode* curr = head;
+        ListNode* temp = head;
+        
+        vector<int>ngr;
+        
+        while(curr->next){
+            temp = curr->next;
+            while(temp  && temp->val <= curr->val){
+                temp = temp->next;
+            }
+            if(temp){
+                ngr.push_back(temp->val);
+            }
+            else {
+                ngr.push_back(0);
+            }
+            curr = curr->next;
+        }
+        ngr.push_back(0);
+        return ngr;
+        
+        vector<int>list;
+        vector<int>ngr;
+        ListNode* curr = head;
+        while(curr != NULL)
+        {
+            list.push_back(curr->val);
+            curr = curr->next;
+        }
+        // ngr.push_back(0);
+        stack<int>st;
+        
+        for(int i = list.size()-1;i >= 0;i--)
+        {
+            if(st.empty()){
+                ngr.push_back(0);
+            }
+           else if(st.size() > 0 && st.top() > list[i]) {
+                ngr.push_back(st.top());
+            }
+            else if(st.size() > 0 && st.top() <= list[i]){
+                while(st.size() > 0 && st.top() <= list[i]){
+                    st.pop();
+                }
+                
+                if(st.size() == 0){
+                    ngr.push_back(0);
+                }
+                else {
+                    ngr.push_back(st.top());
+                }
+            }
+            st.push(list[i]);
+            
+        }
+        reverse(ngr.begin(),ngr.end());
+                return ngr;
+
+    }
+};
+
+Problem - 6 - Remove duplicates rom sorted list - II
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        // T.C - O(NlogN);
+        // S.C - O(N)
+        
+//         map<int,int>mp;
+//         ListNode* curr = head;
+        
+//         while(curr != NULL)
+//         {
+//             mp[curr->val]++;
+//             curr = curr->next;
+//         }
+//         ListNode*dummyList = new ListNode(-1);
+        
+//         ListNode* temp = dummyList;
+        
+//         for(auto it : mp)
+//         {
+//             if(it.second == 1){
+//                 ListNode* newNode = new ListNode(it.first);
+//                 temp->next = newNode;
+//                 temp = temp->next;
+                
+//             }
+            
+            
+//         }
+//         return dummyList->next;
+        
+        // Approach - 2 Without using any extra space and using pointers
+        
+        ListNode* newList = new ListNode(-1);
+        ListNode* temp = newList;
+        ListNode* curr = head;
+        
+        while(curr != NULL){
+            if(curr && curr->next && curr->next->val == curr->val){ // check if it is duplicate 
+                int temp = curr->val;
+                // if there is duplicate->true-> ignore all the occurences
+                while(curr && curr->val == temp){
+                    curr = curr->next;
+                }
+                
+            }
+            else { // if is unique add cur node into new list
+                temp->next = curr;
+                temp = temp->next;
+                curr = curr->next;
+                temp->next = nullptr;
+            }
+            
+        }
+        return newList->next; // return next of new List because first node is -1
+    }
+};
+
+
+Problem - 7 -  Rotate List
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        
+        // T.C - O(N) - length + O(end)->auxilary  = O(N)
+        // S.C - O(1)
+        
+        if(head == NULL || head->next == NULL){
+            return head;
+        }
+        int length = 1;
+        ListNode* curr = head;
+        // find length of the linkedlist
+        while(curr->next != NULL)
+        {
+            curr = curr->next;
+            length++;
+        }
+        curr->next = head; // make the linkedlist circular connect the next pointer of last node to the first node
+        // int newRotation = length;
+
+        k = k % length; // take mode of length if k greater than k then we dont have to rotate the linkedlist again and again it will reduce our time complexity
+        int end = length - k;  // find the end node where we have to rotate our linkeddlist
+        while(end--)  // traverse untile end become zero.
+        {
+            curr = curr->next;
+        }
+        head = curr->next; // make the endth node as head of the linekdlist 
+        curr->next = NULL; // make the next of last node as NULL
+        
+        return head;
+        
+        
+        
+    }
+};
+
+Problem  - 8 - Odd Even LinkedList
+
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        T.C - O(N)
+        S.C - O(N/2) + O(N/2) = O(N)
+        ListNode* evenList = new ListNode(-1);
+        ListNode* even = evenList;
+        ListNode* oddList = new ListNode(-1);
+        ListNode* odd = oddList;
+        ListNode* curr = head;
+        
+        int count = 1; // act like a index
+        
+        while(curr != NULL)
+        {
+            if(count % 2 != 0){ // if the index is odd make new node from curr->val add next to odd list
+                ListNode* newNode = new ListNode(curr->val);
+                odd->next = newNode;
+                odd = odd->next;
+            }
+            else {  // if the index is even make new node from curr->val add next to even list
+                ListNode* newNode = new ListNode(curr->val);
+                even->next = newNode;
+                even = even->next;
+            }
+            count = count + 1;
+            curr = curr->next;    
+        }
+        odd->next = evenList->next;  // joined even list after the odd list
+        even->next = NULL; // make next  of last node as NULL
+        return oddList->next;
+
+        Approach -2 - using Pointer
+        T.C - O(N)
+        S.C - (N)
+
+        // Approach -2 - using Pointer
+        // T.C - O(N)
+        // S.C - (N)
+
+        if(head == NULL)
+            return NULL;
+        ListNode* evenList = head->next; // point head of next to evenList  , and second node is odd
+        ListNode* oddList = head; // point head to oddList because first node is odd
+
+        ListNode* even = evenList;
+
+        while(even && even->next){
+            
+            oddList->next = oddList->next->next; // we know there is gap of 1 between odd and even we 
+            even->next = even->next->next;
+            // oddList->next = t1;
+            // even->next = t2;
+            oddList = oddList->next;
+            even= even->next;
+
+        }
+        oddList->next = evenList;
+        return head;
+    }
+};
+
+Problem - 9  - Add Two Number
+
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        // T.C - O(N + M) // n - size of l1 , M - size of l2;
+        // S.C - O(N + M) 
+        // 
+        ListNode* dummy = new ListNode(-1);
+        ListNode* temp = dummy;
+        int carry = 0;
+      
+        while(l1 != NULL || l2 != NULL || carry){
+             int sum = 0;
+            
+            if(l1 != NULL){ //
+                sum += l1->val; // add node value of l1 in sum
+                l1 = l1->next;
+            }
+            if(l2 != NULL){
+                sum += l2->val;  // add node value of l2 in sum
+                l2 = l2->next;
+            }
+            sum += carry;  // add carry in sum
+            carry = sum / 10; // if the sum is greater than 9 then divide the sum store the qoutient
+            ListNode* newNode = new ListNode(sum % 10);  // make new node with sum value, but check wether  tha sum is greater than 9 if is it will store the remainder
+            temp->next = newNode;
+            temp = temp->next;
+        }
+        return dummy->next;
+    }
+};
+
+Problem - 10 - Add Two polynomial;
+
+
+class Solution{
+  public:
+    /* The below method print the required sum of polynomial
+    p1 and p2 as specified in output  */
+    Node* addPolynomial(Node *p1, Node *p2)
+    {
+        //Your code here
+        // T.C - O(N1 + N2)
+        // S.C - O(1)
+        if(p1 == NULL)
+            return p2;
+        if(p2 == NULL){
+            return p1;
+        }
+        Node* poly = new Node(0,0);
+        Node* temp = poly;
+        Node* l1 = p1;
+        Node* l2 = p2;
+        while(l1 != NULL && l2 != NULL){
+            // if the power of first polynomial is greater than second polynomial then point dummy next to current node  first polynomial list;
+            if(l1->pow > l2->pow){ 
+                temp->next = l1;
+                temp = temp->next;
+                l1 = l1->next;
+            }
+            // if the power of second polynomial is greater than first polynomial then point dummy next to current node  second polynomial list;
+            else if(l1->pow < l2->pow) {
+                temp->next = l2;
+                temp = temp->next; 
+                l2 = l2->next;
+            }
+        // if the power of first polynomial is equal to second polynomial 
+        // add the both polynomial coeffcient and make new node with value(sum of coefficient) and assign l1 pow t new pow
+            else if(l1->pow == l2->pow) {
+                Node* newNode = new Node(l1->coeff + l2->coeff,l1->pow);
+                temp->next = newNode;
+                temp = temp->next;
+                l1 = l1->next;
+                l2 = l2->next;
+            }
+        }
+        // add remaining polynomial node if the loop is terminate;
+        if(l1 != NULL){
+            temp->next = l1;
+        }
+        if(l2 != NULL)
+            temp->next = l2;
+        return poly->next;
+    }
+};
+
+Problem  - 11  - Add two Number - II
+
+class Solution {
+public:
+    ListNode* reverse(ListNode* head){
+        ListNode* curr = head;
+        ListNode* prev = NULL;
+        ListNode* next = NULL;
+        
+        while(curr != NULL){
+             next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+    
+    Approach  -- 1
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        // Approach - 1 - Using Stack + reverse a linkedlist
+        // T.C - O(N) + O(M) + O(N + M) + O(N+M)(revese a linkedlist) ==> O(N + M)
+        //S.C = O(N + M)
+        if(l1 == NULL)
+            return l2;
+        if(l2 == NULL)
+            return l1;
+        stack<int>s1;
+        stack<int>s2;
+        int carry= 0;
+        ListNode* list1 = l1;
+        ListNode* list2 = l2;
+        ListNode* dummy = new ListNode(-1);
+        ListNode* temp = dummy;
+        while(list1 != NULL){ // O(N)
+            s1.push(list1->val);
+            list1 = list1->next;
+        }
+        while(list2 != NULL){ // O(M)
+            s2.push(list2->val);
+            list2 = list2->next;
+        }
+        list1 = l1;
+        list2 = l2;
+        
+        while(!s1.empty() || !s2.empty() || carry){ 
+            int sum = 0;
+            if(!s1.empty()) {
+                sum += s1.top();
+                s1.pop();
+            }
+            if(!s2.empty()){
+                sum += s2.top();
+                s2.pop();
+            }
+            sum += carry;
+            carry = sum / 10;
+            ListNode* newNode = new ListNode(sum % 10);
+            
+            temp->next = newNode;
+            temp = temp->next;
+        }
+        
+        ListNode* ans = reverse(dummy->next);
+        return ans;
+    }
+    // Appraoch 2 -
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        // Approach - 1 - Using Two Pointer + reverse a linkedlist
+        // T.C - O(N + M) + O(N+M)(revese a linkedlist) ==> O(N + M)
+        //S.C = O(N + M)
+        if(l1 == NULL)
+            return l2;
+        if(l2 == NULL)
+            return l1;
+
+        int carry= 0;
+        ListNode* list1 = reverse(l1);
+        ListNode* list2 = reverse(l2);
+        ListNode* dummy = new ListNode(-1);
+        ListNode* temp = dummy;
+        
+        while(list1 != NULL || list2 != NULL || carry){ 
+            int sum = 0;
+            if(list1 != NULL) {
+                sum += list1->val;
+                list1 = list1->next;
+            }
+            if(list2 != NULL) {
+                sum += list2->val;
+                list2 = list2->next;
+            }
+            sum += carry;
+            carry = sum / 10;
+            ListNode* newNode = new ListNode(sum % 10);
+            
+            temp->next = newNode;
+            temp = temp->next;
+        }
+        
+        ListNode* ans = reverse(dummy->next);
+        return ans;
+    }
+};
+
+Problem - 12 - Reverse A linkedlist
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head == NULL)
+            return NULL;
+        
+        ListNode* curr = head;
+        ListNode* prev = NULL;
+        ListNode* next = NULL;
+        
+        while(curr != NULL)
+        {
+            next = curr->next;
+            curr->next = prev; // change the pointer arrow direction from right direction to left direction 
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+        return head;
+    }
+
+    // REcursion - T.C - O(N),S.C- (N) recusrion stack space
+    Node* reverse(Node* head){
+    if(head == NULL || head->next == NULL)
+        return head;
+
+    // divide the linkedlist into two part
+    // rest part
+    Node* rest = reverseList(head->next);
+    head->next->next = head; // connect the rest linkedlist to the first node
+
+    head->next = NULL; // first part connect next of first to NULL
+
+    return rest;
+    }
+
+};
+
+problem - 13 - Intersection of Linked list
+
+/* Approach 1 - Brute Force Approach
+        we know intersecction means a common attr present in both entities, if we take node value as a common 
+        attr then it will be not as intersection point, so we can think of something diff like,
+        node itself is a common attri
+        for this, keep any on of the list to check the nodes present in the other list or  not,
+        we take list2
+        and we iterate through the list1
+        check if then nodes are same if yes, we got out intersection point
+        if not continue iteration,
+        if the iteration is complete and we did not get any intersection point,
+    h    then we can there is not intersection between the two list
+        and we return  NULL
+        
+        T.C - O(N*M), N be the no. of nodes in head1 and M be the no. of nodes in Head2
+        S.C - O(1)
+        */
+//         while(head2 != NULL) {
+//             ListNode* temp = head1;
+//             while(temp != NULL){
+//                 // if bothe nodes are same
+//                 if(temp ==  head2)
+//                     return head2;
+                
+//                 temp = temp->next;
+//             }
+//             head2 = head2->next;
+//         }
+//         return NULL;
+        
+        /*
+        Approach 2
+        Using Hashing
+        we can improve brute-force solution, bascially in 1st approach we are searching of nodes are preseent in both list or not,
+        we can do the same thing using hashing,
+        Hasing take O(1) for searching
+        Iterate through the list1 and push all the nodes of list1 into hashtable
+        then, again iterate through the list2 and search the nodes of list2 is present in hashtable 
+        or not if it is present we return the node and we can say we get out first intersection node
+        and if there is no node present the match with list2 then there is no intersection point,
+        T.C - O(N + M)
+        S.C - O(N)
+        */
+//         set<ListNode*>s;
+        
+//         while(head1 != NULL) {
+//             s.insert(head1);
+//             head1 = head1->next;
+//         }
+        
+//         while(head2 != NULL) {
+//             if(s.find(head2) != s.end())
+//                 return head2;
+            
+//             head2 = head2->next;
+//         }
+//         return NULL;
+        
+          // Approach 3  - Using Two dummy Pointer
+        // 1) - Take two dummy node point each of head of the list
+        // 2) - iterate over them, if anyone become null point the order head of the list to them and start iterating again, untile d1 and d2 are collide
+        ListNode* d1 = head1;
+        ListNode* d2 = head2;
+        
+        while(d1 != d2){
+            d1 = d1 == NULL ? head2 : d1->next;
+            d2 = d2 == NULL ? head1 : d2->next;
+        }
+	// other ways without using ternary opeartor    
+            if(d1 == NULL)
+                d1 = head2;
+            else
+                d1 = d1->next;
+            
+            if(d2 == NULL)
+                d2= head1;
+            else
+                d2 = d2->next;
+            
+        }
+        return d1;
+ }
+};

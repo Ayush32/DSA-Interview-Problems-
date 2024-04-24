@@ -1,0 +1,513 @@
+Problem - 1 - Move Zeros
+
+void moveZeroes(vector<int>&nums)
+{
+
+
+    // {1,0,3,1,0,2,1,0}
+    Using While loop
+    // T.C - O(N) 
+    // S.C - O(1) using Extra Space
+    int n = nums.size();
+
+    int left = 0; 
+    int right = 1;
+        
+    while(right < nums.size())
+    {
+        if(nums[left] != 0){
+            left++;
+        }
+        swap(nums[left],nums[right]);
+        right++;
+    }
+    // using For Loop
+    int n = nums.size();
+        int i = 0;
+        // we use two pointer i and j, i point 0th index, j start from 1st index to  N
+        for(int j = 1;j<n;j++)
+        {
+            // if value at ith index is equal to zero then this condition is not execute
+            if(nums[i] != 0){
+                 i++;
+            }
+            // we swap ith index value with jth value index 
+            swap(nums[i],nums[j]);
+           
+        }
+}
+
+Problem - 2 - Contains Duplicate
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        Approach 1 - Brute Force
+        Using Nested Loop, outer loop run from i = 0 to  N, inner loop run from j = i+1 to n
+        then we check if element at nums[i] and nums[j] is equal then take a varaible count and increment the count which maintain the count until j become ends
+        and then we check if the count i greater than 1 then the element is present twice
+        
+        T.C - O(n^2) - TLE
+        S.C - O(1)
+        int n = nums.size();
+        for(int i = 0;i<n;i++)
+        {
+            int count = 1;
+            for(int j = i + 1;j<n;j++)
+            {
+                if(nums[i] == nums[j])
+                    count++;
+              
+            }
+              if(count >= 2){
+                    return true;
+            }
+            
+        }
+        return false;
+        
+        /* Approach 2 - In order to check the frequency of each element whether it occurence twice or not 
+         we can think of hashmap, hashmap store the frequecy of each element present in array 
+         then we traverse the hashmap and check which key has value greater than or equal to 2 then we return true because array contains duplicate
+        */
+        T.C - O(N)
+        S.C - O(N) in avg case
+        
+        unordered_map<int,int>mp;
+        for(int i = 0; i < n;i++)
+        {
+            mp[nums[i]]++;
+        }
+        
+        for(auto it : mp)
+        {
+            if(it.second >= 2){
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+Problem - 3 -  Contains Duplicate
+
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        Approach 1
+        T.C - O(N^2)
+        S.C - O(1)
+        bool flag = false;
+        int n = nums.size();
+        for(int i = 0;i<n;i++)
+        {
+            for(int j = i + 1;j<n;j++){
+                if(nums[i] == nums[j] && abs(i - j) <= k)
+                    flag = true;
+            }
+        }
+            
+        return flag;
+        
+        Approach 2
+        
+/*       we can think of hashmap to check whether the upcoming element of input array is present in hashset or not if present then diffrenece of(index in nums array of that element and value of that key in hashset is samller of equal to k or not)
+        // we initialized a unordered_map
+       // then we check whether the current index element is present in map or not if it is not we insert the element with their respective index  and if the number is already present in the map, then update the position of that number
+        // if if present then the difference between the index of current element and value of current element in hashmap is equal of smaller than k if it is we return true.
+        // else return false
+        */
+        T.C - O(N)
+        S.C - O(N) in avg case
+        unordered_map<int,int>mp;
+        for(int i = 0;i<n;i++)
+        {
+            if(mp.find(nums[i]) != mp.end() && abs(mp[nums[i]] - i) <= k)
+                return true;
+            else
+                mp[nums[i]] = i;
+        }
+        return false;
+    }
+};
+
+Problem - 3 - Sum Ranges
+
+class Solution {
+    string getRange(int lower,int upper){
+        if(lower == upper)
+            return to_string(lower);
+        else 
+            return to_string(lower) + "->" + to_string(upper);
+    }
+public:
+    vector<string> summaryRanges(vector<int>& nums) {
+        vector<string>ans;
+        
+        int n  = nums.size();
+        
+        for(int i = 0;i<n;i++)
+        {
+            int begin = nums[i];
+            int end = nums[i];
+            
+            while( i < (nums.size()-1) && nums[i+1] == (nums[i] + 1))
+            {
+                end = nums[i+1];
+                i++;
+            }
+            if(begin == end) {
+                ans.push_back(getRange(begin,end));
+            }
+            else {
+                ans.push_back(getRange(begin,end));
+            }
+        }
+        return ans;
+    }
+};
+
+Problem - 4 - Range Sum Query - Immutable - Revision Needed
+
+class NumArray {
+    vector<int>ans;
+public:
+    NumArray(vector<int>& nums) {
+        for(int i = 0;i<nums.size();i++)
+        {
+            ans.push_back(nums[i]);
+        }
+    }
+    
+    int sumRange(int left, int right) {
+        int sum = 0;
+        while(left <= right){
+            sum += ans[left];
+            left++;
+        }
+        return sum;
+    }
+};
+
+Problem - 6 -   Range Sum Query - Revision Needed
+
+// Approach 1 - Brute Force - O(N^2) TLE
+
+
+class NumMatrix {
+    vector<vector<int>>ans;
+public:
+    NumMatrix(vector<vector<int>>& matrix) {
+        ans = matrix;
+    }
+    
+    int sumRegion(int row1, int col1, int row2, int col2) {
+        int sum = 0;
+        while(row1 <= row2) {
+            for(int i = col1;i<=col2;i++)
+            {
+                sum += ans[row1][i];
+            }
+            row1++;
+        }
+        return sum;
+    }
+        
+};
+
+Problem - 7 - Remove Element - inplace
+
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int j = 0;
+        int n = nums.size();
+        for(int i =0;i<n;i++)
+        {
+            if(nums[i] != val){
+                nums[j++] = nums[i];
+            }
+            // i++;
+        }
+        return j;
+    }
+};
+
+Problem - 7 - Intersection of Two Array
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        
+        Approach 1 - Two pointer + Sorting
+        T.C - O(NlogN + MlogM)
+        S.C - O(N) - Using Set in Avg Case
+
+        int n = nums1.size(); // size of nums1 array
+        int m = nums2.size(); // size of nums2 array
+        
+        sort(nums1.begin(),nums1.end());
+        sort(nums2.begin(),nums2.end());
+        int i = 0,j = 0;
+        unordered_set<int>s;
+        vector<int>intersectionNum;
+        while(i < n && j < m){
+            if(nums1[i] < nums2[j]){
+                i++;
+            }       
+            else if(nums1[i] > nums2[j]){
+                j++;
+            }
+            else{
+                // set store only unique element
+                s.insert(nums1[i]);
+                i++;
+                j++;
+            }
+        }
+        
+        for(auto it : s){
+            intersectionNum.push_back(it);
+        }
+        return intersectionNum;
+    }
+
+
+     Approach 2 - Using Hashing
+        T.C - O(M+N)
+        S.C - O(N) Searching in 
+        The time complexity of this method is O(m+n) under the assumption that hash table search and insert operations take O(1) time
+        unordered_set<int>s;
+        for(int i = 0;i<n;i++)
+        {
+            s.insert(nums1[i]);
+        }
+        vector<int>ans;
+        // search num2 array element present in num1array or not
+        
+        for(int i = 0;i<m;i++)
+        {
+            if(s.find(nums2[i]) != s.end()){
+                ans.push_back(nums2[i]);
+                s.erase(nums2[i]);
+            }
+        }
+        return ans;
+
+         Approach - 3 Using Auxillary Array
+        T.C - O(M+N)
+        S.C - O(1)
+        vector<int>aux(1001,0);
+        vector<int>ans;
+        for(int i = 0;i<n;i++)
+        {
+            aux[nums1[i]]++;
+        }
+        
+        for(int i = 0;i<m;i++)
+        {
+            if(aux[nums2[i]] != 0){
+                ans.push_back(nums2[i]);
+                aux[nums2[i]] = 0;
+            }
+        }
+        
+        return ans;
+    }
+};
+
+problem - 8 -  Intersection of Two Array - II
+
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        T.C - O(NlogN + MlogM)
+        S.C - O(1)
+        int n = nums1.size(); // size of nums1 array
+        int m = nums2.size(); // size of nums2 array
+        sort(nums1.begin(),nums1.end());
+        sort(nums2.begin(),nums2.end());
+        int i = 0,j = 0;
+        vector<int>intersectionNum;
+        while(i < n && j < m){
+            if(nums1[i] < nums2[j]){
+                i++;
+            }       
+            else if(nums1[i] > nums2[j]){
+                j++;
+            }
+            else{
+                // set store only unique element
+                intersectionNum.push_back(nums1[i]);
+                i++;
+                j++;
+            }
+        }
+        
+        
+        return intersectionNum;
+        
+        Approach - 2 using Hashing
+        // T.C - O(M+N)
+//         S.C - O(N) Searching in Map
+        // The time complexity of this method is O(m+n) under the assumption that hash table search and insert operations take O(1) time
+        unordered_map<int,int>umap;
+        for(int i = 0;i<n;i++)
+        {
+            umap[nums1[i]]++;
+        }
+        vector<int>ans;
+        // search num2 array element present in num1array or not
+        
+        for(int i = 0;i<m;i++)
+        {
+            if(umap[nums2[i]] != 0){
+                ans.push_back(nums2[i]);
+                umap[nums2[i]]--;
+            }
+        }
+        return ans;
+        
+        Approach 3 - Using Auxillary Array
+        T.C - O(N+M)
+        S.C - O(1)
+        vector<int>aux(1001,0);
+        vector<int>ans;
+        for(int i = 0;i<n;i++)
+        {
+            aux[nums1[i]]++;
+        }
+        
+        for(int i = 0;i<m;i++)
+        {
+            if(aux[nums2[i]] != 0){
+                ans.push_back(nums2[i]);
+                aux[nums2[i]]--;
+            }
+        }
+        
+        return ans;
+    }
+};
+
+Problem - 9 - Next Greater Element - I
+
+
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+
+        // Approach - 1
+
+        // if nums1 element present in nums2 array then after that elememt in nums2 array is there any greater element than that if it is then we insert into our ans array else we insert -1
+        // we traverse on nums1 array i.e- i = 0 to n and take another pointer to traverse over nums2 array run from 
+        // j  = 0 to M, if we compare every element of nums1 with nums2 if is match then we take another pointer k
+        //  which run from that index where we find the matched element and check if there is any greater element after the matched element in nums2 array if it is we insert the greatest element in ans array else -1.
+
+        T.C - O(N*M)
+        S.C - O(1)
+        vector<int>ans;
+        int n1 = nums1.size();
+        int n2 = nums2.size();
+
+        for(int i = 0;i<n1;i++)
+        {
+            for(int j = 0;j<n2;j++)
+            {
+                if(nums1[i] == nums2[j]){
+                    int next = -1;
+                    for(int k = j;k<n2;k++)
+                    {
+                        if(nums2[k] > nums2[j]){
+                            next = nums2[k];
+                            break;
+                        }
+                    }
+                    ans.push_back(next);
+                }
+                
+            }
+        }
+        return ans;
+    }
+};
+
+Problem - 14 - Reduce Array Size to The Half
+
+Element frequency
+3 	4
+5	3
+2	2
+7	1
+
+pick 3 freq = 4
+Half size = 10/2 = 5
+size of array - 10 => (size of Array - maximumFrequncy) => 6 so the size of array become 6 we want only 1 element to reduce the size of array into half
+we can pick either 2,5,7 because if we pick 2
+size of array = > 6-1 = 5 which is equal to half the size of array, here we pick only two element to make size of array half, ans  = 2
+    */
+
+class Solution {
+public:
+    int minSetSize(vector<int>& nums) {
+        int size = nums.size();
+    unordered_map<int,int>umap;
+        // T.C - (NlogN)
+    for(int i = 0;i<size;i++) // O(1)
+    {
+        umap[nums[i]]++;
+    }
+    vector<int>temp; // store all the frequencies of every element from Map
+    
+    // push all the frequencies of element into dummy array
+    for(auto it : umap){   // O(1)
+        temp.push_back(it.second);
+    }
+    sort(temp.begin(),temp.end(),greater<int>());
+    int count = 0;
+    int sz = size;
+    for(int i = 0;i<temp.size();i++)
+    {
+        if(sz <= nums.size()/2)
+            break;
+        count++;
+        sz -= temp[i];
+    } 
+    return count;   
+    }
+
+    class Solution {
+public:
+    int minSetSize(vector<int>& nums) {
+        int size = nums.size();
+        priority_queue<int>pq; // max heap
+        // T.C - N(logN)
+        // S.C - O(N)
+    unordered_map<int,int>umap; // to store the frequnecy
+
+    for(int i = 0;i<size;i++) // O(1)
+    {
+        umap[nums[i]]++;
+    }
+    // vector<int>temp; // store all the frequencies of every element from Map
+    
+    // push all the frequencies from map into max heap 
+    for(auto it : umap){   // O(1)
+        pq.push(it.second);
+    }
+        int count = 0;
+    while(!pq.empty()){
+        if(size <= nums.size()/2)
+            break;
+        
+        int freq = pq.top();
+        pq.pop();
+        count++;
+        size = size - freq;
+        
+        
+    }   
+    return count;
+    }
+};
+
+};

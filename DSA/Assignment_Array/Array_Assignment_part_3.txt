@@ -1,0 +1,344 @@
+Problem  - 1  - Find Common Difference
+
+class Solution {
+public:
+    vector<string> commonChars(vector<string>& words) {
+        vector<int> hash1(26,0);
+        vector<int>hash2(26,0);
+
+        for(int i = 0;i<words[0].size();i++)
+        {
+            hash1[words[0][i] - 'a']++;
+        }
+        for(int i = 1;i < words.size();i++)
+        {
+            for(auto ch : words[i])
+            {
+                hash2[ch-'a']++;
+            }
+            for(int i = 0;i<26;i++)
+            {
+                hash1[i] = min(hash1[i],hash2[i]);
+                hash2[i] = 0;
+            }
+        }
+        vector<string>ans;
+        for(int i  = 0;i< 26;i++)
+        {
+            if(hash1[i] > 0){
+                int count  = hash1[i];
+                while(count--){
+                    char c = i + 'a';
+                    string s;
+                    s = c;
+                    ans.push_back(s);
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+Problem - 2 - Third Maximum Number
+
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        long long max1 = LLONG_MIN;
+        long long max2 = LLONG_MIN;
+        long long max3 = LLONG_MIN;
+        int n = nums.size();
+        
+        for(int i = 0;i<n;i++)
+        {
+            // first maximum number
+            if(nums[i] > max1) {
+                max3 = max2;
+                max2 = max1;
+                max1 = nums[i];
+            }
+            //second maximum number
+            else if(nums[i] > max2 && nums[i] != max1)
+            {
+                max3 = max2;
+                max2 = nums[i];
+            }
+            // third maximum
+            else if(nums[i] > max3 && nums[i] != max1 && nums[i] != max2)
+            {
+                max3 = nums[i];
+            }
+            
+        }
+        if(max3 == LLONG_MIN)
+            return max1;
+        return max3;
+        
+    }
+};
+
+Problem - 3 - Find all disappeared Number from Array
+
+class Solution {
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        /* Approach 1
+        We can think of hashmap Approach, we search the interger which are not present in hashmap and that intergers are the dissapeared in input array,
+        we push all the interges of input array to map,
+        then we run the loop from 1 to n and check which index number is not present in our hashmap,
+        and we insert all the element in our ans array that is not present in input array
+        T.C - O(N)
+        S.C - O(N)
+        */
+        int n = nums.size();
+        unordered_map<int,int>umap;
+        vector<int>ans; // store all disapperaed intergers
+        for(int i = 0;i<n;i++)
+        {
+            umap[nums[i]]++;
+        }
+        for(int i = 1;i<=n;i++)
+        {
+            if(umap.find(i) == umap.end())
+                ans.push_back(i);
+        }
+        return ans;
+    
+    // Approach 2 - We can try with Auxillary Array, create array of size 10^5 + 1
+    T.C - O(N)
+    S.C - O(1)
+     int n = nums.size();
+    vector<int>aux(1000001,0);
+    vector<int>ans; // store all disapperaed intergers
+    for(int i = 0;i<n;i++)
+    {
+        aux[nums[i]]++;
+    }
+    for(int i = 1;i<=n;i++)
+    {
+        if(aux[i] == 0){
+            ans.push_back(i);
+        }
+    }
+    return ans;
+}
+};
+
+
+Problem  5 -  Assign Cookies
+
+class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) {
+        int totalChildren = g.size();
+        int TotalCookies = s.size();
+        sort(g.begin(),g.end());
+        sort(s.begin(),s.end());
+        int i = 0;
+        int j = 0;
+        int cookiesAsign = 0;
+        
+        // int j  = 0;
+        while(i < totalChildren && j < TotalCookies)
+        {
+                if(s[j] >= g[i]){
+                    cookiesAsign++;
+                    i++;
+                    j++;
+                }
+               else
+                    j++;
+        
+        }
+        return cookiesAsign;
+
+    
+    }
+}; 
+
+Problem - 8 - Plus one
+
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        string intToStr = "";
+
+        for(int i = digits.size()-1;i >= 0;i--)
+        {
+            if(digits[i] == 9)
+                digits[i] = 0;
+            else{
+                digits[i]++;
+                return digits;
+            }
+        }
+        digits[0] = 1;
+        digits.push_back(0);
+        return digits;
+
+        // long long num = stoi(intToStr) + 1;
+        // vector<int>ans;
+        // while(num > 0){
+        //     int rem = num % 10;
+        //     num /= 10;
+        //     ans.push_back(rem);
+        // }
+        // reverse(ans.begin(),ans.end());
+        // return ans;
+    }
+};
+
+Problem  - 9 - Single Number
+
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+       /* Approach - 1  - Using Hashing
+        We can calculate frequency of each element then check which element freqency is 1 i.e element is appear only one time , we can use hashmap which store key,value =, key as a element,value as no.of times that element present in an array i.e frequency
+        T.C - O(N)
+        S.C - O(N)
+        */
+        
+        int n =  nums.size();
+        unordered_map<int,int>umap;
+        for(int i = 0;i<n;i++)
+        {
+            umap[nums[i]]++;
+        }
+        
+        int singleNumberInArray = 0;
+        for(auto it : umap){
+            if(it.second == 1)
+                singleNumberInArray = it.first;
+        }
+        return singleNumberInArray;
+        
+      /*  Approach - 2 - To more optimize
+      we can think of XOR method, we can XOR of all element in an array, and then we only our single element
+      which is present in an array,because all element present twice in array which they cancel out when we taking XOR after end of iteration we have only get single number i.e our ans;
+        T.C - O(N)
+        S.C - O(1);
+        [4,1,2,1,2], O/p =  4
+        ans = nums[i] ^ ans;
+        i = 0, ans = 4 ^ 0  
+        i = 1, ans = 4 ^ 1
+        i = 2, ans = 2 ^ 5
+        i = 3, ans = 1 ^ 7
+        i = 4, ans = 2 ^ 6 = 4
+        ans = 4 -> single number
+      */
+        int n = nums.size();
+        int singleNumberInArray = 0;
+        for(int i = 0;i<n;i++)
+        {
+            singleNumberInArray = singleNumberInArray ^ nums[i];
+        }
+        return singleNumberInArray;
+    }
+};
+
+Problem - 10 - Single Number  - II
+
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        /* Approach - 1  - Using Hashing
+        We can calculate frequency of each element then check which element freqency is 1 i.e element is appear only one time , we can use hashmap which store key,value =, key as a element,value as no.of times that element present in an array i.e frequency
+        T.C - O(N)
+        S.C - O(N)
+        */
+        int n =  nums.size();
+        unordered_map<int,int>umap;
+        for(int i = 0;i<n;i++)
+        {
+            umap[nums[i]]++;
+        }
+        
+        int singleNumberInArray = 0;
+        for(auto it : umap){
+            if(it.second == 1)
+                singleNumberInArray = it.first;
+        }
+        return singleNumberInArray;
+        
+        
+    }
+};
+
+Problem 10 - Single Number III
+
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+         /* Approach - 1  - Using Hashing
+        We can calculate frequency of each element then check which element freqency is 1 i.e element is appear only one time , we can use hashmap which store key,value =, key as a element,value as no.of times that element present in an array i.e frequency
+        T.C - O(N)
+        S.C - O(N)
+        */
+        vector<int>ans;
+        int n =  nums.size();
+        unordered_map<int,int>umap;
+        for(int i = 0;i<n;i++)
+        {
+            umap[nums[i]]++;
+        }
+        
+        int singleNumberInArray = 0;
+        for(auto it : umap){
+            if(it.second == 1)
+                ans.push_back(it.first);
+        }
+        return ans;
+    }
+};
+
+Problem - 14 - ones and zero
+
+class Solution {
+    int countZero(string s)
+    {
+        int c = 0;
+        for(auto it : s)
+        {
+            if(it == '0')
+                c++;
+        }
+        return c;
+    }
+    int countOne(string s)
+    {
+        int c = 0;
+        for(auto it : s)
+        {
+            if(it == '1')
+                c++;
+        }
+        return c;
+    }
+    int recur(int m,int n,vector<string>& strs,int ind,vector<vector<vector<int>>>&dp)
+    {
+        if(ind == strs.size())
+            return 0;
+
+        if(dp[ind][m][n] != -1)
+        {   
+            return dp[ind][m][n];
+        }
+        int notPick = recur(m,n,strs,ind+1,dp);
+        
+        int c1 = countOne(strs[ind]);
+        int c0 = countZero(strs[ind]);
+
+        
+        int pick = 0;
+        if(c1 <= n && c0 <= m) 
+             pick = 1 + recur(m-c0,n-c1,strs,ind+1,dp);
+
+        return dp[ind][m][n]=max(pick,notPick);
+    }
+public:
+    int findMaxForm(vector<string>& strs, int m, int n) {
+        vector<vector<vector<int>>>dp(strs.size()+1,vector<vector<int>>(m+1,vector<int>(n+1,-1)));
+        return recur(m,n,strs,0,dp);
+    }
+};

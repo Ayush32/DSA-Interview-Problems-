@@ -1,0 +1,338 @@
+Problem - 1 . https://leetcode.com/problems/happy-number/
+
+class Solution {
+public:
+    bool isHappy(int n) {
+        if(n == 1 || n == 7)
+            return true;
+        if(n == 2 || n == 3)
+            return false;
+        int sqSum = n;
+        int num = n;
+        while(sqSum > 9) {
+            sqSum = 0;
+            while(num > 0){
+                int rem = num % 10;
+                sqSum = sqSum + (rem * rem);
+                num = num / 10;
+             }
+             if(sqSum == 1)
+                return true;
+            num = sqSum;
+
+        }
+        if(sqSum == 7)
+            return true;
+        return false;
+
+    }
+};
+
+Problem - 2 -  Power of two
+
+bool checkpowerof2(int n)
+{
+    while(n!=1)
+    {
+        if(n%2!=0) return false;
+        n=n/2;
+    }
+    return true;
+}
+
+Problem - 3 - Valid Anagram
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        // Approach 1 - using Sorting method
+        T.C - O(N*logN)
+        S.C - o(1)
+    int n1 = s.size();
+    int n2 = t.size();
+    if(n1 != n2)
+        return false;
+    
+    sort(s.begin(),s.end());
+    sort(t.begin(),t.end());
+
+    for(int i = 0;i<n1;i++)
+    {
+        if(s[i] != t[i])
+            return false;
+    }
+    return true;
+
+    // Approach 2 - Using Two Freq Array.
+    T.C - O(N1) + O(N2) = O(N)
+    S.C - O(26) + O(26) - O(1) constant Space is Used
+    
+    int freq1[26] = {0};
+
+    for(int i = 0;i<n1;i++)
+    {
+        freq1[s[i]-'a']++;
+    }
+    for(int i = 0;i<n2;i++)
+    {
+        freq2[t[i]-'a']++;
+    }
+     
+    for(int i = 0;i<26;i++)
+    {
+        if(freq1[i] != freq2[i])
+            return false;
+    }
+    return true;
+
+    }
+
+    // Approach 2 - Using Two Freq Array.
+    T.C - O(N1) + O(N2) = O(N)
+    S.C - O(26) + O(26) - O(1) constant Space is Used
+    
+    int freq1[26] = {0};
+
+    for(int i = 0;i<n1;i++)
+    {
+        freq1[s[i]-'a']++;
+    }
+    for(int i = 0;i<n2;i++)
+    {
+        freq2[t[i]-'a']++;
+    }
+     
+    for(int i = 0;i<26;i++)
+    {
+        if(freq1[i] != freq2[i])
+            return false;
+    }
+    return true;
+};
+
+Problem - 4 - Ugly Number
+
+class Solution {
+public:
+    bool isUgly(int n) {
+        if(n == 0)
+            return false;
+        while(n != 0){
+            if(n == 1) 
+                return true;
+            if(n % 5 == 0)
+                n = n /5;
+            else if(n % 3 == 0)
+                n = n /3;
+            else if(n % 2 == 0)
+                n = n / 2;
+            else
+                return false;
+        }
+        return true;
+    }
+};
+
+Problem - 5 - https://leetcode.com/problems/move-zeroes/description/
+
+Solution 1 - Using Extra Space
+
+T.C - O(N) 
+S.C - O(N) using Extra Space
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int n = nums.size();
+        vector<int>ans;
+        int countZeros = 0;
+        for(int i = 0;i<n;i++)
+        {
+            if(nums[i] != 0){
+                ans.push_back(nums[i]);
+            }
+            else if(nums[i] == 0)
+            {
+                    countZeros++;
+            }
+        }
+        T.C - O(1) constant because we insert 0 in ans array until zerosCount become 0.
+        while(countZeros--){
+            ans.push_back(0);
+        }
+        nums = ans;
+    }
+};
+
+Solution - 2
+Using Two Pointers
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        // T.C - O(N) 
+        // S.C - O(1) using Extra Space
+        int n = nums.size();
+        int i = 0;
+        // we use two pointer i and j, i point 0th index, j loop start from 1 to  N
+        for(int j = 1;j<n;j++)
+        {
+            // if value at ith index is equal to zero then this condition is not execute
+            if(nums[i] != 0){
+                 i++;
+            }
+            // we swap ith index value with jth value index 
+            swap(nums[i],nums[j]);
+           
+}
+
+Problem - 6 - Third Maximum Number
+
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        long long max1 = LLONG_MIN;
+        long long max2 = LLONG_MIN;
+        long long max3 = LLONG_MIN;
+        int n = nums.size();
+        
+        for(int i = 0;i<n;i++)
+        {
+            // first maximum number
+            if(nums[i] > max1) {
+                max3 = max2;
+                max2 = max1;
+                max1 = nums[i];
+            }
+            //second maximum number
+            else if(nums[i] > max2 && nums[i] != max1)
+            {
+                max3 = max2;
+                max2 = nums[i];
+            }
+            // third maximum
+            else if(nums[i] > max3 && nums[i] != max1 && nums[i] != max2)
+            {
+                max3 = nums[i];
+            }
+            
+        }
+        if(max3 == LLONG_MIN)
+            return max1;
+        return max3;
+        
+    }
+};
+
+Problem - 7 - 
+
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        
+        T.C - O(N1) + O(N2)
+        S.C - O(26) = O(1) constant Space
+
+        int n1 = s.length();
+        int n2 = t.length();
+    
+    
+    
+    int freq[128] = {0};
+    // char ans = ' ';
+    for(int i = 0;i<n2;i++)
+    {
+        freq[t[i] - '0']++;
+    }
+    for(int i = 0;i<n1;i++)
+    {
+        freq[s[i] - '0']--;
+    }
+    char ans = ' ';
+    for(int i = 0;i<128;i++)
+    {
+        if(freq[i] == 1){
+            ans = char(i + '0');
+        }
+    }
+        // Same Approach Logic Different
+     int freq[26] = {0};
+    // char ans = ' ';
+    for(int i = 0;i<n2;i++)
+    {
+        freq[t[i] - 'a']++;
+    }
+    for(int i = 0;i<n1;i++)
+    {
+        freq[s[i] - 'a']--;
+    }
+    char ans = ' ';
+    for(int i = 0;i<=26;i++)
+    {
+        if(freq[i] == 1){
+            ans = char(i+'a');
+        }
+    }
+return ans;
+    
+    }
+};
+
+Problem  - 8
+
+class Solution {
+public:
+    int addDigits(int n) {
+      
+    int num = n;
+    int sum = n;
+    
+    while(sum > 9)
+    {
+        sum = 0;
+        while(num > 0) {
+            // last digit
+            int rem = num % 10;
+            sum += rem;
+            // first digit;
+            num = num /10;
+        }
+        num = sum; 
+    }
+    return sum;
+    }
+};
+
+Problem  - 9 - https://leetcode.com/problems/sum-of-digits-of-string-after-convert
+
+class Solution {
+public:
+    int getLucky(string s, int k) {
+         long long sumOfDigit = 0;
+        int n = s.length();
+        //Directly calculating the 1st transformation to reduce the size of variable
+        for(int i = 0;i<n;i++)
+        {
+            int digit = (s[i] - 'a' + 1);
+                while(digit) {
+                    int rem = digit % 10;
+                    sumOfDigit += rem;
+                    digit = digit / 10;
+                }
+        }
+        k--; //Reduce K value by 1 because already 1st transformation found.
+        // return sumOfDigit;
+
+        int num = sumOfDigit;
+        while(k--)
+        {
+            sumOfDigit = 0;
+            while(num){
+                int rem = num % 10;
+                sumOfDigit += rem;
+                num = num / 10; 
+            }
+            num = sumOfDigit;
+        }
+        return sumOfDigit;
+    }
+};

@@ -1,0 +1,69 @@
+Problem - 1 - Pow(x,n)
+
+class Solution {
+public:
+    double myPow(double x, int n) {
+        return pow(x,n);
+    }
+};
+
+
+Problem - 2 - Power Of Two
+T.C - O(N)
+S.C - O(N), Recursion Stack Space.
+bool isPowerOfTwo(int n) {
+        if(n == 1)
+            return true;
+        if(n % 2 == 1 ||n == 0)
+            return false;
+        return isPowerOfTwo(n/2);
+}
+Approach - 2
+class Solution {
+public:
+    
+    double myPow(double x, int n) {
+       double ans = 1.0;
+        long long int nn = n;
+        if(nn < 0)
+            nn = -1 * nn;
+        while(nn != 0){
+            if(nn % 2 == 1)
+            {
+                ans = ans * x;
+                nn = nn -1;
+            }
+            else {
+                x = x * x;
+                nn = nn /2;
+            }
+        }
+        if(n < 0)
+            {
+                ans = (double)(1.0)/(double)(ans);
+            }
+            return ans;
+    }
+};
+
+Problem - 3 - Count Good Number
+
+long long mod = 1e9+7;
+
+long long power(long long x,long long y)
+{
+    if(y == 0)
+        return 1;
+    long long ans = power(x,y/2) % mod;
+
+    if(y % 2 == 0)
+        return (ans * ans) % mod;
+    else 
+        return (x * ans * ans) % mod;
+}
+    int countGoodNumbers(long long n) {
+        long long odd = n / 2;
+        long long even = n/2 + n%2;
+
+        return (power(5,even) * power(4,odd)) % mod;
+    }

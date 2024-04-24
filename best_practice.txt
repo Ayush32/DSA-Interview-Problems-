@@ -1,0 +1,14 @@
+1- 25% Coding Skills
+2- 25% DSA knowledge
+3- 25% Efficacy - How you
+4- 25% Communication - Ask the question about Problem like, is array contains
+                        negative element or not, or array is sorted or not
+
+do i write the code for this approach or should i think of another approach respected to time Complexity
+
+Year of Exp
+
+0-3 yr, DSA = 3, 1 LLD
+3-5 yr = 2-3 LLD, 1 HLD
+5+ yr = 1 LLD + 2 HLD
+10+ = 1-2 = HLD

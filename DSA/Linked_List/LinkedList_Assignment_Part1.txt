@@ -1,0 +1,228 @@
+Problem - 1 - remove Nth node From End
+
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        
+        /*
+        Approach 1
+         1)- find the length of linkedlist
+         2) - substract the length from n and make the newLength
+         3) traverse the linkedlist until newLength become zero
+         4) - remove the next pointer link of current node and point the next of next node
+        T.C - O(N)
+        S.C - O(1);
+        */
+        
+        int length = 0;
+        ListNode* curr = head;
+        while(curr != NULL)
+        {
+            length++;
+            curr = curr->next;
+        }
+        if(length == n)
+        {
+            return head->next;
+        }
+        int nodeToRemoved = length - n; // new length
+        
+        curr = head;
+        
+        for(int i = 1;i<nodeToRemoved;i++){
+            curr = curr->next;
+        }
+        
+        curr->next = curr->next->next;
+        
+        return head;
+    }
+
+    // Approach -2 
+
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+       ListNode* slow = head;
+        ListNode* fast = head;
+        int i = 1;
+        while(i <= n){
+            i++;
+            fast = fast->next;
+        }
+        
+        if(fast == NULL)
+            return head->next;
+        
+        while(fast->next != NULL)
+        {
+            slow = slow->next;
+            fast = fast->next;
+        }
+        slow->next = slow->next->next;
+        
+        return head;
+    }
+};
+
+Problem - 2 - Middle Of the Linkedlist
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        
+        // Approach 1 - find the length of list and traverse the half len of the list and return middle.
+        /*  take curr pointer and assign head to the for traversing over the linkedlist and len variable assign             to zero
+        step 1 - calculate the length of the linkedlist
+            step 2- divide the length of list by 2
+            step 3 - traverse the list until len become zero 
+            and when the loop is terminate we stand at the midddle of list. and we return
+            
+            T.C - O(N).
+            S.C - O(1)
+        */ 
+        
+        /*
+        Intituion -
+        1) Assume there is there is race of rabbit and turtle
+        2)- turtule move slowly and rabbit move faster than turtle
+        3)- the race will start from point s to point e, we can see clearly rabbit move 2 times of turtle 
+        4) then rabbit will finish the race first while turtle reach the half distance of rabbit (i.e 2 times)
+        
+        Approach 2 - 
+        1) Take two pointer node slow and fast, both intialize with head (i.e pointing head)
+        2) slow move by 1 steps and fast moves by 2 steps
+        3) - run the loop untile fast pointer reaches null and next of fast poointer reached null
+        4) we can see that the slow pointer poinitng middle of the linkedlist after loop is terminates;
+        */
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while(fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+        
+    }
+};
+
+Problem - 3 Remove linked list elements
+
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        Approach 1 - 
+        ListNode* curr = head;
+        ListNode* newHead = new ListNode(-1);
+        ListNode* temp = newHead;
+        
+        while(curr != NULL) {
+            if(curr->val != val) {
+                ListNode* dummy = new ListNode(curr->val);
+                temp->next = dummy;
+                temp = temp->next;
+            }
+            
+            curr = curr->next;
+        }
+        return newHead->next;
+        
+        // approach 2- 
+        
+        ListNode* temp = head;
+        while(temp != NULL)
+        {
+            if(temp->next && temp->next->val == val)
+            {
+                temp->next = temp->next->next;
+            }
+            else {
+                temp = temp->next;
+            }
+        }
+        if(head && head->val == val)
+            return head->next;
+        // head = temp;
+        return head;
+    }
+};
+
+Problem - 4 - Remove Zero Sum Consecutive Nodes from Linked List
+
+
+
+// Given the head of a linked list, we repeatedly delete consecutive sequences of nodes that sum to 0 until there are no such sequences.
+
+// After doing so, return the head of the final linked list.  You may return any such answer.
+
+ 
+
+// (Note that in the examples below, all sequences are serializations of ListNode objects.)
+
+class Solution {
+public:
+    ListNode* removeZeroSumSublists(ListNode* head) {
+        // Approach - 1 - Using Vector
+        /**/
+        
+        int sum = 0;
+        ListNode* dummyList = new ListNode(-1);
+        ListNode* curr = dummyList;
+        dummyList->next = head;
+        unordered_map<int,ListNode*>mp;
+        
+        while(curr){
+            sum = curr->val + sum;
+            
+            if(mp.count(sum))
+            {
+                curr=mp[sum]->next;
+                int p=sum+curr->val;
+                while(p!=sum)
+                {
+                    mp.erase(p);
+                    curr=curr->next;
+                    p+=curr->val;
+                }
+                mp[sum]->next=curr->next;
+            }
+            else
+            {
+                mp[sum]=curr;
+            }
+            curr=curr->next;
+
+        }
+        return dummyList->next;
+        // 1,2,-3,3,1
+    }
+};
+
+Problem  - 5 - Delete Node in Linkedlist.
+
+/*
+There is a singly-linked list head and we want to delete a node node in it.
+
+You are given the node to be deleted node. You will not be given access to the first node of head.
+
+All the values of the linked list are unique, and it is guaranteed that the given node node is not the last node in the linked list.
+
+Delete the given node. Note that by deleting the node, we do not mean removing it from memory. We mean:*/
+
+
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        node->val = node->next->val;
+        node->next = node->next->next;
+    }
+};

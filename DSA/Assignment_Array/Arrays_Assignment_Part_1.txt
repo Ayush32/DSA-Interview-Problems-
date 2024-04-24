@@ -1,0 +1,648 @@
+Problem  - 1 - Two Sum
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        T.C - O(N^2)
+        S.C - (1)
+//         Approach - 1 - Using Brute Force
+                       vector<int>ans;
+            int n = nums.size();
+        for(int i = 0;i<n-1;i++)
+        {
+            for(int j = i+ 1;j<n;j++)
+            {
+                if(nums[i] + nums[j] == target)
+                {
+                    ans.push_back(i+1);
+                    ans.push_back(j+1);
+                }
+            }
+        }
+        
+        /*Approach 2 - Using Two Pointer + sorting
+        T.C - O(nlogn)
+        S.C - (1) 
+        we initialized two variable low pointing to the first index in left and high at last index
+        we check if the sum of value at left and high pointer is equal to target then we shift left to right
+        high to left i.e(low++,high--)
+        if sum if greater than target then, it means right pointer is at higher value so we shift high pointer to left
+        if sum is smaller than target it means we get smaller value so we move low towards high
+        */
+            
+        class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int l = 0;
+        vector<int>ans= nums;
+        vector<int>v;
+        int r = nums.size() - 1;
+                sort(nums.begin(),nums.end());
+
+        while(l < r) {
+            if(nums[l] + nums[r] == target)
+                break;
+            else if(nums[l] + nums[r] > target)
+                r--;
+            else
+                l++;
+        }
+
+        for(int i = 0;i<ans.size();i++){
+            if(ans[i] == nums[l] || ans[i] == nums[r])
+                v.push_back(i);
+        }
+        sort(v.begin(),v.end());
+        return v;
+    }
+
+   Approach - 3 - Using Hashing
+   T.C - O(N)
+   S.C - O(N)
+    vector<int> twoSum(vector<int>& v, int target) {
+        unordered_map<int,int>umap;
+        vector<int>ans;
+        for(int i = 0;i<v.size();i++)
+        {
+            if(umap.find(target - v[i]) != umap.end()){
+                ans.push_back(i);
+                ans.push_back(umap[target-v[i]]);
+            }
+            umap[v[i]] = i;
+        }
+    
+        return ans;
+    }
+};
+
+
+Problem -2 - Two Sum II - Input Array Is Sorted
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+//         Approach - 1 - Using Brute Force
+            T.C - O(N^2)
+            S.C - (1)
+            vector<int>ans;
+            int n = nums.size();
+        for(int i = 0;i<n-1;i++)
+        {
+            for(int j = i+ 1;j<n;j++)
+            {
+                if(nums[i] + nums[j] == target)
+                {
+                    ans.push_back(i+1);
+                    ans.push_back(j+1);
+                }
+            }
+        }
+        
+        /*Approach 2 - Using Two Pointer
+        T.C - O(N)
+        S.C - (1)
+        we initialized two variable low pointing to the first index in left and high at last index
+        we check if the sum of value at left and high pointer is equal to target then we shift left to right
+        high to left i.e(low++,high--)
+        if sum if greater than target then, it means right pointer is at higher value so we shift high pointer to left
+        if sum is smaller than target it means we get smaller value so we move low towards high
+        */
+            
+        vector<int>ans;
+        int n = nums.size();
+        int  low = 0;
+        int high = n -1;
+        
+        while(low < high)
+        {
+            if(nums[low] + nums[high] == target)
+            {
+                ans.push_back(low+1);
+                ans.push_back(high+1);
+                low++;
+                high--;
+            }
+            else if(nums[low] + nums[high] > target)
+            {
+                high--;
+            }
+            else {
+                low++;
+            }
+        }
+        
+        
+        return ans;
+        
+    }
+};
+
+
+Problem - 3 - Merge Sorted Array
+
+// Approach 1 - (Brute Force  + Sorting Method)
+T.C - O(MlogM)
+S.C - O(1) - constant Space
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        for(int i=0; i<n; i++){
+            nums1[m+i] = nums2[i];
+        }
+        sort(nums1.begin(), nums1.end());
+    }
+};
+
+Approach 2 - (Two pointer)
+The way to think about the solution is that we will have to do a reverse sorting.
+
+T.C - O(N + M)- because we iterate both array (nums1 + num2) , where m is the length of nums1, and n is the length of nums2
+S.C  - O(1)- Constant Space, because we 
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) { 
+        int i = m -1; // points last index of nums1 before zero element;
+            
+        int j = n-1; // points last index of nums2 array 
+        int k = m + n-1; // point location of last index of nums1  = (m + n -1)
+        
+        while(i >= 0 && j >= 0)
+        {
+            if(nums1[i] > nums2[j]){
+                nums1[k] = nums1[i];
+                i--;
+                k--;
+            }
+            else {
+                nums1[k] = nums2[j];
+                j--;
+                k--;
+            }
+        }
+        while( i >= 0)
+            nums1[k--] = nums1[i--];
+        
+        while(j >= 0)
+            nums1[k--] = nums2[j--];
+    
+    }
+};
+
+Problem  - 4 - Pascal Triangle
+
+ class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>>ans(numRows,vector<int>());
+        ans[0].push_back(1);
+        
+        // if the  size of n is 1
+        if(numRows == 1)
+            return ans;
+        ans[1].push_back(1);
+        ans[1].push_back(1);
+        // if the size of the rows is 2 then there will be 
+        if(numRows == 2)
+            return ans;
+        
+        for(int i = 2;i<numRows;i++)
+        {
+            for(int j = 0;j <=i;j++)
+            {
+                // fill the boundary i.e first and last element will always be 1 at boundary
+                if(j == 0 || j == i){
+                    ans[i].push_back(1);
+                }
+                
+                else {
+                    ans[i].push_back(ans[i-1][j-1]+ans[i-1][j]);
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+
+Pascal Triangle - ii  - 5 - 
+
+Store all the rows then return nth rows of ans array
+
+T.C - O(N2)
+S.C - O(N2)
+
+class Solution{
+    int mod = 1e9+7;
+public:
+    vector<ll> nthRowOfPascalTriangle(int n) {
+        // code here
+        vector<vector<ll>>pascalTriangle(n);
+        
+        for(int i = 0;i<n;i++)
+        {
+            pascalTriangle[i].resize(i+1);
+            pascalTriangle[i][0] = pascalTriangle[i][i] = 1;
+            for(int j = 1;j < i;j++)
+            {
+            
+                    pascalTriangle[i][j] = (pascalTriangle[i-1][j-1] + pascalTriangle[i-1][j]) % mod;
+            }
+        }
+        
+        
+       
+        return pascalTriangle[n-1];
+        
+        
+    }
+};
+
+Approach - 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Problem - 6 - Best Time to Buy and Sell Stock
+
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+//       Intuition - we have to buy that day which have the minimum price
+//                  and sell the stock where price is maximum so from this we can get maximum profit.
+        
+        // Use Nested loop, i is left pointer initialize with 0, and j loop will be run from i + 1
+        // calculate the profit only that day where selling prices is greater than buying prices
+        //  check if(nums[i] < nums[j]) , we calculate profit,
+        // and update our maximum profit, if profit is greater than maximum_profit;
+        
+        // T.C - O(N^2)
+        // S.C - O(1)
+//        this approach will give TLE
+            
+//         int maximumProfit = 0;
+//         int profit = 0;
+//         int n = prices.size();
+//         for(int i = 0;i < n;i++)
+//         {
+//             for(int j = i +1 ;j<n;j++)
+//             {
+//                 if(prices[i] <= prices[j]){
+//                     profit = prices[j] - prices[i];
+//                     maximumProfit = max(profit,maximumProfit);
+//                 }
+//             }
+            
+//         }
+        
+        // Approach 2 -
+        // We can maintain a minimum from the start of the array and compare it with every element of the array, if it is greater than the minimum then take the difference and maintain it in max, otherwise update the minimum.
+        // we remove the inner loop 
+        // create a variable maxProfit and initialize with 0
+        // Create a variable minPrice and store some larger value(ex: MAX_VALUE) value initially.
+        // run the loop from 0 to N
+        // Update the minPrice if it is greater than the current element of the array
+        // Take the difference of the minPrice with the current element of the array and compare and maintain it in maxPro.
+        // Return the maxPro.
+        // T.C - O(N)
+        // S.C - O(1)
+        int maximumProfit = 0;
+         int minPrice = INT_MAX;
+         int n = prices.size();
+         for(int i = 0;i < n;i++)
+         {
+             minPrice = min(prices[i],minPrice);
+            maximumProfit = max(prices[i] - minPrice,maximumProfit); 0th index - > maxProfit = 0
+
+         }
+
+        return maximumProfit;
+    }
+};
+
+
+Problem  - 8 - Majority element
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        // T.C - O(N^2) - TLE
+        // S.C - O(1)
+        // create variable  count initialize to 1 and 
+        // crete variable majority Element equal  to zero
+        // run the loop i to n and j is run from i + 1 to n
+        // check current ith element is equal to jth element if it is increment the count
+        // after the job loop end then check whether the count of ith elemtn is greater than n/2 if it is then 
+        // store the ith current element in ans variable.
+        
+        // int n = nums.size();
+        // int majorityElement = 0;
+        
+        // for(int i =0;i<n;i++)
+        // {
+        //     int count  = 1;
+        //     for(int j = i+ 1;j < n;j++)
+        //     {
+        //         if(nums[i] == nums[j])
+        //             count++;
+        //     }
+        //     if(count > n/2)
+        //     {
+        //         majorityElement = nums[i];
+        //         break;
+        //     }
+        // }
+        
+        /*
+        approach 2 - 
+        Intuition = we can count the freq of each element store into the some data structures and check which 
+        which element is frequency greater than N/2 and return it
+        
+        // we can think of frequency array or hashmap
+        push all the element of input array to map
+        and check which key has value greater than N/2 and return it.
+        */
+        T.C - O(Nlogn) + O(N) -> o(NlogN) for pushing the element into hashmap, another O(N) for checking which element has more than N/2 occurrences
+        S.C - O(N)
+         int N= nums.size();
+        int majorityElement = 0;
+unordered_map<int,int>mp;
+        for(int i = 0;i<N;i++)
+        {
+            mp[nums[i]]++;
+        }
+        for(auto i : mp)
+        {
+            if(i.second > N/2)
+                majorityElement = i.first;
+        }
+        
+        return majorityElement;        
+    }
+};
+
+Problem  - 9 - Majority element II > (N/3)
+
+
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) {
+        // T.C - O(N^2) - TLE
+        // S.C - O(1)
+        // create variable  count initialize to 1 and 
+        // crete vector for majority Element equal
+        // run the loop i to n and j is run from i + 1 to n
+        // check current ith element is equal to jth element if it is increment the count
+        // after the job loop end then check whether the count of ith elemtn is greater than n/3 if it is then 
+        // store the ith current element in vector ans because it may me more than one majority element is present in array.
+        vector<int>majorityElement;
+        int n = nums.size();
+        int count = 0;
+        for(int i =0;i<n;i++)
+        {
+            
+            if(majorityElement.size() == 0 || majorityElement[0] != nums[i]){
+                count  = 0;
+            for(int j = 0;j < n;j++)
+            {
+                if(nums[i] == nums[j])
+                    count++;
+            }
+            }
+            if(count > n/3)
+            {
+                majorityElement.push_back(nums[i]);
+            }
+        }
+        
+        /*
+        approach 2 - 
+        Intuition = we can count the freq of each element store into the some data structures and check which 
+        which element is frequency greater than N/3 and return it
+        
+        // we can think of frequency array or hashmap
+        push all the element of input array to map
+        and check which key has value greater than N/2 and return it.
+        */
+//         T.C - O(Nlogn) + O(N) -> o(NlogN) for pushing the element into hashmap, another O(N) for checking which element has more than N/2 occurrences
+//         S.C - O(N)
+         int N= nums.size();
+        vector<int>majorityElement;
+unordered_map<int,int>mp;
+        for(int i = 0;i<N;i++)
+        {
+            mp[nums[i]]++;
+        }
+        for(auto i : mp)
+        {
+            if(i.second > N/3)
+                majorityElement.push_back(i.first);
+        }
+        return majorityElement;
+    }
+};
+
+
+Problem - 10 -  Missing Ranges 
+
+string getRange(int lo, int hi)
+{
+    if(lo == hi)
+        return to_string(lo);
+    
+    return to_string(lo) + "->" + to_string(hi);
+}
+
+vector<string> findMissingRanges(vector<int> &nums, int lower, int upper) {
+    vector<string>ans;
+        // write your code here
+        if(nums.size() == 0)
+            return {getRange(lower,upper)};
+        
+        // for first element if the first is greater than lower,we can say it is greater than lower, we want missing number between current element
+        and lower Range
+        if(nums[0] > lower)
+            ans.push_back(getRange(lower,nums[0]-1));
+            
+        for(int i = 1;i<nums.size();i++)
+        {
+            check if current element is greater than it previous element , so we can say element b/w them is missing
+            if(nums[i] > nums[i-1] + 1){
+                ans.push_back(getRange(nums[i-1]+1,nums[i]-1));
+            }
+        }
+        // for last element
+        if the last element is not equal to upper 
+        if(nums[nums.size()-1] < upper)
+            ans.push_back(getRange(nums[nums.size()-1]+1,upper));
+            
+        
+        return ans;
+            
+}
+
+Problem  - 11 -  3 Sum
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        int n = nums.size();
+        set<vector<int>>s;
+        vector<vector<int>>ans;
+//         // Approach - 1 - Brute Force - TLE
+//         T.C - O(N^3)
+//         S.C - O(N)
+//         for(int i = 0;i<n-2;i++)
+//         {
+//             for(int j = i + 1;j<n-1;j++)
+//             {
+//                 for(int k = j + 1;k<n;k++)
+//                 {
+//                     if(nums[i] + nums[j] + nums[k] == 0)
+//                         s.insert(vector<int>{nums[i],nums[j],nums[j]});
+//                 }
+//             }
+            
+//         }
+//         for(auto it :s){
+//                ans.push_back(vector<int>{it});
+//             }
+
+
+
+Space Complexity: O(2 * no. of the unique triplets) as we are using a set data structure and a list to store the triplets.
+        
+        
+    // Approach -2 Two Pointer  + Sorting
+//     T.C - O(N^2lognN)
+        // S.C - O(N) -- for using set
+        if(n < 3)
+           return ans;
+           set<vector<int>>s;
+        vector<vector<int>>ans;
+        sort(nums.begin(),nums.end());
+        for(int i = 0;i<n;i++)
+           {
+               int low = i + 1;
+               int high = n - 1;
+               
+               while(low < high)
+               {
+                   if(nums[i] + nums[low] + nums[high] == 0)
+                   {
+                       s.insert(vector<int>{nums[i],nums[low],nums[high]});
+                       low++;
+                       high--;
+                   }
+                   else if(nums[i] + nums[low] + nums[high] > 0){
+                       high--;
+                   }
+                   else{
+                       low++;
+                   }
+               }
+           }
+           for(auto it :s){
+               ans.push_back(vector<int>{it});
+            }
+        
+          
+        return ans;
+
+    }
+    Time Complexity: O(N2 * log(no. of unique triplets)), where N = size of the array.
+Reason: Here, we are mainly using 3 nested loops. And inserting triplets into the set takes O(log(no. of unique triplets)) time complexity. 
+But we are not considering the time complexity of sorting as we are just sorting 3 elements every time.
+
+Space Complexity: O(2 * no. of the unique triplets) + O(N) as we are using a set data structure and a list to store the triplets and extra O(N) for storing the array elements in another set.
+};
+
+Problem - 12 - 3 Sum Smaller
+
+int threeSumSmaller(vector<int>&nums,int target)
+{
+    // Approach - 2 - Brute Force
+    // T.C - O(N^3)
+    // S.C - O(1)
+    // int n = nums.size();
+    // int count = 0;
+    // for(int i = 0;i<n-2;i++)
+    // {
+    //     for(int j = i + 1; j<n-1;j++)
+    //     {
+    //         for(int k = j + 1; k < n;k++)
+    //         {
+    //             if((i < j && j < k) && (nums[i] + nums[j] + nums[k] < target))
+    //                 count++;
+    //         }
+    //     }
+    // }
+    // Approach 2  - Two pointer + Sorting
+    // T.C - O(N^2logN)
+    // S.C - O(1)
+    int n = nums.size();
+    int count = 0;
+    sort(nums.begin(),nums.end());
+    for(int i = 0;i<n-2;i++)
+    {
+        int low = i + 1; // pointer after ith elemnt
+        int high = n-1; // point last index
+
+        while(low < high){
+            if(nums[i] + nums[low] + nums[high] >= target)
+            {
+                high--;
+            }
+            else {
+                count += (high - low);
+                low++;
+            }
+        }
+    }
+    return count;
+
+}
+
+
+Problem  - 15 - Rotate Image
+
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        // Approach 1 -  we have to rotate the matrix by 190degree
+        // it means for this we have to find the tranpose of the matrix
+        // do transpose of matrix  -> change row into column;
+        // reverse the matrix row by row
+        int n = matrix.size();
+        int m = matrix[0].size();
+        
+        for(int i = 0;i<n;i++)
+        {
+            for(int j = i;j<m;j++)
+            {
+                swap(matrix[i][j],matrix[j][i]);
+            }
+        }
+    for(int i = 0;i<n;i++)
+        {
+        reverse(matrix[i].begin(),matrix[i].end());
+    }
+
+    }
+};

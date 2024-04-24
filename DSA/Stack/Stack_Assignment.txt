@@ -1,0 +1,401 @@
+Problem - 1 
+
+
+
+Problem - 2  - Valid Parenthesis
+
+class Solution {
+public:
+    bool isValid(string s) {
+        
+     /*   Intituion 
+
+
+        T.C - O(N)
+        S.C - O(N) - For using Stack
+        
+        */
+         
+        
+        stack<char>st; // taking stack to track the brackets
+        
+        for(int i = 0;i<s.size();i++) // iterate over the string
+        {
+            // if current bracket is opening brackers then we push into stack 
+            if(s[i] == '(' || s[i] == '{' || s[i] == '[') 
+                st.push(s[i]);
+            
+            else {
+                // if controls lies in this part it means current bracket is not opening brackets, then we check wehther the stack is empty or not
+                // if empty then we return false;
+                if(st.empty())
+                    return false;
+                else
+                {
+                    /* control jump to this statment means stack is not empty and we have to check whether the current closing bracket is the same
+                     type of opening bracket i.e we compare with the top of stack if this execute top of the stack will removed*/
+                    if((s[i] == ')' && st.top() != '(') || (s[i] == '}' && st.top() != '{') || (s[i] == ']' && st.top() != '['))
+                        return false;
+                       
+                }
+                st.pop();
+            }
+        }
+        // after the iteartion is complete if there is any element present in stack means this not a valid we return false else we return true.
+        return st.empty();
+    }
+};
+
+Problem - 3 -  Decode string
+
+class Solution {
+public:
+    string decodeString(string s) {
+
+          /* Intuition
+        // / 1 - the idea is to use two stack one of int type and other of string type
+             2 - Traverse the string, whenever we encounter any number then we push into integer stack and in case of any alphabet (A-z) or open bracket('[') push it into character stack 
+             3 - whenever we encounter closing bracket pop the character from character stack
+                until open bracket is not found, also pop from integer stack say n, make the string repeating the popped character n times, now push all the character of string into character stack/.              
+        */
+
+        stack<int>integerStack; // track all the integers 
+        stack<string>stringStack; // track all the character and brackets
+        string k = "", ans = "";
+        int nums = 0;
+        for(int i = 0;i < s.size();i++)
+        {
+            int count  = 0;
+            
+            if(s[i] >= '0' && s[i] <= '9') { // if a current character is integer 
+                nums = nums * 10 + (s[i] - '0'); // if the int is greater than 9 or in 2 digit , and convert it into integer from string
+            }
+            
+            else if(s[i] == '['){ // if current character is opening bracket w
+                integerStack.push(nums); // push the integer in integer  type of stack
+                stringStack.push(k); // and push  the string in string type of stack
+                k = "";
+                nums = 0;
+            }
+            
+            else if(s[i] == ']') {  // if current charcater in string is closing bracket 
+                int n = integerStack.top(); // then we pop from integer stack and store into some container
+                integerStack.pop();
+                string str = stringStack.top(); // and pop from string stack 
+                stringStack.pop();
+                while(n--){ // add repeated string 
+                    str += k;
+                }
+                k = str;  
+                
+            }
+            else {
+                k += s[i];
+            }
+        }
+                    return k;
+
+    }
+
+    // Approach 2 - using Single Stack 
+        /* Intuition
+        // / 1 - the idea is to use character  type stack
+             2 - Traverse the string, whenever we encounter any number then we push into interger stack and in case of any alphabet (A-z) or open bracket('[') push it into character stack 
+             3 - whenever we encounter closing bracket pop the character from character stack
+                until  open bracket is not found, also pop from integer stack say n, make the string repeating the popped chacater n times, now push all the character of string into characert stack/.              
+        */
+        
+        int n = s.size();
+        stack<char>st;
+
+        for(int i = 0;i<n;i++)
+        {
+            if(s[i] != ']')
+            {
+                st.push(s[i]);
+            }
+            else {
+                string curr_str = "";
+                
+                while(st.top() != '['){
+                    curr_str = st.top() + curr_str;
+                    st.pop();
+                }
+                st.pop(); // pop '[' opening bracket from stack
+                
+                // for calculating number
+                string number = "";
+                while(!st.empty() && isdigit(st.top()))
+                {
+                    number = st.top() + number;
+                    st.pop();
+                }
+                int kTimes = stoi(number); // convert string into integer type
+                
+                while(kTimes--)
+                {
+                    for(int i = 0;i<curr_str.size();i++)
+                    {
+                        st.push(curr_str[i]);
+                    }
+                }
+            }
+        }
+        string ans = "";
+        
+        while(!st.empty()){
+            ans = st.top() + ans;
+            st.pop();
+        }
+        return ans;
+};
+
+Problem - 5 - Baseball Game
+
+class Solution {
+public:
+    int calPoints(vector<string>& operations) {
+        int n = operations.size();
+        stack<int>st;
+        for(int i = 0; i < n;i++)
+        {
+            // if we encounter string C we remove the previous i.e top of stack
+            if(operations[i] == "C" && !st.empty()) {
+                st.pop();
+            }
+            // if we encounter "D" , then we double the previous score i.e top of stack
+            else if(operations[i] == "D" && !st.empty()){
+                int previousScore = st.top();
+                st.push(previousScore * 2);
+            }
+            // if we encounter "+" , then we pop top two score from stack add them,
+            // then first we push the second elemen, then first , then their sum 
+            else if(operations[i] == "+" && !st.empty())
+            {
+                int a = st.top();
+                st.pop();
+                int b = st.top();
+                st.pop();
+                int sum = a + b;
+                st.push(b);
+                st.push(a);
+                st.push(sum);   
+            }
+            // ecounter interger
+            else {
+                st.push(stoi(operations[i]));
+            }
+        }
+        int totalSum = 0;
+        while(!st.empty()){
+            totalSum += st.top();
+            st.pop();
+        }
+        return totalSum;
+        
+    }
+};
+
+Problem  - 6 - Remove all adjacent Duplicates from the string
+
+class Solution {
+public:
+    
+    string removeDuplicates(string s) {
+        
+        /*
+        Intuition - The idea is to compare the current character with the top of stack,
+        if they are match we do not include in stack and remove that character becuase they are adjacent duplicated, we check for every character
+        at last we we pop all the chacrter from stack and add into out unique string ans.
+        S.C - O(N)
+        T.C - O(N)
+        */
+        int n = s.size();
+        stack<char>st;
+        st.push(s[0]);
+        for(int i = 1;i<n;i++)
+        {
+            if(!st.empty()){
+                if((s[i] == st.top())){
+                    st.pop();
+                }
+            else  {
+                st.push(s[i]);
+                }
+            }
+            else {
+                st.push(s[i]);
+            }
+            
+        }
+        string ans = "";
+        
+        while(!st.empty()){
+            ans += st.top();
+            st.pop();
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+        
+        // Approach 2 - using String as Stack
+//         It is just the simple modification of above code,
+// instead of using stack we can directly use the resultant string for performing pop and push operations.
+class Solution {
+public:
+    
+    string removeDuplicates(string str) 
+    {
+        string ans;
+        for(auto i:str)
+        {
+            if(!ans.empty() and ans.back()==i)
+                ans.pop_back();
+            else
+                ans.push_back(i);
+        }
+        return ans;
+    }
+    }
+};
+
+Problem - 7 - Implement Stack Using Two Queue
+class MyStack {
+    private:
+    queue<int>q1;
+    queue<int>q2;
+public:
+    MyStack() {
+        
+    }
+    // Intuition 
+    // Push x into Q2
+    // move all element from Q1 to Q2 
+    // swap q1 with q2.
+    void push(int x) {
+        
+        q2.push(x);
+        
+        while(!q1.empty()){
+            q2.push(q1.front());
+            q1.pop();
+        }
+        swap(q1,q2);
+    }
+    
+    int pop() {
+        int top = q1.front();
+        q1.pop();
+        return top;
+        
+    }
+    
+    int top() {
+        return q1.front();
+    }
+    
+    bool empty() {
+       if(q1.size() == 0)
+           return true;
+        else
+            return false;
+    }
+};
+
+Problem - 8 - Make Great String
+
+class Solution {
+public:
+    string makeGood(string s) {
+        stack<char>st;
+        int n = s.size();
+        // st.push(s[0]);
+        for(int i = 0;i < n;i++)
+        {
+            if(!st.empty()){
+                if(abs(s[i] - st.top()) == 32)
+                {
+                        st.pop();
+                }
+                else {
+                    st.push(s[i]);
+                }
+            }
+            else {
+                    st.push(s[i]);
+                }
+            
+        }
+         
+        if(st.size() == 0)
+            return "";
+        string ans = "";
+        while(!st.empty()){
+            ans = ans + st.top();
+            st.pop();
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
+
+Problem - 9 - backspace String Compare
+class Solution {
+public:
+    bool backspaceCompare(string s, string t) {
+        // Intuition 
+        /*
+           The idea is to use a data Stucture if we triggered '#' in string we pop the previous character from stack, i.e top of the stack, and if we encounter character we push directly into the stack,
+           // do same thing for both the string
+           // after the iteration is completed we should match the character one by one of stack 
+           or , we make the string from stack for s and same as for t
+           
+           T.C - (n1 + n2)
+           S.C - (N);
+        */
+        stack<char>s1;
+        // stack<char>s2;
+        int n1 = s.size();
+        
+        int n2 = t.size();
+        for(int i = 0; i < n1;i++)
+        {
+            if(s[i] != '#'){
+                s1.push(s[i]);
+            }
+           else { 
+            if(!s1.empty())
+            {
+                    s1.pop(); 
+            }
+           }
+        }
+        
+        string a = "";
+        while(!s1.empty()){
+            a += s1.top();
+            s1.pop();
+        }
+        
+        for(int i = 0; i < n2;i++)
+        {
+            if(t[i] != '#'){
+                s1.push(t[i]);
+            }
+            
+            else { 
+            if(!s1.empty())
+            {
+                    s1.pop(); 
+            }
+           }
+        }
+
+        string b = "";
+        while(!s1.empty()){
+            b += s1.top();
+            s1.pop();
+        }
+        return a == b ? true : false;
+        
+    }
+};

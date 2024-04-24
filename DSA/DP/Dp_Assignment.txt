@@ -1,0 +1,1268 @@
+Problem - 1 - Frog Jump
+
+#include <bits/stdc++.h> 
+
+
+// recursion
+int recursion(int ind,vector<int>&heights)
+{
+        if(ind  == 0)
+            return 0;
+
+        int left = recursion(ind -1,heights) + abs(heights[ind] - heights[ind-1]);
+        int right = INT_MAX;
+        if(ind > 1)
+              right = recursion(ind - 2,heights) + abs(heights[ind] - heights[ind -2]);
+
+        return  min(left,right);
+}
+
+// memorization
+
+int memo(int ind,vector<int>&heights,vector<int>&dp)
+{
+        if(ind  == 0)
+            return 0;
+
+        if(dp[ind] != -1){
+            return dp[ind];
+        }
+        int left = memo(ind -1,heights,dp) + abs(heights[ind] - heights[ind-1]);
+        int right = INT_MAX;
+        if(ind > 1)
+              right = memo(ind - 2,heights,dp) + abs(heights[ind] - heights[ind -2]);
+
+        return  dp[ind] =  min(left,right) % 1000000007;
+}
+int frogJump(int n, vector<int> &heights)
+{
+    // Write your code here.
+    vector<int>dp(n+1,-1);
+    // return recursion(n-1,heights,dp);
+    return memo(n-1,heights,dp);
+
+}
+
+Problem - 2 - Climbing Stairs
+
+#include <bits/stdc++.h> 
+
+int mod = 1e9+7;
+int countDistinctWays(int nStairs) {
+     Write your code here.]
+
+    Recursion - Time Limit Exceed
+    if(nStairs <= 1)
+        return 1;
+    else
+       return  countDistinctWays(nStairs - 1)+ countDistinctWays(nStairs - 2); 
+
+    // Memorization
+    // T.C - O(N)
+    // S.C - O(N)
+    vector<long long>dp(nStairs+1);
+    dp[0] = 1;
+    dp[1] = 1;
+ 
+    for(int i = 2;i<=nStairs;i++){
+        dp[i] = (dp[i-1] + dp[i-2]) %  mod;
+    }
+    return dp[nStairs];
+    
+}
+
+Problem - 3 - House Robber  - 1
+
+#include <bits/stdc++.h> 
+
+int memo(int ind,vector<int>&house,vector<long long int>&dp)
+{
+        if(ind == 0)
+            return house[ind];
+
+        if(ind < 0)
+            return 0;
+        if(dp[ind] != -1){
+            return dp[ind];
+        }
+      long long int pick =   house[ind] + recursion(ind - 2,house,dp);
+      long long  int notPick = recursion(ind-1,house,dp) + 0;
+
+    return dp[ind] =  max(pick,notPick);
+}
+long long int houseRobber(vector<int>& valueInHouse)
+{
+    // Write your code here.
+    int n = valueInHouse.size();
+    if(n == 1)
+        return valueInHouse[0];
+    
+    vector<long long int>dp1(n,-1);
+    int a  = memo(n,temp1,dp1);
+
+    return a;
+
+}
+
+Problem - 4 - House robber- 2
+
+#include <bits/stdc++.h> 
+
+int memo(int ind,vector<int>&house,vector<long long int>&dp)
+{
+        if(ind == 0)
+            return house[ind];
+
+        if(ind < 0)
+            return 0;
+        if(dp[ind] != -1){
+            return dp[ind];
+        }
+      long long int pick =   house[ind] + recursion(ind - 2,house,dp);
+      long long  int notPick = recursion(ind-1,house,dp) + 0;
+
+    return dp[ind] =  max(pick,notPick);
+}
+long long int houseRobber(vector<int>& valueInHouse)
+{
+    // Write your code here.
+    int n = valueInHouse.size();
+    if(n == 1)
+        return valueInHouse[0];
+    vector<int>temp1(begin(valueInHouse),end(valueInHouse) -1);
+    vector<int>temp2(begin(valueInHouse) + 1,end(valueInHouse));
+    vector<long long int>dp1(n-1,-1);
+    vector<long long int>dp2(n-1,-1);
+    int a  = memo(n - 2,temp1,dp1);
+    int b = memo(n-2,temp2,dp2);
+    return max(a,b);
+
+}
+
+Problem - 5 - Maximum Sum non adjacent
+
+#include <bits/stdc++.h> 
+
+// recursion
+int recursion(int ind, vector<int>&nums)
+{
+    if(ind == 0)
+        return nums[ind];
+
+    
+    if(ind < 0)
+        return 0;
+
+    int pick = recursion(ind - 2,nums) + nums[ind];
+    int notPick = recursion(ind - 1,nums);
+
+    return dp[ind] = max(pick,notPick);
+
+}
+// memorization
+int memo(int ind, vector<int>&nums,vector<int>&dp)
+{
+    if(ind == 0)
+        return nums[ind];
+
+    
+    if(ind < 0)
+        return 0;
+
+    if(dp[ind] != -1){
+        return dp[ind];
+    }
+    int pick = memo(ind - 2,nums,dp) + nums[ind];
+    int notPick = memo(ind - 1,nums,dp);
+
+    return dp[ind] = max(pick,notPick);
+
+}
+int maximumNonAdjacentSum(vector<int> &nums){
+    // Write your code here.
+    int n = nums.size();
+    // int sum = 0;
+    vector<int>dp(n+1,-1);
+    return recursion(n-1,nums);//
+    return memo(n-1,nums,dp);
+}
+
+Problem - 6 - Maximum coins
+
+class Solution {
+public:
+    
+    int recursion(int ind,vector<int>&coins,int amount)
+    {
+        if(ind  == 0){
+            if(amount % coins[0] == 0)
+                return amount / coins[0];
+            else
+                return 1e9;
+        }
+        int notPick = 0 + recursion(ind-1,coins,amount);
+        int pick = 1e9;
+        if(coins[ind] <= amount)
+            pick = 1 +  recursion(ind,coins,amount-coins[ind]);
+        return min(notPick,pick);
+    }
+    // memorizATION
+     int memo(int ind,vector<int>&coins,int amount,vector<vector<int>>&dp)
+    {
+        if(ind == 0)
+        {
+            if(amount % coins[0] == 0)
+                return amount / coins[ind];
+            else
+                return 1e9;
+        }
+        if(dp[ind][amount] != -1){
+            return dp[ind][amount];
+        }
+        int notTake = memo(ind-1,coins,amount,dp);
+        int take = 1e9;
+        
+        if(amount >= coins[ind]){
+            take = 1 + memo(ind,coins,amount-coins[ind],dp);
+        }
+        return dp[ind][amount] = min(take,notTake);
+    }
+    
+    int coinChange(vector<int>& coins, int amount) {
+        int n = coins.size();
+        // int ans = return recursion(n-1,coins,amount);
+//         if(ans >= 1e9)
+//             return -1;
+//         return ans;
+        
+        // memorization
+        vector<vector<int>>dp(n+1,vector<int>(amount+1,-1));
+        int ans = memo(n-1,coins,amount,dp);
+        if(ans >= 1e9)
+            return -1;
+        return ans;
+    }
+};
+
+Problem - 7 Minimum coins
+
+
+int recursion(int ind,int k,vector<int>&height,vector<int>&dp)
+{
+    if(ind == 0)
+        return 0;
+    
+    if(dp[ind] != -1){
+        return dp[ind];
+    }
+    int minCost = INT_MAX;
+    
+    for(int j = 1;j <= k;j++){
+        if(ind - j >= 0)
+        {
+            
+        int kJump = recursion(ind - j,k,height,dp) + abs(height[ind] - height[ind - j]);
+            minCost = min(kJump,minCost);
+        }
+}
+
+    return dp[ind] = minCost;
+
+    
+}
+
+int minimizeCost(int n, int k, vector<int> &height){
+    // Write your code here.
+    vector<int>dp(n+1,-1);
+    return recursion(n - 1,k,height,dp);
+}
+
+Problem - 8 - Minimum Falling Path Sum
+
+int recur(int row,int col,vector<vector<int>>& mat,vector<vector<int>>&dp)
+    {
+        // boundary condition for left Diag and right diag
+        if(col >= mat.size() || col < 0)
+            return 1e9;
+        
+        // base case
+        if(row >= mat.size() ){
+            return 0;
+        }
+        if(dp[row][col] != INT_MAX){
+            return dp[row][col];
+        }
+        
+        // moving in up direction
+        int up = mat[row][col] + recur(row+1,col,mat,dp);
+        // moving in left Diaginal
+        int leftDiagonal = mat[row][col] + recur(row+1,col-1,mat,dp);
+        // moving in right Diagonal
+        int rightDiagonal = mat[row][col] + recur(row+1,col+1,mat,dp);
+
+        return dp[row][col] = min(up,min(leftDiagonal,rightDiagonal));
+    }
+public:
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        // int m = matrix[0].size();
+        int mini = INT_MAX;
+        vector<vector<int>>dp(n,vector<int>(n,INT_MAX));
+        for(int j = 0;j<n;j++)
+        {
+            mini = min(mini,recur(0,j,matrix,dp));
+        }
+        return mini;
+    }
+};
+
+Problem - 9 - Minimum Path Sum
+
+class Solution {
+public:
+
+    int pathSum(int r,int c,vector<vector<int>>&grid)
+    {
+        if(r == 0 && c == 0)
+            return grid[r][c];
+        
+        if(r < 0 || c < 0)
+            return 1e9;
+        
+        int up = grid[r][c] + pathSum(r-1,c,grid);
+        int left = grid[r][c] + pathSum(r,c-1,grid);
+        return min(up,left);
+    }
+
+    return pathSum(row-1,col-1,grid);
+
+    int memo(int r,int c,vector<vector<int>>&grid,vector<vector<int>>&dp)
+    {
+        if(r == 0 && c == 0)
+            return grid[r][c];
+        
+        if(r < 0 || c < 0)
+            return 1e9;
+        if(dp[r][c] != -1){
+            return dp[r][c];
+        }
+        int up = grid[r][c] + memo(r-1,c,grid,dp);
+        int left = grid[r][c] + memo(r,c-1,grid,dp);
+
+        return dp[r][c] =  min(up,left);
+
+    }
+    int minPathSum(vector<vector<int>>& grid) {
+        int row = grid.size();
+        int col = grid[0].size();
+        // recursion
+        // return pathSum(row-1,col-1,grid);
+
+        // memorization
+        vector<vector<int>>dp(row,vector<int>(col,-1));
+        // return memo(row-1,col-1,grid,dp);
+
+        //  Tabullation
+
+        // dp[0][0] = grid[row][col];
+
+        for(int i = 0; i < row;i++)
+        {
+            for(int j = 0;j<col;j++)
+            {
+                if(i == 0 && j == 0)
+                    dp[i][j] = grid[0][0];
+                
+             else {   
+                int left = INT_MAX;
+                int up = INT_MAX;
+
+                if(i > 0)
+                    up = dp[i-1][j] + grid[i][j];
+                if(j > 0)
+                    left = dp[i][j-1] + grid[i][j];
+
+                dp[i][j] = min(left,up);
+
+                }
+            }
+        }
+        return dp[row-1][col-1];
+
+    }
+};
+
+Problem - 10 - Minimum Rod Cutting 
+
+#include <bits/stdc++.h>
+
+int recursion(int ind,int length,vector<int>&prices)
+{
+	if(ind == 0) // base case
+		return length * prices[0];
+	
+	int notPick = recursion(ind-1,length,prices);
+	int pick = INT_MIN;
+	int rodLength = ind + 1;
+	if(rodLength <= length)
+		pick = prices[ind] + recursion(ind,length-rodLength,prices);
+	
+	return max(pick,notPick);
+}
+
+int memo(int ind,int length,vector<int>&prices,vector<vector<int>>&dp)
+{
+	if(ind == 0) // base case
+		return length * prices[0];
+	
+	if(dp[ind][length] != -1)
+		return dp[ind][length];
+	int notPick = memo(ind-1,length,prices,dp);
+	int pick = INT_MIN;
+	int rodLength = ind + 1;
+	if(rodLength <= length)
+		pick = prices[ind] + memo(ind,length-rodLength,prices,dp);
+	
+	return dp[ind][length] =  max(pick,notPick);
+}
+int cutRod(vector<int> &price, int n)
+{
+	// Write your code here.
+	int length = n;
+	int size = price.size();
+	// return recursion(size - 1,length,price);
+	// memorization
+	// vector<vector<int>>dp(size,vector<int>(length+1,-1));
+	// return memo(size - 1,length,price,dp);
+
+	// Tabulation
+	vector<vector<int>>dp(length,vector<int>(length+1,0));
+
+	for(int L = 0;L <= length;L++)
+	{
+		dp[0][L] = L * price[0];
+	}
+
+	for(int ind = 1;ind<length;ind++)
+	{
+		for(int L=0;L<=length;L++)
+		{
+			int notPick =0 +  dp[ind-1][L];
+			int pick = INT_MIN;
+			int rodLength = ind + 1;
+            if (rodLength <= length) {
+                pick = price[ind] + dp[ind][L - rodLength];
+            }
+            dp[ind][L] = max(pick,notPick);
+		}
+	}
+	return dp[length-1][length];
+
+
+
+}
+
+Problem - 11 - Partition Equal Subset Sum
+
+class Solution {
+
+public: 
+    // recursion
+    bool subsetSumEqualToK(int ind,vector<int>&nums,int target)
+    {
+        if(target == 0)
+            return true;
+        
+        if(ind  == 0)
+            return nums[0] == target;
+
+        bool notPick = subsetSumEqualToK(ind-1,nums,target);
+        bool pick = false;
+
+        if(nums[ind] <= target)
+            pick = subsetSumEqualToK(ind-1,nums,target-nums[ind]);
+
+        return pick | notPick;
+    }
+    // memorization
+     bool subsetSumEqualToKMemo(int ind,vector<int>&nums,int target,vector<vector<int>>&dp)
+    {
+        if(target == 0)
+            return true;
+        
+        if(ind  == 0)
+            return nums[0] == target;
+        if(dp[ind][target] != -1)
+            return dp[ind][target];
+        bool notPick = subsetSumEqualToKMemo(ind-1,nums,target,dp);
+        bool pick = false;
+
+        if(nums[ind] <= target)
+            pick = subsetSumEqualToKMemo(ind-1,nums,target-nums[ind],dp);
+
+        return dp[ind][target] =  pick | notPick;
+    }
+
+    bool canPartition(vector<int>& nums) {
+        int n = nums.size();
+        int totalSum = 0;
+        for(auto it : nums)
+            totalSum += it;
+        if(totalSum % 2 != 0)
+            return false;
+        int target = totalSum / 2;
+        // recursion
+        // return subsetSumEqualToK(nums.size()-1,nums,totalSum/2);
+        // memorization
+        vector<vector<int>>dp(n+1,vector<int>(target+1,-1));
+        return subsetSumEqualToKMemo(n-1,nums,target,dp);
+
+    }
+};
+
+Problem  - 12 - Subset Sum Equal to k
+
+#include <bits/stdc++.h>
+
+bool recursion(int ind, vector<int> &arr, int target) {
+    'if (target == 0)
+        return true;'
+    if (ind == 0) // [2], target = 2, // true, but agar ye target = 3, return false;
+        return arr[0] == target;
+
+  
+
+  bool notPick = recursion(ind - 1, arr, target);
+  bool pick = false;
+
+  if (arr[ind] <= target)
+    pick = recursion(ind - 1, arr, target - arr[ind]);
+
+  return notPick || pick;
+}
+
+bool memo(int ind, vector<int> &arr, int target,vector<vector<int>>&dp) {
+
+    if (target == 0)
+        return true;
+    if (ind == 0) // [2], target = 2, // true, but agar ye target = 3, return false;
+        return arr[0] == target;
+
+    if(dp[ind][target] != -1)
+        return dp[ind][target];
+  
+
+  bool notPick = memo(ind - 1, arr, target,dp);
+  bool pick = false;
+
+  if (arr[ind] <= target)
+    pick = memo(ind - 1, arr, target - arr[ind],dp);
+
+  return dp[ind][target] =  notPick | pick;
+}
+
+bool subsetSumToK(int n, int k, vector<int> &arr) {
+    // Write your code here.
+    vector<vector<int>>dp(n+1,vector<int>(k+1,-1));
+    // return recursion(n-1,arr,k);
+    return memo(n-1,arr,k,dp);
+}
+
+Problem - 13 - Triangle Sum
+
+class Solution {
+public:
+    int recursion(int r,int c,int n,vector<vector<int>>&triangle)
+    {
+        if(r == n - 1)
+            return triangle[n-1][c];
+        // there is no boundary conditon
+        // explore all path in diagonal and down direction
+
+        int down = triangle[r][c] + recursion(r+1,c,n,triangle);
+        int diagonal = triangle[r][c] + recursion(r+1,c+1,n,triangle);
+        return min(down,diagonal);
+    }
+    int memo(int r,int c,int n,vector<vector<int>>&triangle,vector<vector<int>>&dp)
+    {
+        if(r == n - 1)
+            return triangle[n-1][c];
+        // there is no boundary conditon
+        // explore all path in diagonal and down direction
+        if(dp[r][c] != -1)
+            return dp[r][c];
+        int down = triangle[r][c] + memo(r+1,c,n,triangle,dp); // move down direction
+        int diagonal = triangle[r][c] + memo(r+1,c+1,n,triangle,dp); // move diagonal direction
+        return dp[r][c] = min(down,diagonal); 
+    }
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int n = triangle.size();
+
+        // return recursion(0,0,n,triangle);
+        vector<vector<int>>dp(n,vector<int>(n,-1));
+        // return memo(0,0,n,triangle,dp);
+
+        // tabulation
+        for(int j = 0;j<n;j++)
+        {
+            dp[n-1][j] = triangle[n-1][j];
+        }
+
+        for(int i = n-2; i >= 0 ;i--)
+        {
+            for(int j =i; j >= 0;j--)
+            {
+                
+                    int down = triangle[i][j] + dp[i+1][j]; // move down direction
+                    int diagonal = triangle[i][j] + dp[i+1][j+1]; // move diagonal direction
+                    dp[i][j] = min(down,diagonal);
+            }
+        }
+        return dp[0][0];
+    }
+};
+
+Problem - 14 - Unique Path Sum with Obstacle
+
+
+int mod = 1e9+7;
+int recursion(int r,int c,vector<vector<int>>& obstacleGrid)
+    {
+        if(r == 0 && c == 0)
+            return 1;
+        if(r < 0 || c < 0)
+            return 0;
+        int up = 0;
+        int left = 0;
+        if(obstacleGrid[r][c] == 0) /// move on only space i.e 0 not on obstacle.
+            up = recursion(r-1,c,obstacleGrid);
+        if(obstacleGrid[r][c] == 0)
+            left = recursion(r,c-1,obstacleGrid);
+
+        return up + left;
+    }
+    int memo(int r,int c,vector<vector<int>>& obstacleGrid,vector<vector<int>>&dp)
+    {
+
+        if(r == 0 && c == 0)
+            return 1;
+        if(r < 0 || c < 0)
+            return 0;
+        if(dp[r][c] != -1){
+            return dp[r][c];
+        }
+        int up = 0;
+        int left = 0;
+        if(obstacleGrid[r][c] == 0){  // move on only space i.e 0 not on obstacle.
+            up = memo(r-1,c,obstacleGrid,dp);
+            left = memo(r,c-1,obstacleGrid,dp);
+        }
+
+        return dp[r][c] = (up + left) % mod;
+    }
+
+
+int mazeObstacles(int n, int m, vector< vector< int> > &mat) {
+    // Write your code here
+
+    if(mat[0][0] == 1 || mat[n-1][m-1] == 1)
+            return 0;
+    // return recursion(n-1,m-1,mat);
+        vector<vector<int>>dp(n,vector<int>(m,-1));
+        return memo(n-1,m-1,mat,dp);
+
+
+        // tabulation
+        vector<vector<int>>dp(row,vector<int>(col,-1));
+        dp[0][0] = 1;
+        for(int i = 0; i < row ;i++)
+        {
+            for(int j = 0;j < col;j++)
+            {
+                if(i == 0 && j== 0)
+                    dp[i][j] = 1;
+                
+                else {
+                    int up = 0;
+                    int left = 0;
+                    if(i > 0 && obstacleGrid[i][j] == 0)
+                    {
+                        up = dp[i-1][j];
+                    }
+                    if(j > 0 && obstacleGrid[i][j] == 0){
+                        left = dp[i][j-1];
+                    }
+                    dp[i][j] = left + up;
+                }
+                
+                    
+            }
+        }
+        return dp[row-1][col-1];
+
+}
+
+Problem  - 15 - Unique Path
+
+class Solution {
+
+public:
+    // T.C - O(2^N*M) // some overlapping subproblem
+    // S.C - O(path length) = O(m-1)+ (n-1))
+    int recursion(int i,int j){
+        if(i == 0 && j == 0) // when we reach the destination
+            return 1;
+        if(i < 0 || j < 0) // boundary condition when the index is negative
+            return 0;
+        int left = recursion(i,j-1);
+        int up =  recursion(i-1,j);
+
+        return up + left; // total ways to reach the destination
+    }
+    // T.C - O(N*M)
+    // S.C - O(n-1) + (m-1)) + O(N*M)
+    //       recursion stack space
+    int countPathsMemo(int i,int j,vector<vector<int>>&dp){
+        if(i == 0 && j == 0) // when we reach the destination
+            return 1;
+        if(i < 0 || j < 0) // boundary condition when the index is negative
+            return 0;
+        if(dp[i][j] != -1)
+            return dp[i][j];
+        int left = countPathsMemo(i,j-1,dp);
+        int up =  countPathsMemo(i-1,j,dp);
+
+        return dp[i][j] = up + left; // total ways to reach the destination
+    }
+
+    int uniquePaths(int m, int n) {
+    
+        // return recursion(m-1,n-1);
+        // vector<vector<int>>dp(m+1,vector<int>(n+1,-1));
+        // return countPathsMemo(m-1,n-1,dp);
+
+        // Tabulation
+        vector<vector<int>>dp(m,vector<int>(n,-1));
+        dp[0][0] = 1; // base case
+
+        for(int i = 0;i < m;i++)
+        {
+            for(int j = 0;j< n;j++)
+
+            {
+                if(i == 0 && j == 0) // when we reach the destination
+                    dp[i][j] = 1;
+
+                else {
+                    int  up = 0;
+                    int left = 0;
+                    if(i > 0)
+                        up = dp[i-1][j];
+                    if(j > 0)
+                        left = dp[i][j-1];
+                    dp[i][j] = left + up;
+                }
+            }
+        }
+
+        return dp[m-1][n-1];
+    }
+};
+
+Problem - 16 - Count Subset Equal to k
+
+int mod = (int)(1e9 + 7);
+
+
+    int countSubset(int ind,vector<int>&nums,int target)
+    {
+        if(target == 0)
+            return 1;
+        
+        if(ind == 0)
+            return nums[0] == target;
+
+        int notPick = countSubset(ind-1,nums,target);
+        int pick = 0;
+        if(nums[ind] <= target)
+            pick = countSubset(ind-1,nums,target-nums[ind]);
+        return (pick + notPick) % mod;
+    }
+
+     int countSubsetMemo(int ind,vector<int>&nums,int target,vector<vector<int>>&dp)
+    {
+        if(target == 0)
+            return 1;
+        
+        if(ind == 0)
+            return nums[0] == target;
+        if(dp[ind][target] != -1)
+            return dp[ind][target];
+        int notPick = countSubsetMemo(ind-1,nums,target,dp);
+        int pick = 0;
+        if(nums[ind] <= target)
+            pick = countSubsetMemo(ind-1,nums,target-nums[ind],dp);
+        return dp[ind][target] = (pick + notPick) % mod;
+    }
+
+    int findWays(vector<int>& nums,int k) {
+        int n = nums.size();
+        // recursion
+        return countSubset(nums.size()-1,nums,k);
+
+        // memorization
+        vector<vector<int>>dp(n,vector<int>(k+1,-1));
+        return countSubsetMemo(n-1,nums,k,dp);
+
+    }
+
+Problem - 17 - Coins Change 2
+
+class Solution {
+public:
+    // int recursion(int ind,vector<int>&coins,int amount)
+    // {
+    //     if(ind == 0)
+    //     {
+    //         if(amount % coins[0] == 0)
+    //             return 1;
+    //         else
+    //             return 0;
+    //     }
+    //     int notPick = recursion(ind - 1,coins,amount);
+    //     int pick = 0;
+    //     if(coins[ind] <= amount){
+    //         pick = recursion(ind,coins,amount-coins[ind]);
+    //     }
+    //     return pick + notPick;
+    // }
+    // // memorization
+    // int memo(int ind,vector<int>&coins,int amount,vector<vector<int>>&dp)
+    // {
+    //     if(ind == 0)
+    //     {
+    //         if(amount % coins[0] == 0)
+    //             return 1;
+    //         else
+    //             return 0;
+    //     }
+    //     if(dp[ind][amount] != -1)
+    //         return dp[ind][amount];
+    //     int notPick = memo(ind - 1,coins,amount,dp);
+    //     int pick = 0;
+    //     if(coins[ind] <= amount){
+    //         pick = memo(ind,coins,amount-coins[ind],dp);
+    //     }
+    //     return dp[ind][amount] =  pick + notPick;
+    // }
+    int change(int amount, vector<int>& coins) {
+        // int n = coins.size();
+        // return recursion(n-1, coins,amount);
+        //memo
+        
+        // vector<vector<int>>dp(n,vector<int>(amount+1,-1));
+        
+        // return memo(n-1,coins,amount,dp);
+        
+        // tabulation
+        
+        int n = coins.size();
+        vector<vector<int>> dp(n, vector<int>(amount+1, 0));
+        for (int t=0; t<=amount; t++) {
+            if (t % coins[0] == 0) dp[0][t] = 1;
+        }
+        for (int ind=1; ind<n; ind++) {
+            for (int target=0; target<=amount; target++) {
+                int notTake = dp[ind-1][target];
+                int take = 0;
+                if (target >= coins[ind]) take = dp[ind][target-coins[ind]];
+                dp[ind][target] = notTake + take;
+            }
+        }
+        return dp[n-1][amount];
+            
+    }
+};
+
+Problem  - 18 - 0_1 Knapsack
+
+#include <bits/stdc++.h> 
+
+// int recursion(int ind,vector<int> weight, vector<int> value, int maxWeight)
+// {
+// 	if(ind == 0)  // base case
+// 	{
+// 		if(weight[0] <= maxWeight)  // if weight[] = [2], value[] = 4, maxWeight = 2 or 3 
+//  			return value[0];
+// 		else
+// 			return 0; // if weight item is greater than maxWeight
+// 	}
+// 		int notPick = recursion(ind-1,weight,value,maxWeight);
+// 		int pick = INT_MIN;
+// 		if(weight[ind] <= maxWeight)
+// 			pick = value[ind] +  recursion(ind-1,weight,value,maxWeight-weight[ind]);
+		
+// 		return max(pick,notPick);
+// }
+
+int memo(int ind,vector<int> weight, vector<int> value, int maxWeight,vector<vector<int>>&dp)
+{
+	if(ind == 0)  // base case
+	{
+		if(weight[0] <= maxWeight)  // if weight[] = [2], value[] = 4, maxWeight = 2 or 3 
+ 			return value[0];
+		else
+			return 0; // if weight item is greater than maxWeight
+	}
+	if(dp[ind][maxWeight] != -1)
+		return dp[ind][maxWeight];
+	int notPick = memo(ind-1,weight,value,maxWeight,dp);
+	int pick = INT_MIN;
+	if(weight[ind] <= maxWeight)
+		pick = value[ind] +  memo(ind-1,weight,value,maxWeight-weight[ind],dp);
+		
+	return dp[ind][maxWeight] =  max(pick,notPick);
+}
+
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	// Write your code here
+	return recursion(n-1,weight,value,maxWeight);
+	// memorization
+
+	vector<vector<int>>dp(n+1,vector<int>(maxWeight+1,-1));
+	return memo(n-1,weight,value,maxWeight,dp);
+
+	// tabulation
+	vector<vector<int>>dp(n+1,vector<int>(maxWeight+1,0));
+	for(int w = weight[0]; w < maxWeight;w++)
+	{
+		dp[0][w] = value[0];
+	}
+	for(int ind = 1;ind <= n-1;ind++)
+	{
+		for(int w = 1;w < maxWeight;w++)
+		{
+			int notPick = dp[ind-1][w];
+			int pick = INT_MIN;
+			if(weight[ind] <= maxWeight)
+				pick = value[ind] + dp[ind-1][w - weight[ind]];
+			dp[ind][w] = max(pick,notPick);
+		}
+	}
+	return dp[n-1][maxWeight];
+}
+
+Problem - 18 - Longest Common Subsequence
+
+class Solution {
+public:
+    // recursion
+    int recursion(int ind1,int ind2,string s1,string s2)
+    {
+        if(ind1 == 0 || ind2  == 0)  // base case
+            return 0;
+        
+        if(s1[ind1-1] == s2[ind2-1])  // match
+            return 1 + recursion(ind1-1,ind2-1,s1,s2);
+        
+        return max(recursion(ind1,ind2-1,s1,s2),recursion(ind1-1,ind2,s1,s2));
+    }
+    // memorization
+    int memo(int ind1,int ind2,string s1,string s2,vector<vector<int>>&dp){
+        if(ind1 == 0 || ind2 == 0)  // base case
+            return 0;
+        if(dp[ind1][ind2] != -1)
+            return dp[ind1][ind2];
+        if(s1[ind1-1] == s2[ind2-1])  // match
+            return 1 + memo(ind1-1,ind2-1,s1,s2,dp);
+        
+        return dp[ind1][ind2] =  max(memo(ind1-1,ind2,s1,s2,dp),memo(ind1,ind2-1,s1,s2,dp));
+    }
+    int longestCommonSubsequence(string s1, string s2) {
+        int n = s1.size();
+        int m = s2.size();
+        
+        return recursion(n-1,m-1,s1,s2);
+        // memorization
+        vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
+        return memo(n,m,s1,s2,dp);
+        // tabulation
+        for(int j = 0;j <= m;j++)  dp[0][j] = 0;
+        for(int i = 0;i <= n;i++)  dp[i][0] = 0;
+        
+        for(int i = 1; i<=n;i++)
+        {
+            for(int j = 1;j<=m;j++)
+            {
+                if(s1[i-1] == s2[j-1])  // match
+                    dp[i][j] =  1 + dp[i-1][j-1];
+        
+               else dp[i][j] =  max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+        return dp[n][m];
+    }
+};
+
+Problem - 19 - Longest Common Substring
+
+
+    int lcs(string &str1, string &str2) {
+        int n = str1.size();
+        int m = str2.size();
+        
+        // return recursion(n-1,m-1,str1,sstr22);
+        // memorization
+        vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
+        // return memo(n,m,str1,str2,dp);//
+        // tabulation
+        for(int j = 0;j <= m;j++)  dp[0][j] = 0;
+        for(int i = 0;i <= n;i++)  dp[i][0] = 0;
+        int ans = 0;
+        for(int i = 1; i<=n;i++)
+        {
+            for(int j = 1;j<=m;j++)
+            {
+              if (str1[i - 1] == str2[j - 1]) {
+                dp[i][j] = 1 + dp[i - 1][j - 1];
+                ans = max(dp[i][j],ans);
+              } else {
+                dp[i][j] = 0;
+              }
+            }
+        }
+        return ans;
+    }
+
+Problem - 20 - Longest palindromic Subsequence
+
+class Solution {
+public:
+    int lps(int ind1,int ind2,string s,string t,vector<vector<int>>&dp)
+    {
+        if(ind1 == 0 || ind2 == 0)
+            return 0;
+        
+        if(dp[ind1][ind2] != -1)
+            return dp[ind1][ind2];
+        
+        if(s[ind1-1] == t[ind2-1])
+            return 1 + lps(ind1-1,ind2-1,s,t,dp);
+        return dp[ind1][ind2] = max(lps(ind1,ind2-1,s,t,dp),lps(ind1-1,ind2,s,t,dp));
+    }
+        
+    int longestPalindromeSubseq(string s) {
+        string t = s;
+        reverse(t.begin(),t.end());
+        int n = s.size();
+        int m = t.size();
+        // memo
+        // vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
+        // return lps(n,m,s,t,dp);
+        vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
+        
+        for(int j = 0;j<=m;j++)
+            dp[0][j] = 0;
+        for(int i = 0;i<=n;i++)
+            dp[i][0] = 0;
+        
+        for(int i = 1; i<=n;i++)
+        {
+            for(int j = 1;j<=m;j++)
+            {
+              if (s[i - 1] == t[j - 1]) {
+                dp[i][j] = 1 + dp[i - 1][j - 1];
+                
+              } else {
+                dp[i][j] = max(dp[i][j-1],dp[i-1][j]);
+              }
+            }
+        }
+        return dp[n][m];
+        
+    }
+};
+
+Problem - 21 - Minimum Deletion and Insertion to make string Equal
+
+ int longestCommonSubsequence(string s,string t)
+    {
+        int n = s.size();
+        int m = t.size();
+        vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+
+        for(int j = 0;j<=m;j++)
+            dp[0][j] = 0;
+        for(int i = 0;i<=n;i++)
+            dp[i][0] = 0;
+
+        for(int i = 1;i<=n;i++)
+        {
+            for(int j = 1;j<=m;j++)
+            {
+                if(s[i-1] == t[j-1])
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                else
+                    dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+        return dp[n][m];
+    }
+    
+
+int canYouMake(string &s1, string &s2){
+    // Write your code here.
+    int n = s1.size();
+    int m = s2.size();
+    int lcsLength = longestCommonSubsequence(s1,s2);
+    return n + m - 2*lcsLength;
+}
+
+problem - 22 - Minimum Insertion to make string palindromic
+
+class Solution {
+
+    int longestPalindromicSubsequence(string s,string t)
+    {
+        int n = s.size();
+        int m = t.size();
+        vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
+
+        for(int j = 0;j<=n;j++)
+            dp[0][j] = 0;
+        for(int i = 0;i<=m;i++)
+            dp[i][0] = 0;
+
+        for(int i = 1;i<=n;i++)
+        {
+            for(int j = 1;j<=m;j++)
+            {
+                if(s[i-1] == t[j-1])
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                else
+                    dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+        return dp[n][m];
+    }
+public:
+    int minInsertions(string s) {
+        string t = s;
+        reverse(t.begin(),t.end());
+        int lpsLength = longestPalindromicSubsequence(s,t);
+        return s.size() - lcsLength;
+    }
+};
+
+problem - 22 - Buy and sell stock - 2
+
+#include <bits/stdc++.h>
+long recur(int ind,int buy, long *values,int n)
+{
+    if(ind == n)
+        return 0;
+    long profit = 0;
+    if(buy)
+    {
+        profit = max(-values[ind] + recur(ind+1,0,values,n),0 + recur(ind+1,1,values,n));
+    }
+    else {
+        profit = max(values[ind] + recur(ind+1,1,values,n),0 + recur(ind+1,0,values,n));
+    }
+    return profit;
+}
+
+long memo(int ind,int buy, long *values,int n,vector<vector<long>>&dp)
+{
+    if(ind == n)
+        return 0;
+    
+    if(dp[ind][buy] != -1)
+        return dp[ind][buy];
+    long profit = 0;
+    if(buy)
+    {
+        profit = max(-values[ind] + memo(ind+1,0,values,n,dp),0 + memo(ind+1,1,values,n,dp));
+    }
+    else {
+        profit = max(values[ind] + memo(ind+1,1,values,n,dp),0 + memo(ind+1,0,values,n,dp));
+    }
+    return dp[ind][buy] = profit;
+    
+}
+
+long tabulation(long *values,int n)
+{
+
+    vector<vector<long>>dp(n+1,vector<long>(2,0));
+    dp[n][0] = dp[n][1] = 0;
+    long profit = 0;
+    for(int ind = n -1; ind >= 0 ;ind--)
+    {
+        for(int buy = 0;buy <=1;buy++)
+        {
+          if (buy) {
+            profit = max(-values[ind] + dp[ind + 1][0], 0 + dp[ind + 1][1]);
+          } else {
+            profit = max(values[ind] + dp[ind + 1][1], 0 + dp[ind + 1][0]);
+          }
+          dp[ind][buy] = profit;
+        }
+        
+    }
+    return dp[0][1];
+    
+}
+
+
+long getMaximumProfit(long *values, int n)
+{
+    // Write your code here
+    // recursion
+    return recur(0,1,values,n);
+    // memorization
+    vector<vector<long>>dp(n,vector<long>(2,-1));
+    return memo(0,1,values,n,dp);
+    // tabulation
+    return tabulation(values,n);
+
+}
+
+Problem - 23 - Longest Increasing Subsequence
+
+class Solution {
+public:
+    
+    int recur(int ind,int prev_ind,int n,vector<int>&nums)
+    {
+        if(ind == n)  // base case
+            return 0;
+        int len = 0 + recur(ind+1,prev_ind,n,nums);
+        if(prev_ind == -1 || nums[ind] > nums[prev_ind])
+            len = max(len,1+recur(ind+1,ind,n,nums));
+        
+        return len;
+    }
+    
+    int memo(int ind,int prev_ind,int n,vector<int>&nums,vector<vector<int>>&dp)
+    {
+        if(ind == n)  // base case
+            return 0;
+        if(dp[ind][prev_ind+1] != -1)
+                return dp[ind][prev_ind+1];
+        int len = 0 + memo(ind+1,prev_ind,n,nums,dp);
+        if(prev_ind == -1 || nums[ind] > nums[prev_ind])
+            len = max(len,1+memo(ind+1,ind,n,nums,dp));
+        
+        return dp[ind][prev_ind+1] = len;
+    }
+    
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        // return recur(0,-1,nums.size(),nums);
+        // memo
+        vector<vector<int>>dp(n,vector<int>(n+1,-1));
+        return memo(0,-1,n,nums,dp);
+    }
+};

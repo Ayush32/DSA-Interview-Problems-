@@ -1,0 +1,262 @@
+Problem - 1 - Ceil Of BST
+
+#include <bits/stdc++.h> 
+
+int findCeil(BinaryTreeNode<int> *node, int x){
+    // Write your code here.
+
+    int ceil = -1;
+    while(node != NULL)
+    {
+        if(node->data == x)
+            return node->data;
+        else if(node->data < x)
+            node = node->right;
+        else {
+            ceil = node->data;
+            node = node->left;
+        }
+    }
+    return ceil;
+}
+
+Problem - 2 - Floor of BST
+
+#include <bits/stdc++.h> 
+
+int findFloor(BinaryTreeNode<int> *node, int x){
+    // Write your code here.
+
+    int floor = -1;
+    while(node != NULL)
+    {
+        if(node->data == x)
+            return node->data;
+        else if(node->data < x)
+            node = node->left;
+        else {
+            floor = node->data;
+            node = node->right;
+        }
+    }
+    return floor;
+}
+
+Problem - 3  - Construct BST from preOrder
+
+class Solution {
+public:
+    TreeNode* solve(vector<int>&preOrder,int mini,int maxi,int &i)
+    {
+        if(i >= preOrder.size())
+            return NULL;
+
+        if(preOrder[i] < mini || preOrder[i] > maxi)
+            return NULL;
+        
+        TreeNode* root = new TreeNode(preOrder[i++]);
+        root->left = solve(preOrder,mini,root->val,i);
+        root->right = solve(preOrder,root->val,maxi,i);
+        return root;
+    }
+
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        int mini = INT_MIN;
+        int maxi = INT_MAX;
+        int i = 0;
+        vector<int>preOrder = preorder;
+        return solve(preOrder,mini,maxi,i);
+    }
+};
+
+Problem - 4 - Convert Sorted Array to BST
+class Solution {
+        TreeNode* helper(vector<int>&nums,int left,int right){
+            // base case
+            if(left > right)
+                return NULL;
+            int mid = (left + right)/2;
+            TreeNode* root = new TreeNode(nums[mid]);
+            root->left = helper(nums,left,mid-1);
+            root->right = helper(nums,mid + 1,right);
+
+            return root;
+        }
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        return helper(nums,0,nums.size()-1);
+    }
+};
+
+Problem  - 5 - Convert Sorted LinkedList to BST
+
+class Solution {
+public:
+    TreeNode* sortedListToBST(ListNode* head) {
+        if(head == NULL)
+            return NULL;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        ListNode* prev = NULL;
+
+        while(fast->next != NULL && fast->next->next != NULL)
+        {
+            fast= fast->next->next;
+            prev = slow;
+            slow = slow->next;
+        }
+        TreeNode* root = new TreeNode(slow->val);
+        if(prev != NULL)
+            prev->next = NULL;
+        else
+            head = NULL;
+        
+        root->left = sortedListToBST(head);
+        root->right = sortedListToBST(slow->next);
+
+        return root;    
+    }
+};
+
+Problem - 6- Insert  new Node in BST
+
+void solve(TreeNode<int>*root,int val)
+{
+    if(root == NULL)
+    {
+        root = new TreeNode<int>(val);
+        return;
+    }
+    if(root->val > val){
+        if(root->left != NULL)
+            solve(root->left,val);
+        else
+            root->left = new TreeNode<int>(val);
+    }
+    else {
+        if(root->right != NULL)
+            solve(root->right,val);
+        else
+            root->right = new TreeNode<int>(val);
+    }
+}
+
+
+TreeNode<int>* insertionInBST(TreeNode<int>* root, int val)
+{
+    // Write your code here.
+    solve(root,val);
+    return root;
+}
+
+problem - 7 - normal BST to balanced BST
+
+class Solution {
+    void inorderOfBst(TreeNode*root,vector<int>&inorder)
+    {
+        if(root == NULL)
+            return;
+        inorderOfBst(root->left,inorder);
+        inorder.push_back(root->val);
+        inorderOfBst(root->right,inorder);
+    }
+    TreeNode* inorderToBst(vector<int>inorder,int start,int end)
+    {
+        if(start > end)
+            return NULL;
+        int mid = start + (end-start)/2;
+        TreeNode* root = new TreeNode(inorder[mid]);
+        root->left = inorderToBst(inorder,start,mid-1);
+        root->right = inorderToBst(inorder,mid +1,end);
+        return root;
+    }
+public:
+    TreeNode* balanceBST(TreeNode* root) {
+        vector<int>inorder;
+        inorderOfBst(root,inorder);
+       return inorderToBst(inorder,0,inorder.size()-1);
+
+    }
+};
+
+Problem - 8 - Recover BST
+
+class Solution {
+public:
+
+    // T.C - O(N*logN)
+    // S.C - O(N)
+    void findInorder(TreeNode* root,vector<int>&inOrder)
+    {
+        if(root == NULL)
+            return;
+        
+        findInorder(root->left,inOrder);
+        inOrder.push_back(root->val);
+        findInorder(root->right,inOrder);
+    }
+
+    void makeBSTfromInorder(TreeNode*root,vector<int>&inOrder,int &index)
+    {
+        if(root == NULL)
+            return;
+        makeBSTfromInorder(root->left,inOrder,index);
+        root->val = inOrder[index++];
+        makeBSTfromInorder(root->right,inOrder,index);
+    }
+
+    // T.C - O(N),
+    // S.C - O(1)
+    void markTree(TreeNode* root,TreeNode* &first,TreeNode* &second,TreeNode* &prev)
+    {
+        if(!root)
+            return;
+        markTree(root->left,first,second,prev);
+        if(prev)
+        {
+            if(root->val < prev->val){
+                if(first == NULL)
+                    first = prev;
+                second = root;
+            }
+        }
+        prev = root;
+        markTree(root->right,first,second,prev);
+    }
+
+
+    void recoverTree(TreeNode* root) {
+        // vector<int>inOrder;
+        // findInorder(root,inOrder);
+        // sort(inOrder.begin(),inOrder.end());
+        // int index = 0;
+        // makeBSTfromInorder(root,inOrder,index);
+
+        // 2nd method
+        TreeNode* first = NULL,*second = NULL,*prev = NULL;
+        markTree(root,first,second,prev);
+        swap(first->val,second->val);
+        return;
+       
+    }
+};
+
+Problem - 9 -  Search in BST
+
+class Solution {
+public:
+    TreeNode* searchBST(TreeNode* root, int val) {
+        if(root == NULL)
+            return NULL;
+
+        if(root->val == val)
+            return root;
+
+       else if(root->val < val)
+           return searchBST(root->right,val);
+        else
+           return searchBST(root->left,val);
+
+        return root;    
+    }
+};

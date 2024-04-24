@@ -1,0 +1,269 @@
+Problem - 1 - https://leetcode.com/problems/reverse-integer/
+
+class Solution {
+public:
+    int reverse(int x) {
+        int num = x;
+        int rev = 0,rem = 0;
+
+        while(num != 0){
+            rem = num % 10;
+            
+            rev = rem + rev*10;
+            num = num /10;
+        }
+        return rev;
+    }
+
+};
+
+Problem - 2. https://leetcode.com/problems/pascals-triangle/
+
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>>ans(numRows,vector<int>());
+        ans[0].push_back(1);
+        if(numRows == 1)
+            return ans;
+        ans[1].push_back(1);
+        ans[1].push_back(1);
+        if(numRows == 2)
+            return ans;
+        
+        for(int i = 2;i<numRows;i++)
+        {
+            for(int j = 0;j <=i;j++)
+            {
+                if(j == 0 || j == i){
+                    ans[i].push_back(1);
+                }
+                else {
+                    ans[i].push_back(ans[i-1][j-1]+ans[i-1][j]);
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+
+Problem - 3. https://leetcode.com/problems/richest-customer-wealth
+
+class Solution {
+public:
+    int maximumWealth(vector<vector<int>>& accounts) {
+        int n = accounts.size();
+        int m = accounts[0].size();
+        // store the maximumWealth of richest customer
+        int maximumWealth = INT_MIN;
+        for(int i = 0;i < n;i++)
+        {
+            // Create a variable which will add the wealth of a single customer
+            int wealth = 0;
+            for(int j = 0;j<m;j++)
+            {
+                // 
+                wealth  = wealth + accounts[i][j];
+            }
+            // Updating ans to find the customer with highest wealth
+            maximumWealth = max(wealth,maximumWealth);
+        }
+        return maximumWealth;
+    }
+    T.C - O(N*M);
+    S.C - O(1)
+};
+
+Problem -4. https://leetcode.com/problems/running-sum-of-1d-array/
+
+class Solution {
+public:
+    vector<int> runningSum(vector<int>& nums) {
+         // we start the loop from 1 to n(size of array) and we use the prefix sum in prefix sum we add the current element and the next element, 
+         so in this we have to add the current element and the previous element   
+        // i.e nums[i] = nums[i-1] + nums[i];
+        int n = nums.size();
+    for(int i = 1;i<n;i++)
+    {
+        nums[i] = nums[i-1] + nums[i];
+    }
+    return nums;
+    }
+    T.C - O(N);
+    S.C - O(1)
+};
+
+Problem - 5. 
+
+class Solution {
+public:
+    int numJewelsInStones(string jewels, string stones) {
+        int freq[216] = {0};
+        for(int i = 0;i < stones.size();i++)
+        {
+            // if the character in stones is lowercase we check and increment the count of character  in freq array
+            // let stones[i] = 'a' then, freq['a'-0] = freq[97]++ => increment the value at index 65
+            if(stones[i] >= 'a' && stones[i] <= 'z')
+            {
+                    freq[stones[i]-0]++;
+            }
+            // if the character in stones is uppercase we check and increment the count of character  in freq arra
+            // let stones[i] = 'A' then, freq['A'-0] = freq[65]++ => increment the value at index 65
+             if(stones[i] >= 'A' && stones[i] <= 'Z'){
+                    freq[stones[i]-0]++;
+            }
+        }
+        int count = 0;
+        // traverse over the jewels string
+        for(int i = 0;i<jewels.size();i++)
+        {
+            
+            if(freq[jewels[i]-0]){
+                count = freq[jewels[i]-0] + count;
+            }
+        }
+        return count;
+    }
+    T.C - O(S) + O(J);
+    s - size of stones string
+    j - size of jewels string
+};
+
+Problem - 6. https://leetcode.com/problems/minimum-absolute-difference/description/
+
+Solution-1
+class Solution {
+public:
+    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
+        int n = arr.size();
+        sort(arr.begin(),arr.end());
+        vector<vector<int>>ans;
+        int minDiff = abs(arr[1] - arr[0]);
+        ans.push_back({arr[0],arr[1]});
+        for(int i = 1;i<n;i++)
+        {
+            if(i == n-1)
+                break;
+            
+            int currDiff = abs(arr[i+1] - arr[i]);
+            if(currDiff == minDiff) {
+                ans.push_back({arr[i],arr[i+1]});
+            }
+            if(currDiff < minDiff){
+                ans.clear();
+                ans.push_back({arr[i],arr[i+1]});
+                minDiff = currDiff;
+            }
+            
+        }
+        return ans;
+    }
+    T.C - O(N)
+    S.C - O(vector ans)
+    
+};
+
+Solution 2 ///
+
+class Solution {
+public:
+    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
+        
+        int n = arr.size();
+        sort(arr.begin(),arr.end());
+        vector<vector<int>>ans;
+        int minDiff = abs(arr[0] - arr[1]);
+       
+        for(int i = 0;i<n-1;i++)
+        {
+            int currDiff = abs(arr[i+1] - arr[i]);
+            
+            if(currDiff == minDiff) {
+                ans.push_back({arr[i],arr[i+1]});
+            }
+            else if(currDiff < minDiff){
+                ans = {};
+                ans.push_back({arr[i],arr[i+1]});
+                minDiff = currDiff;
+            }
+            
+        }
+        return ans;
+        
+    }
+       
+};
+
+Problem - 6 - https://leetcode.com/problems/three-consecutive-odds/description/
+
+class Solution {
+public:
+    bool threeConsecutiveOdds(vector<int>& arr) {
+        int n = arr.size();
+        // if arr size is less than 3
+        if(n < 3)
+            return false;
+        for(int i = 0;i<arr.size()-2;i++)
+        {
+           
+            if(arr[i] % 2 != 0 && arr[i+1] % 2 != 0 && arr[i+2] % 2 != 0)
+                return true;
+        }
+        return false;
+    }
+    T.C - O(N)
+    S.C - O(1)
+};
+
+Problem - 7 - https://leetcode.com/problems/move-zeroes/description/
+
+Solution 1 - Using Extra Space
+
+T.C - O(N) 
+S.C - O(N) using Extra Space
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int n = nums.size();
+        vector<int>ans;
+        int countZeros = 0;
+        for(int i = 0;i<n;i++)
+        {
+            if(nums[i] != 0){
+                ans.push_back(nums[i]);
+            }
+            else if(nums[i] == 0)
+            {
+                    countZeros++;
+            }
+        }
+        T.C - O(1) constant because we insert 0 in ans array until zerosCount become 0.
+        while(countZeros--){
+            ans.push_back(0);
+        }
+        nums = ans;
+    }
+};
+
+Solution - 2
+Using Two Pointers
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        // T.C - O(N) 
+        // S.C - O(1) using Extra Space
+        int n = nums.size();
+        int left = 0;
+        // we use two pointer i and j, i point 0th index, j loop start from 1 to  N
+        for(int right = 1;right<n;right++)
+        {
+            // if value at ith index is equal to zero then this condition is not execute
+            if(nums[left] != 0){
+                 left++;
+            }
+            // we swap ith index value with jth value index 
+            swap(nums[left],nums[right]);
+           
+}
