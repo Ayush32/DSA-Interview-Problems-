@@ -378,7 +378,7 @@ public:
         push all the element of input array to map
         and check which key has value greater than N/2 and return it.
         */
-        T.C - O(Nlogn) + O(N) -> o(NlogN) for pushing the element into hashmap, another O(N) for checking which element has more than N/2 occurrences
+        T.C - O(N) + O(N) -> o(2N) for pushing the element into hashmap, another O(N) for checking which element has more than N/2 occurrences
         S.C - O(N)
          int N= nums.size();
         int majorityElement = 0;
@@ -394,6 +394,33 @@ unordered_map<int,int>mp;
         }
         
         return majorityElement;        
+    }
+    // Approach -3, Space Optimized
+    class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int candidate = 0;
+        int count = 0;
+        int n = nums.size();
+        for(int i = 0;i < n;i++)
+        {
+            if(count == 0)
+                candidate = nums[i];
+            if(candidate == nums[i])
+                count++;
+            else 
+                count--;
+        }
+        count = 0;
+        for(int i= 0;i < n;i++)
+        {
+            if(candidate == nums[i])
+                count++;
+        }
+        if(count > n / 2)
+            return candidate;
+        
+        return -1;
     }
 };
 
@@ -456,6 +483,8 @@ unordered_map<int,int>mp;
         }
         return majorityElement;
     }
+
+    
 };
 
 
