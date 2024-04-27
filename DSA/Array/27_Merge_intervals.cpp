@@ -34,8 +34,8 @@ class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
         // sort intervals
-        // T.C - O(NlogN)
-        // S.C - O(no.of non-overlapped intervals)
+        // T.C - O(NlogN) + O(N)
+        // S.C - O(N) for storing the merge intervals, except for answer array we are using any extra spaces
         sort(intervals.begin(),intervals.end());
         int n = intervals.size();
         vector<vector<int>>mergeIntervals;
