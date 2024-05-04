@@ -24,3 +24,9 @@ bool isValidParenthesis(string s)
     }
     return st.empty();
 }
+
+int main()
+{
+    s = "[()]";
+    
+}
