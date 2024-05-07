@@ -31,9 +31,9 @@ public:
             fast = fast->next->next;
             
             
-            if(slow == fast){
-                while(slow != entry){
-                    slow = slow->next;
+            if(slow == fast){  // if slow and fast pointer are collide with each other,
+                while(slow != entry){ // entry pointer at head, move slow and entry pointer at a time
+                    slow = slow->next; //
                     entry = entry->next;
                 }
                 return slow;

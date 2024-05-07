@@ -5,6 +5,10 @@ using namespace std;
 
 Node* insertAtbegining(Node* head,int val)
 {
+    if(head == NULL){
+        head = newNode;
+        return head;
+    }
     // 5 -> 6 -> 3 -> 5 -> 8
     // new node value = 2
     // new List - 2 -> 5 -> 6 -> 3 -> 5 -> 8

@@ -44,7 +44,7 @@ public:
         2) - we traverse the linked through fast pointer until the fast pointer reaches the nth node
         3)-  if fast is already pointing to null it means there is only one node in the the linkedlist and we have to remove that and return the null 
         4)- slow pointer pointing the head of the list, we traverse until next of fast point pointer is not null  and move slow by one step and fast by one step
-        5)- the moment when the loop terminates slow pointer poin the length - n  +1 nodes
+        5)- the moment when the loop terminates slow pointer point the length - n  +1 nodes
         then , we remove the link of next of slow pointer and attach/ point the next of slow pointer to the next of next node. -> slow->next = slow->next->next;
         T.C - O(N)
         S.C - O(1)

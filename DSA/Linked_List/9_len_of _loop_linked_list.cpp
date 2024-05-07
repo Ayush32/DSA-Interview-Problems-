@@ -30,10 +30,10 @@ int lengthOfLoop(Node *head) {
             fast = fast->next->next;
             
             
-            if(slow == fast){
-                slow = slow->next; // after slow and fast colide move slow by one step
+            if(slow == fast){ // at the point where slow and fast pointer collide with each other
+                slow = slow->next; // after slow and fast collide move slow by one step, that is node where our loop is start
             
-                while(slow != fast){  // run the loop untile slow and fast again collide
+                while(slow != fast){  // run the loop until slow and fast again collide
                     slow = slow->next; // move slow by one step
                     len++; // increment len
                 }

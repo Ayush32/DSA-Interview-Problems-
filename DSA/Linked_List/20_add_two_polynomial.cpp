@@ -50,7 +50,7 @@ class Solution{
 };
 // Time Complexity: O(m + n) where m and n are number of nodes in first and second lists respectively.
 
-// Space Complexity: O(m+n), since we create a new linked list of size m + n to store the result of the addition of the two polynomials.
+// Space Complexity: O(1), since we create a new linked list of size m + n to store the result of the addition of the two polynomials.
 
 // We will maintain a prev pointer that will point to the last node of resultant linked list.
 //  We will be modifying the same given nodes rather than creating new ones .

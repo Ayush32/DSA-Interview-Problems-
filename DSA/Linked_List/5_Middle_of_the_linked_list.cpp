@@ -13,7 +13,7 @@ public:
     ListNode* middleNode(ListNode* head) {
         
         // Approach 1 - find the length of list and traverse the half len of the list and return middle.
-        /*  take curr pointer and assign head to the for traversing over the linkedlist and len variable assign             to zero
+        /*  take curr pointer and assign head to the for traversing over the linkedlist and len variable assign to zero
         step 1 - calculate the length of the linkedlist
             step 2- divide the length of list by 2
             step 3 - traverse the list until len become zero 

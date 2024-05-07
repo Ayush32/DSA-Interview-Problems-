@@ -13,6 +13,9 @@ Node* insertAtbegining(Node* head)
     // newNode->next = head; // make the next of new node as head
     // head = newNode; // make newNode as new Head
     head = head->next;
+    Node* temp = head;
+    head = head->next;
+    delete(temp)
     return head;
 }
 
@@ -34,8 +37,8 @@ Node* deleteAtEnd(Node* head)
 
     // we have to traverse to the end of the linkedlist to find the last node
     Node* second_lastNode = head;
-    while(second_lastNode != NULL){
-        second_lastNode = second_lastNode->next;
+    while(second_lastNode->next != NULL){
+        second_lastNode = second_lastNode->next; 
     }
     delete(second_lastNode);
     second_lastNode->next = NULL; // change the next pointer of second last node to NULL

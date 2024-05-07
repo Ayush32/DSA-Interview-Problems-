@@ -32,10 +32,11 @@ public:
 
         Approach -2 - using Pointer
         T.C - O(N)
-        S.C - (N)
+        S.C - (1`)
 
         if(head == NULL)
             return NULL;
+            // 1 -> 2 -> 3 -> 4 -> 5
         ListNode* evenList = head->next; // point head of next to evenList  , and second node is even
         ListNode* oddList = head; // point head to oddList because first node is odd
 

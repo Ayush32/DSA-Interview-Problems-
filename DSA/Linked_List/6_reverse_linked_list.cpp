@@ -1,23 +1,21 @@
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        if(head == NULL)
-            return NULL;
-        
-        ListNode* curr = head;
-        ListNode* prev = NULL;
-        ListNode* next = NULL;
-        
-        while(curr != NULL)
-        {
-            next = curr->next;
-            curr->next = prev; // change the pointer arrow direction from right direction to left direction 
-            prev = curr;
-            curr = next;
-        }
-        head = prev;
-        return head;
-    }
+     ListNode* curr = head;
+     ListNode* prev= NULL;
+     ListNode* next = NULL;
+
+     while(curr != NULL)
+     {
+        next = curr->next; // store next 
+        // reverse current node's pointer 
+        curr->next = prev; // point curr->next to prev(i.e initially null) / 
+        // move pointer one position head
+        prev = curr;
+        curr = next;
+     }
+     return head;
+}
 
     // REcursion - T.C - O(N),S.C- (N) recusrion stack space
     ListNode* reverse(Node* head){

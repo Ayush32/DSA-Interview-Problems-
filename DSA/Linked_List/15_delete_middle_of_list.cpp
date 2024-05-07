@@ -13,7 +13,7 @@ Node* deleteMiddle(Node* head){
     
     Node* slow = head;
     Node* fast = head;
-    Node* prev = head;
+    Node* prev = NULL;
     while(fast != NULL && fast->next != NULL)
     {
         fast = fast->next->next;
