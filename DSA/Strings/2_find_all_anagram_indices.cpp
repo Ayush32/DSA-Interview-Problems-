@@ -45,6 +45,9 @@ Sample Output 2:
 0 2 4 6
 */
 
+#include <bits/stdc++.h>
+using namespace std;
+
 // T.C - (NlognN)
 bool checkAnagram(string str1,string str2)
 {
@@ -91,4 +94,17 @@ vector<int> findAnagramsIndices(string str, string ptr, int n, int m){
             j++;
     }
     return indAns;
+}
+
+int main()
+{
+    string str = "cbaebabacd";
+    string ptr = "abc";
+    vector<int>ans = findAnagramsIndices(str,ptr,str.length(),ptr.length());
+
+    for(auto it : ans)
+        cout << it << " ";
+    
+    return 0;
+
 }

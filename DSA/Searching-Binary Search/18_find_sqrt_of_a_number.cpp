@@ -30,6 +30,6 @@ int main()
     int n = 28;
     // int target = 7;
     cout << sqrtNumber(n);
-    // cout << binarySearchRecursion(arr,target,0,arr.size());
+    
     return 0;
 }

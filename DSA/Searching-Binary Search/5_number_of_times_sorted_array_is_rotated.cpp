@@ -31,6 +31,5 @@ int main()
     
     // int target = 8;
     cout << NumberOfRotation(arr);
-    // cout << binarySearchRecursion(arr,target,0,arr.size()-1);
     return 0;
 }

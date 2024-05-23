@@ -3,7 +3,11 @@
 Example 1:
 
 Input:
-S = aabb
+S = a a b b
+    i == i - 1
+        i
+    ans = a
+    
 Output:  ab 
 Explanation: 'a' at 2nd position is
 appearing 2nd time consecutively.

@@ -35,7 +35,7 @@ int ceilOfAnElement(vector<int>arr,int target)
 
 int main()
 {
-    vector<int>arr = {1,3,5,6};
+    vector<int>arr = {1,3,5,6,8,9 };
     int target = 7;
     cout << ceilOfAnElement(arr,target);
     // cout << binarySearchRecursion(arr,target,0,arr.size());

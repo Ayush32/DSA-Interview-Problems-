@@ -15,6 +15,9 @@
 // Output: false
 // Explanation: "raceacar" is not a palindrome.
 
+#include<bits/stdc++.h>
+using namespace std;
+
 class Solution {
 public:
 

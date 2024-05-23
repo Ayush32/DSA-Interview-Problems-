@@ -14,13 +14,12 @@ int floor(vector<int>&arr,int target)
         
        if(arr[mid] < target)
         {
-                
+                ans = arr[mid];
                 start = mid + 1;
         }
         else if(arr[mid] > target)
             {
-                ans = arr[mid]
-                ;
+                
             end = mid - 1;
             }
     }
@@ -30,7 +29,7 @@ int floor(vector<int>&arr,int target)
 int main() 
 {
     vector<int>v = {1,2,8,10,11,12,19};
-    int target = 9;
+    int target = 8;
     cout << floor(v,target);
 
 }
