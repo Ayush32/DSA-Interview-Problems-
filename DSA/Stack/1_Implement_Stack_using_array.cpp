@@ -1,6 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Intuition: As we know stack works on the principle of last in first out, 
+// so we have to put elements in an array such that it keeps track of the most recently inserted element. 
+// Hence we can think of using a Top variable which will help in keeping track of recent elements inserted in the array.
+
 class Stack
 {
     int size;
@@ -22,7 +26,7 @@ public:
     int pop()
     {
         int x = arr[top];
-        top--;
+        top--; // decrement the top variable after popping the elements
         return x;
     }
 
@@ -35,11 +39,11 @@ public:
     }
     int Top()
     {
-        return arr[top];
+        return arr[top]; //  return the top index
     }
     int Size()
     {
-        return top + 1;
+        return top + 1;  // because we assign top  = -1 so we will return the siz + 1 of stack
     }
 };
 
