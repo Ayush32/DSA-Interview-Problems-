@@ -32,6 +32,7 @@
         "cpp"
     ],
     "cSpell.words": [
-        "linkedlist"
+        "linkedlist",
+        "popleft"
     ]
 }
