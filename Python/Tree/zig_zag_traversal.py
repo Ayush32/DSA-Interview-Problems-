@@ -1,29 +1,29 @@
-class Node:
+from collections import deque
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
-    # A utility function to create a new node
-    def __init__(self, key):
-        self.data = key
-        self.left = None
-        self.right = None
 
 def zigzagTraversal(root):
 
     if root is None:
         return []
 
-    queue = []
-    level = []
+    queue = deque()
+    
     ans = []
     queue.append(root)
     leftToRight = True
-    while len(queue) > 0:
+    while queue:
 
         size = len(queue)
-        for i in range(0,size):
-            val = queue[0].data
-            node = queue.pop(0)
+        level = []
+        for i in range(size):
+            node = queue.popleft()
             
-            level.append(val)
+            level.append(node.val)
 
             if node.left is not None:
                 queue.append(node.left)
@@ -32,22 +32,19 @@ def zigzagTraversal(root):
 
             # i = i + 1
         if leftToRight == False:
-            reversed(level)
+            level = reversed(level)
         
-        ans.extend(level)
-        level.clear()
-        if leftToRight == True:
-            leftToRight = False
-        else:
-            leftToRight = True
+        ans.append(level)
+        # level.clear()
+        leftToRight = not leftToRight
     return ans
     
 if __name__ == '__main__':
-    root = Node(1)
-    root.left = Node(2)
-    root.right = Node(3)
-    root.left.left = Node(4)
-    root.left.right = Node(5)
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    root.left.left = TreeNode(4)
+    root.left.right = TreeNode(5)
 
     print("Level Order Traversal of binary tree is -")
     ans = []
