@@ -22,7 +22,7 @@ public:
         ListNode* temp = head;
         while(temp != NULL)
         {
-            if(temp->next && temp->next->val == val)
+            if(temp->next && temp->next->val == val) 
             {
                 temp->next = temp->next->next;
             }
@@ -30,7 +30,7 @@ public:
                 temp = temp->next;
             }
         }
-        if(head && head->val == val)
+        if(head && head->val == val) # if the first node val is equal to val return head.next
             return head->next;
         // head = temp;
         return head;

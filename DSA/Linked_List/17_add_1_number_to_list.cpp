@@ -17,7 +17,7 @@ Node* reverse(Node* head)
     return head;
 }
 
-// Approach - 1
+// Approach - 1 9991 - 
 /* or example 1999 is represented as (1-> 9-> 9 -> 9) and adding 1 to it should change it to (2->0->0->0) 
     Start traversing linked list from leftmost node and add 1 to it. If there is a carry, move to the next node. Keep moving to the next node while there is a carry.
     after traversal of whole linkedlist, we check the carry if there is carry we make the new node with value carry
