@@ -2,45 +2,50 @@ from queue import LifoQueue  # work as stack in python
 class Queue:
 
     def __init__(self):
-        self.stack1 = LifoQueue()
-        self.stack2 = LifoQueue()
+        self.stack1 = []
+        self.stack2 = []
 
         # self.capacity = c
 
     # function to insert a new element from rear side
     def queueEnqueue(self,newElement):
             
-            while not self.stack1.empty():
-                self.stack2.put(self.stack1.get())
+            while len(self.stack1) != 0:
+                self.stack2.append(self.stack1[-1])
             
 
-            self.stack1.put(newElement)
+            self.stack1.append(newElement)
 
-            while not self.stack2.empty():
-                self.stack1.put(self.stack2.get())
+            while len(self.stack2) != 0:
+                self.stack1.append(self.stack2[-1])
 
 
     
         
     def queueDequeue(self):
-        if self.stack1.empty():
+        if len(self.s1) == 0: 
             print("Queue is Empty Deletion is not possible / underflow Condition")
 
-        else:
-            self.stack1.get()
+        
+     
+        # Return top of self.s1 
+        x = self.stack1[-1] 
+        self.stack1.pop() 
+        return x
             
 
     def queueDisplay(self):
-        if len(self.stack1) == 0:
-            print("Queue is Empty")
+        # if len(self.stack1) == 0:
+        #     print("Queue is Empty")
         
-        for i in range(0,len(self.stack1)):
-            print(self.stack1[i], sep = "/")
+        # for i in range(0,len(self.stack1)):
+        pass
+        #     print(self.stack1[i], sep = "/")
 
     def queueFront(self):
-        if self.input.qsize() == 0:
+        if len(self.stack1) == 0:
             print("Stack is empty")
-        return self.input.queue[-1]
+        return self.stack1[-1]
 
 if __name__ == '__main__':
     # Create a new queue of
