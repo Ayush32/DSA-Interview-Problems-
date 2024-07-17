@@ -10,8 +10,8 @@ class Freelance(Emp): # inherit from Emp class
     def __init__(self, id, name, age, address,email):
         super().__init__(id, name, age, address)
         # we extend the __init__ method by including email attribute in child clasS(Freelance)
-        self.email = email
-        
+        self.ail = email
+    
     def emp_info(self):
         print(f"Employee ID : {self.id}")
         print(f"Employee Name : {self.name}")
