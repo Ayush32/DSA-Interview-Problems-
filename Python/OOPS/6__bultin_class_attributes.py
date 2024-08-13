@@ -14,9 +14,9 @@ class Student:
         self.firstName = firstName # instance variable/attribute
         self.lastName = lastName
         self.age = age
-    
+     
     def print(self):  # instance Methods
-        
+         
         print(f"I am {self.firstName} {self.lastName} and my age is {self.age}")
         
 
