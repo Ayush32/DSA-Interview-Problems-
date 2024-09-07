@@ -34,5 +34,7 @@
     "cSpell.words": [
         "linkedlist",
         "popleft"
-    ]
+    ],
+    "pieces.cloudCapabilities": "Blended",
+    "pieces.telemetry": true
 }
