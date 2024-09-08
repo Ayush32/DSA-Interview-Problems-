@@ -198,6 +198,8 @@ print(new_list1[8:1:-1])
 
 # Extract elements between index 3 and the third element from the end:
 print(new_list1[3:-3])
+# first reverse the list then print every third element index
+print(new_list1[::-3])
 
 '''
 You can create a slice object and use it to slice a list. This can be useful for more dynamic or reusable slicing operations:
