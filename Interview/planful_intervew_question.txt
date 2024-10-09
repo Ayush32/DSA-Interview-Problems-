@@ -1,0 +1,13 @@
+Find the index in the array from where it is rotated. e.g. 5 6 1 2 3. answer - index 2 3>
+ Given two linked lists containing the digits of numbers in reverse order. return the linked list containing the sum of both the linked lists.
+
+ A sorted array is given. return the array in the zigzag pattern. 
+ 4> Buy and sell the stock problem. 
+ 5> Given 2 sorted arrays. return the array combining both the arrays in sorted order. 
+ 6> What is paging? 
+ 7> What is virtualization? 
+ 8> What is the difference between interface, class and abstract class? 9> Do you have any questions for me
+
+ How to get the smallest k(given) elements from a BST, How to perform a delete operation on a min heap etc..
+
+

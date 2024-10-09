@@ -16,7 +16,7 @@ int removeDuplicates(int arr[], int n) {
 // Approach 2 - Inplace Two Pointer
 // Intution - Intuition: We can think of using two pointers ‘i’ and ‘j’, we move ‘j’ till we don't get a number arr[j] which is different from arr[i].
 //  As we got a unique number we will increase the i pointer and update its value by arr[j]. 
-vector<int>arr = {1,2,,3}
+vector<int>arr = {1,2,2,3}
 int main()
 {
     int i = 0; // increment pointer i when we get the the number at arr[i] is diff from arr[j], i.e unique
@@ -29,4 +29,5 @@ int main()
         }
         }
     }
+    return i + 1
 }

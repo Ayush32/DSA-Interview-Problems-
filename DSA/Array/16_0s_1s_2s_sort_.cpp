@@ -37,7 +37,9 @@ void sortColors(vector<int>& nums) {
         }
 
         // Approach 3 - Dutch national Flag Algorithm
-//         Here, as the entire array is unsorted, we have placed the mid pointer in the first index and the high pointer in the last index. The low is also pointing to the first index as we have no other index before 0. Here, we are mostly interested in placing the ‘mid’ pointer and the ‘high’ pointer as they represent the unsorted part in the hypothetical array.
+//         Here, as the entire array is unsorted, we have placed the mid pointer in the first index and the high pointer in the last index.
+//  The low is also pointing to the first index as we have no other index before 0. Here, we are mostly interested in placing the ‘mid’ pointer 
+// and the ‘high’ pointer as they represent the unsorted part in the hypothetical array.
 
 // Now, let’s understand how the pointers will work to make the array sorted.
 

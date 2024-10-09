@@ -13,3 +13,6 @@ def groupAnagrams(strs):
 
 strs = ["eat","tea","tan","ate","nat","bat"]
 print(groupAnagrams(strs))
+
+a = "Ayush"
+print(''.join(sorted(a)))

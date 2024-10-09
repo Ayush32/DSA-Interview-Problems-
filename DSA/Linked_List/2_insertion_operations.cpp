@@ -5,6 +5,7 @@ using namespace std;
 
 Node* insertAtbegining(Node* head,int val)
 {
+    Node* newNode = new Node(val); // create new node with given value
     if(head == NULL){
         head = newNode;
         return head;
@@ -12,7 +13,7 @@ Node* insertAtbegining(Node* head,int val)
     // 5 -> 6 -> 3 -> 5 -> 8
     // new node value = 2
     // new List - 2 -> 5 -> 6 -> 3 -> 5 -> 8
-    Node* newNode = new Node(val); // create new node with given value
+    // Node* newNode = new Node(val); // create new node with given value
     newNode->next = head; // make the next of new node as head
     head = newNode; // make newNode as new Head
 

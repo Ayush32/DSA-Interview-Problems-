@@ -89,7 +89,7 @@ int binarySearchAsc(vector<int>&arr,int target,int start,int end)
 int main()
 {
     vector<int>arr = {3, 9, 10, 20, 17, 5, 1};
-    int target = 20;
+    int target = 5;
     int peakElementIndex = peakElement(arr);
     int leftPart = binarySearchAsc(arr,target,0,peakElementIndex - 1);
     int rightPart = binarySearchDesc(arr,target,peakElementIndex,arr.size() - 1);

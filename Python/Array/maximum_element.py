@@ -1,6 +1,6 @@
 def maximumElement(arr):
-    maximum1 = arr[0]
-    maximum2 = arr[1]
+    maximum1 = float('-inf') # float('-inf')
+    maximum2 = float('-inf') # float('-inf')
     
     for i in range(len(arr)):
         if maximum1 < arr[i]:
@@ -12,4 +12,4 @@ def maximumElement(arr):
     print(maximum2)
          
 arr = [4,7,1,2,8,10,3]
-maximumElement(arr)s
+maximumElement(arr)

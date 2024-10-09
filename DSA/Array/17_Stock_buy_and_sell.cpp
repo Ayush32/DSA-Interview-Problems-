@@ -44,8 +44,8 @@ public:
          int n = prices.size();
          for(int i = 0;i < n;i++)
          {
-             minPrice = min(prices[i],minPrice);
-            maximumProfit = max(prices[i] - minPrice,maximumProfit); 0th index - > maxProfit = 0
+            minPrice = min(prices[i],minPrice);
+            maximumProfit = max(prices[i] - minPrice,maximumProfit); // 0th index - > maxProfit = 0
 
          }
 

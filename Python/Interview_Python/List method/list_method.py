@@ -20,7 +20,7 @@ print(l1)
 
 # if we add l1 and l2 then the result list will be both the list element
 l3 = [1,2,3,3,4,4,3,4,5,4,6,4]
-l4 = [4,5,6]
+l4 = [4,5,6,7]
 print(l3 + l4)
 
 ##############################   Clear Method ###################################
@@ -124,7 +124,7 @@ print(l2)
 l2.sort(key=len,reverse=True)
 print(l2)
 
-##############################   Sort Function ###################################
+##############################   Sorted Function ###################################
 
 '''Returns a new sorted list.
 Works with any iterable (like lists, tuples, strings, etc.).'''

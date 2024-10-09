@@ -33,7 +33,7 @@ public:
         int n = nums.size();
         int  low = 0;
         int high = n -1;
-        
+    
         while(low < high)
         {
             if(nums[low] + nums[high] == target)

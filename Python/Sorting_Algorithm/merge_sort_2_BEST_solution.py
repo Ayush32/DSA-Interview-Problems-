@@ -32,6 +32,5 @@ def mergeSort(arr, start, end):
         merge(arr, start, mid, end)
 
 arr = [5,6,2,7,8,9,2,4,3]
-
 mergeSort(arr,0,len(arr) - 1)
 print(arr)
