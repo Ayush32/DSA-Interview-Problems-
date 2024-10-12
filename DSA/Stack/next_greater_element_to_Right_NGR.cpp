@@ -47,15 +47,8 @@ void NextGreaterToRight(vector<int>&arr)
         {
             NGR[i] = s.top();
         }
-        else if(s.size() > 0 && s.top() <= arr[i])
-        {
-            while(s.size() > 0 && s.top() <= arr[i])
-                s.pop();
-            if(s.size() == 0)
-                NGR[i] = -1;
-            else
-                NGR[i] = s.top();
-        }
+        
+        NGR[i] = s.top();
         s.push(arr[i]);
 
     }

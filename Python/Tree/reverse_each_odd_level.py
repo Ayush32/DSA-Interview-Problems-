@@ -1,43 +1,52 @@
 # Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-class Solution:
-    def reverseOddLevels(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        if root is None:
-            return root
-    
-        q = deque()
-        level = 0
-        q.append(root)
-        while q:
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
-            qSize = len(q)
-            nodesValue = []
-            nodes = []
+from collections import deque
 
-            for i in range(qSize):
-
-                curr = q.popleft()
-                nodesValue.append(curr.val)
-                nodes.append(curr)
-
-                if curr.left:
-                    q.append(curr.left)
-                if curr.right:
-                    q.append(curr.right)
-
-                
-            
-            if level % 2 != 0:
-
-                nodesValue.reverse()
-                for i in range(len(nodesValue)):
-                    curr = nodes[i]
-                    curr.val = nodesValue[i]
-
-            level = level + 1
+def reverseOddLevels(root):
+    if root is None:
+        return None
         
+    queue = deque()
+    queue.append(root)
+    
+    level = 0
+    while queue:
+        size = len(queue)
+        nodesValue = []
+        nodes = []
+            
+        for i in range(size):
+            curr = queue.popleft()
+            nodes.append(curr)
+            nodesValue.append(curr.val)
+            
+            if curr.left:
+                queue.append(curr.left)
+            if curr.right:
+                queue.append(curr.right)
+                
+        if levelCount % 2 != 0:
+            for i in range(len(nodesValue)):
+                curr = nodes[i]
+                curr.val = nodesValue[i]
+            
+        levelCount = levelCount + 1
+        
+            
         return root
+    
+    
+root = TreeNode(3)
+root.left = TreeNode(9)
+root.right = TreeNode(20)
+root.right.left = TreeNode(15)
+root.right.right = TreeNode(7)
+
+
+
+print(reverseOddLevels(root))

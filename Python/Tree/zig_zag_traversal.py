@@ -25,14 +25,14 @@ def zigzagTraversal(root):
             
             level.append(node.val)
 
-            if node.left is not None:
+            if node.left:
                 queue.append(node.left)
-            if node.right is not None:
+            if node.right:
                 queue.append(node.right)
 
             # i = i + 1
         if leftToRight == False:
-            level = reversed(level)
+            level = list(reversed(level))
         
         ans.append(level)
         # level.clear()
@@ -45,7 +45,8 @@ if __name__ == '__main__':
     root.right = TreeNode(3)
     root.left.left = TreeNode(4)
     root.left.right = TreeNode(5)
-
+    root.right.leftt = TreeNode(6)
+    root.right.right = TreeNode(7)
     print("Level Order Traversal of binary tree is -")
     ans = []
     ans = zigzagTraversal(root)

@@ -6,10 +6,10 @@ class TreeNode:
         self.left = left
         self.right = right
 
-def topView(root):
+def bottomView(root):
         if root is None:
             return []
-        topView = []
+        bottomView = []
         queue = deque()
         hashmap = {}
         # key-> line, value->node value
@@ -18,8 +18,8 @@ def topView(root):
         while queue:
 
             line, node = queue.popleft()
-            if line not in hashmap:
-                hashmap[line] = node.val
+            
+            hashmap[line] = node.val
                     
             if node.left:
                 queue.append((line - 1,node.left))
@@ -27,19 +27,19 @@ def topView(root):
                 queue.append((line + 1,node.right))
                 
         for key in sorted(hashmap.keys()):
-            topView.append(hashmap[key])
-        return topView
+            bottomView.append(hashmap[key])
+        return bottomView
     
     
 if __name__ == '__main__':
     root = TreeNode(1)
     root.left = TreeNode(2)
     root.right = TreeNode(3)
-    # root.left.left = TreeNode(4)
-    # root.left.right = TreeNode(5)
-    # root.right.leftt = TreeNode(6)
-    # root.right.right = TreeNode(7)
+    root.left.left = TreeNode(4)
+    root.left.right = TreeNode(5)
+    root.right.leftt = TreeNode(6)
+    root.right.right = TreeNode(7)
     print("Top View Traversal of binary tree is -")
     ans = []
-    ans = topView(root)
+    ans = bottomView(root)
     print(ans)

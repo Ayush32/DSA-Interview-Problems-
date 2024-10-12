@@ -3,40 +3,34 @@ class TreeNode:
         self.data = x
         self.left = left
         self.right = right
-ans = 0
-def solve(root,path):
+        
+global ans
+
+def solve(root,path,totalSum):
     if root is None:
-        return 
+        return 0
     path = path + str(root.data)
     
     if root.left is None and root.right is None:
-        ans = ans + int(path)
+        totalSum[0] += int(path)
         
     else:
-        solve(root.left,path)
-        solve(root.right,path)
+        solve(root.left,path,totalSum)
+        solve(root.right,path,totalSum)
         
 
 def rootLeaf(root):
     # global ans
-    ans = 0  # Reset ans before calculation
-    solve(root,"")
-    return ans
+    totalSum = [0]  # Reset ans before calculation
+    solve(root,"",totalSum)
+    return totalSum[0]
     
         
 root = TreeNode(5)
 root.left = TreeNode(4)
 root.right = TreeNode(8)
-root.left.left = TreeNode(11)
-root.left.left.left = TreeNode(9)
-root.left.left.right = TreeNode(2)
+# root.left.left = TreeNode(11)
 
-root.right.left = TreeNode(13)
-root.right.right = TreeNode(4)
-
-
-root.right.right.left = TreeNode(5)
-root.right.right.right = TreeNode(1)
 
 
 print(rootLeaf(root))

@@ -17,16 +17,18 @@ class Stack:
 
         # Pop all the previous elements and put them after
         # current element
-        
+        # 1 ,2
+        # 2,1
+        # 1,2
         for i in range(s):
-            self.q.append(self.q.popleft())
+            self.q.append(self.q.popleft())  # pop from front and push again into queue
 
     # Removes the top element
     def pop(self):
         if (not self.q):
             print("No elements")
-        else:
-            self.q.popleft()
+        
+        return seq.popleft()
 
     # Returns top of stack
     def top(self):
@@ -42,7 +44,8 @@ if __name__ == '__main__':
     st = Stack()
     st.push(1)
     st.push(2)
-    st.push(3)
+    print(st.pop())
+    # st.push(3)
     print("current size: ", st.size())
     print(st.top())
     st.pop()
