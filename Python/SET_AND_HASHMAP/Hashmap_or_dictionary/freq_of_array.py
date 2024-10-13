@@ -1,7 +1,7 @@
 def freqArray(arr):
     freq = dict()
     for i in range(0,len(arr)):
-        if arr[i] in freq.keys():
+        if arr[i] in freq:
             # if keys is already present in map then increments its frequency
             freq[arr[i]] = freq[arr[i]] + 1
         else:

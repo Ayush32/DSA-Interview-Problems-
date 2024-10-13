@@ -1,3 +1,8 @@
+
+result = lambda a, b : a + b
+print(result(5,6))
+
+
 # Map function
 
 '''
@@ -10,7 +15,7 @@ map(function, iterables)
 
 l1 = [1,2,3,4,5,6,7,8,9,10]
 
-# square of every number using mao function
+# square of every number using map function
 
 def square(num):
     return num ** 2

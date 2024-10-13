@@ -67,3 +67,45 @@ if __name__ == '__main__':
 
     # Print front of queue
     q.queueFront()
+    
+    
+class Queue:
+    def __init__(self):
+        self.queue = []  # Initialize an empty list to store queue elements
+
+    def enqueue(self, item):
+        """Add an element to the end of the queue."""
+        self.queue.append(item)  # Append to the list (end of the queue)
+
+    def dequeue(self):
+        """Remove and return the front element of the queue."""
+        if not self.isEmpty():
+            return self.queue.pop(0)  # Remove the element at index 0 (front)
+        else:
+            return "Queue is empty"
+
+    def peek(self):
+        """Return the front element without removing it."""
+        if not self.isEmpty():
+            return self.queue[0]  # Return the element at index 0 (front)
+        else:
+            return "Queue is empty"
+
+    def isEmpty(self):
+        """Check if the queue is empty."""
+        return len(self.queue) == 0
+
+    def size(self):
+        """Return the size of the queue."""
+        return len(self.queue)
+
+# Example usage:
+queue = Queue()
+queue.enqueue(10)
+queue.enqueue(20)
+queue.enqueue(30)
+print("Front element is:", queue.peek())  # Output: 10
+print("Dequeued element:", queue.dequeue())  # Output: 10
+print("Front element is now:", queue.peek())  # Output: 20
+print("Queue size is:", queue.size())  # Output: 2
+print("Is queue empty?", queue.isEmpty())  # Output: False

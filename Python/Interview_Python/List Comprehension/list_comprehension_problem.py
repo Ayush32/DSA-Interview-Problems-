@@ -38,7 +38,7 @@ print(words_without_vowels_char)
 
 '''  Flatten a List of Lists '''
 
-lst = [[1, 2, 3], [4, 5], [6, 7, 8, 9]]
+lst = [[1, 2, 3], [4,[5],8,9], [6, 7, 8, 9]]
 
 flatten_list = [num for subList in lst for num in subList]
 print(flatten_list)

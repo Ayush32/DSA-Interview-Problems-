@@ -15,10 +15,13 @@ print(l1)
 # if we append list into another list then using append method then l2 will append as whole list
 l1.append(l2)
 print(l1)
-print(l1 + l2)
+# is same as extend method l1 + l2
+sumlist = l1 + l2
+print("sumlist " ,sumlist)
+print("another opeation")
 print(l1)
 
-# if we add l1 and l2 then the result list will be both the list element
+# if we add l3 and l4 then the result list will be both the list element
 l3 = [1,2,3,3,4,4,3,4,5,4,6,4]
 l4 = [4,5,6,7]
 print(l3 + l4)
@@ -58,6 +61,7 @@ print(l1.index(2,3))
 # insert new element in the list at specific index
 new_list = [1,3,4,5]
 new_list.insert(1,2)
+print("Insert method")
 print(new_list)
 # if the given index is greater than lengtgh of list then it will insert new element at the end of list
 new_list.insert(10,6)
@@ -76,7 +80,7 @@ new_list.insert(1,{'a' : 1, 'b' : 2})
 print(new_list)
 
 ##############################   Pop Method ###################################
-
+print("Pop Method")
 #  pop method will be remove or pop the element from end of the list
 new_lst = [1,2,3,4,5]
 print(new_lst.pop())
@@ -131,7 +135,7 @@ Works with any iterable (like lists, tuples, strings, etc.).'''
 
 lst = [5,1,2,10,6,8,14,12]
 print(sorted(lst))
-# also option to sort in ascending order
+# also option to sort in descending order
 print(sorted(lst,reverse=True))
 
 st = {5,5,2,10,8,8,1,12,11,12}

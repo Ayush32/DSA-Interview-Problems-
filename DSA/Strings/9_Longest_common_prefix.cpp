@@ -13,7 +13,7 @@ Output: "fl"*/
 class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) {
-         string ans = "";
+        string ans = "";
         int n = strs.size();
         // traverse all character of the first string
         
