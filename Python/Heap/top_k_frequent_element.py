@@ -1,28 +1,33 @@
-class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        d = dict()
+import heapq
+def topKFrequent(nums,k) :
+    d = dict()
 
-        for i in range(len(nums)):
-            if nums[i] not in d:
+    for i in range(len(nums)):
+        if nums[i] not in d:
                 d[nums[i]] = 1
-            else:
-                d[nums[i]] += 1
-        
-        max_heap = []
+        else:
+            d[nums[i]] += 1
+    print(d)    
+    min_heap = []
+    '''For each item, it pushes a list [freq, ele] onto the heap using heapq.heappush(). 
+    This creates a min-heap based on frequency because Python's heapq module implements a min-heap by default.'''
+    for ele,freq in d.items():
+        heapq.heappush(min_heap,[freq,ele])
+        # print(max_heap)
+        '''If the size of the heap exceeds k, it pops the smallest element (the one with the lowest frequency) 
+        using heapq.heappop(). This ensures that the heap only contains the k most frequent elements.'''
+        if len(min_heap) > k:
+            heapq.heappop(min_heap)
 
-        for ele,freq in d.items():
-            heappush(max_heap,[freq,ele])
+    # print(max_heap)
+    res = []
+    while min_heap:
+        freq,ele = heapq.heappop(min_heap)
 
-            if len(max_heap) > k:
-                heappop(max_heap)
+        res.append(ele)
 
-        res = []
-        while max_heap:
-            freq,ele = heappop(max_heap)
+    return res
 
-            res.append(ele)
-
-        return res
-
-
-        s
+arr = [1,1,1,3,2,2]
+k = 2
+topKFrequent(arr,k)

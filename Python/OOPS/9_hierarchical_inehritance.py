@@ -1,23 +1,21 @@
 '''
 more than one derived class can inherit from single base class
 '''
-class Vehicle():
-    def vechile_info(self):
-        print("vehicle is parent/base class")
-        
-# derived class / subclass / child class
-class Car(Vehicle):
-    def car_info(self):
-        print("class Car is inherited from Vehicle base class")
-        
-class Truck(Vehicle):
-    def truck_info(self):
-        print("class Truck is inherited from Vehicle base class")
-        
-obj1 = Car()
-obj1.vechile_info()
-obj1.car_info()
+class Parent:
+    def display(self):
+        print("This is the parent class.")
 
-obj2 = Truck()
-obj2.vechile_info()
-obj2.truck_info()
+class Child1(Parent):
+    def show1(self):
+        print("This is the first child class.")
+
+class Child2(Parent):
+    def show2(self):
+        print("This is the second child class.")
+
+obj1 = Child1()
+obj2 = Child2()
+obj1.display()  # Inherited from Parent
+obj1.show1()    # Child1's own method
+obj2.display()  # Inherited from Parent
+obj2.show2()    # Child2's own method
