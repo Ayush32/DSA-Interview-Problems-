@@ -45,7 +45,7 @@ def longest_palindrome(s):
 
     return len(s)
 
-s = "abccccdd"
+s = "aefbcfvccccdd"
 print(longest_palindrome(s))
         
     

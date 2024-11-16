@@ -23,6 +23,8 @@ def valid_anagram(s,t):
     for i in range(len(s)):
         freq1[ord(s[i]) - ord('a')] += 1
     
+    print(ord('a') - ord('a'))
+    
     for i in range(len(t)):
         freq2[ord(t[i]) - ord('a')] += 1
     

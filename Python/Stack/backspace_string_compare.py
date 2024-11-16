@@ -23,7 +23,7 @@ def backSpace(s,t):
         
 
 s = "a#c"
-t = "d"
+t = "a##c"
 
 print(backSpace(s,t))
                 

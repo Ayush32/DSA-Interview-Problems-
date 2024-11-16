@@ -38,8 +38,11 @@ def insert_interval(intervals, newInterval):
     return mergeIntervals
 
 intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]
+# m = [[1,2],[3,8]]
+# newInterval = [3,8]
 newInterval = [4,8]
-print(insert_interval(intervals,newInterval))   
+print(insert_interval(intervals,newInterval))
+   
         
 
 

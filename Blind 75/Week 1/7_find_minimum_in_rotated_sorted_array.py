@@ -18,5 +18,6 @@ def minimumRotatedSortedArray(arr):
     return -1
 
 arr = [3,4,5,1,2]
+arr = [1,2,3,4,5]
 print(minimumRotatedSortedArray(arr))
          

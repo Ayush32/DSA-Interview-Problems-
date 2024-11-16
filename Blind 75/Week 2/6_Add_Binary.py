@@ -14,4 +14,4 @@ def addBinary(a,b) -> str:
 a = "11"
 b = "1"
 print(addBinary(a,b))
-print(bin(3)[2:])
+# print(bin(3)[2:])

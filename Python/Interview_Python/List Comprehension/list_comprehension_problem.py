@@ -5,8 +5,11 @@
 # output: [1, 10, 44, 5, 5, 12, 100, -30]'''
 
 lst = [(1, 10), (44, 5, 5), (10, 70, 30), (12, 100, -30), (110, -10)]
+l = [[1,4,5],[5,2,5],[2,17],[7,6,42,2]]
+flatten_list_2 = [item for sublist in l if sum(sublist) > 10 for item in sublist]
+print(flatten_list_2)
 flatten_list = [item for tup in lst if sum(tup) < 100 for item in tup]
-print(flatten_list)
+print(tuple(flatten_list))
 
 '''# square of every number'''
 

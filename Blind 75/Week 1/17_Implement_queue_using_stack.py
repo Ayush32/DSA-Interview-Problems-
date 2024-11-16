@@ -11,7 +11,7 @@ class Queue:
             self.stack1.pop()
         
         
-        self.stack1.append(x)
+        self.stack1.append(val)
         
         while len(self.stack2) != 0:
             self.stack1.append(self.stack2[-1])

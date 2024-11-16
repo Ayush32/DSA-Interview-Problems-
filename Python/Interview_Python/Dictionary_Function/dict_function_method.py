@@ -30,3 +30,6 @@ my_dict.update({'age' : 25,'city' : 'lucknow'})
 
 for key,value in my_dict.items():
     print(key,value)
+
+my_dict.clear()
+print(my_dict)

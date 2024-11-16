@@ -49,7 +49,7 @@ target = 0
 minIndex = minimumRotatedSortedArray(arr)
 leftpart = binarySearch(arr,0,minIndex-1,target)
 rightPart = binarySearch(arr,minIndex,len(arr) - 1,target)
-
+# print(findIndex)
 if leftpart != -1:
     print(leftpart)
 else:

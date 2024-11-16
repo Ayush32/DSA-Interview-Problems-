@@ -19,6 +19,10 @@ def twoSum(arr,target):
     return pair
 
 arr = [4,7,1,2]
+4 - 0
+7 - 1
+1 - 2
+
 target = 3
 print(twoSum(arr,target))
             
