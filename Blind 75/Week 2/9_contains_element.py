@@ -44,8 +44,8 @@ def contains_Duplicate_approach_optimize(nums):
         slow = nums[nums[0]]
         fast = nums[nums[nums[0]]]
     
-    if slow == fast:
-        return True
+        if slow == fast:
+            return True
     return False
     # return len(s) != len(nums)
 

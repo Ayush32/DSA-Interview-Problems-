@@ -22,7 +22,7 @@ def backspaceCompare(s, t) -> bool:
         return stack1 == stack2
     
 
-s = "y#fo##f"
-t = "y#f#o##f"
+s = "a#b"
+t = "ab##a#b"
 
 print(backspaceCompare(s,t))

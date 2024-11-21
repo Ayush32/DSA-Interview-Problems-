@@ -14,7 +14,7 @@ def binary_level_order_traversal(root):
             
             node = queue.popleft()
             
-            level.append(node.left)
+            level.append(node.val)
             
             if node.left:
                 queue.append(node.left)

@@ -31,8 +31,8 @@ def longestPalindrome(s):
             palindrome = s[low+1:high]
             if len(palindrome) > len(LPS):
                 LPS = palindrome
-        
+                    
         return LPS
     
-s = "abrbadaadab"
+s = "baacaa"
 print(longestPalindrome(s))

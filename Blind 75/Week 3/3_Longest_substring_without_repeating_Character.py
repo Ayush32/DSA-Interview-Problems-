@@ -6,7 +6,7 @@ def lengthOfLongestSubstring(self, s: str) -> int:
         maxLength = 0
         while start < len(s):
             if s[start] not in hashmap:
-                maxLength = max(start - end + 1,maxLength)
+                maxLength = max(end - start + 1,maxLength)
                 hashmap.add(s[start])
                 start = start + 1
             else:

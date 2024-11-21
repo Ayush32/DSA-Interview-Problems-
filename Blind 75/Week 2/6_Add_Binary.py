@@ -1,9 +1,12 @@
 def addBinary(a,b) -> str:
         # Convert Binary to Integer:
         a = int(a,2)
+        print(a)
         b = int(b,2)
+        print(b)
         # calcuate the sum
         sum = a + b
+        print(bin(sum))
         # Finally, the sum is converted back to a binary string using the bin() function.       
         # The bin() function returns a string prefixed with '0b' to indicate that it is binary.By using [2:], 
         # the code slices off the '0b' prefix, returning only the binary digits.

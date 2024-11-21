@@ -30,7 +30,7 @@ def subset(index,input,ans,current_subset):
     subset(index+1,input,ans,current_subset)
     
     
-input = [1,2,3]
+input = [1,2,3,4]
 ans = []
 current_subset = []
 print(subset(0,input,ans,current_subset))

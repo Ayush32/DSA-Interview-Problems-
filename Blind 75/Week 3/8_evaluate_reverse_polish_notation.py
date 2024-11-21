@@ -5,7 +5,7 @@ Evaluate the expression. Return an integer that represents the value of the expr
 
 Note that:
 
-The valid operators are '+', '-', '*', and '/'.
+The valid operator are '+', '-', '*', and '/'.
 Each operand may be an integer or another expression.
 The division between two integers always truncates toward zero.
 There will not be any division by zero.
@@ -67,7 +67,7 @@ def reverse_polish_notation(tokens):
         else:
             stack.append(int(tokens[i]))
             
-    # ans = stack[0]
+    ans = stack[0]
     return ans
 
 tokens = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]

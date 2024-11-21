@@ -94,8 +94,8 @@ def combinational_sum(index,input,ans,ds,target):
     
     
 
-input = [2,3,6,7]
-target = 7
+input = [2,3,5]
+target = 8
 ans = []
 ds = []
 combinational_sum(0,input,ans,ds,target)
