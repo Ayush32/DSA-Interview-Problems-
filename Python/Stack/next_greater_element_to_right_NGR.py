@@ -30,6 +30,7 @@ def nextGreaterElement(arr):
                 ngrElement[i] = stack[-1]
                 break
             stack.pop()
+            # ngrElement[i] = -1
             
         stack.append(arr[i])
     
@@ -37,3 +38,38 @@ def nextGreaterElement(arr):
 
 arr = [7,12,1,20]
 print(nextGreaterElement(arr))
+
+
+
+def nextGreaterElement(arr):
+    """
+    Finds the next greater element for each element in the array.
+    
+    For each element in the array, the function finds the first greater element 
+    to its right and returns a list of these next greater elements. If no such 
+    element exists, -1 is returned for that position.
+    
+    Args:
+    arr (list of int): The input list of integers.
+    
+    Returns:
+    list of int: A list where each element is the next greater element of the 
+                 corresponding input element, or -1 if no greater element exists.
+    """
+    
+    n = len(arr)
+    stack = []
+    ngrElement = [0] * n
+    
+    for i in range(n-1, -1, -1):
+        # Remove elements from the stack that are less than or equal to the current element
+        while stack:
+            if stack[-1] > arr[i]:
+                ngrElement[i] = stack[-1]
+                break
+            stack.pop()
+        ngrElement[i] = -1
+        # Push the current element onto the stack
+        stack.append(arr[i])
+    
+    return ngrElement

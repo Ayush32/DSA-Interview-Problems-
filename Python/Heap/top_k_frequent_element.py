@@ -30,4 +30,4 @@ def topKFrequent(nums,k) :
 
 arr = [1,1,1,3,2,2]
 k = 2
-topKFrequent(arr,k)
+print(topKFrequent(arr,k))

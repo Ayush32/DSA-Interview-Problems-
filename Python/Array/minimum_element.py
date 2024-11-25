@@ -1,17 +1,17 @@
-def maximumElement(arr):
-    maximum1 = float('inf') # float('-inf') nnegative infinity and postiive infinty
-    maximum2 = float('inf') # float('-inf')
+def minimumElement(arr):
+    minimum1 = float('inf') # float('-inf') negative infinity and postiive infinty
+    minimum2 = float('inf') # float('-inf')
     
     for i in range(len(arr)):
-        if maximum1 > arr[i]:
-            maximum2 = maximum1
-            maximum1 = arr[i]
-        elif maximum2 > arr[i]:
-            maximum2 = arr[i]
-    print(maximum1)
-    print(maximum2)
+        if minimum1 > arr[i]:
+            minimum2 = minimum1
+            minimum1 = arr[i]
+        elif minimum2 > arr[i]:
+            minimum2 = arr[i]
+    print(minimum1)
+    print(minimum2)
          
 arr = [4,7,1,2,8,10,3]
 print(sorted(arr))
 print(reversed(arr))
-maximumElement(arr)
+minimumElement(arr)

@@ -13,6 +13,9 @@ Syntax
 map(function, iterables)
 '''
 
+a = lambda a,b:a+b
+print(a(4,5))
+
 l1 = [1,2,3,4,5,6,7,8,9,10]
 
 # square of every number using map function

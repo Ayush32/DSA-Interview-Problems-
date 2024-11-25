@@ -15,3 +15,27 @@ x = heapq.heappop(negative_list)
 heapq.heappush(negative_list,-9)
 for i in negative_list:
     print(-1 * i)
+    
+'''To implement a max-heap, you can negate the values when inserting and retrieving elements. This is because negating the values reverses the order of comparison.'''
+
+max_heap = []
+
+l = [6,10,1,14,7]
+
+heapq.heappush(max_heap,-6)
+heapq.heappush(max_heap, -10)
+heapq.heappush(max_heap, -1)
+heapq.heappush(max_heap, -14)
+heapq.heappush(max_heap, -7)
+
+'''or we can do by this
+
+for i in range(len(l)):
+    heapq.heappush(max_heap,-l[i])
+'''
+
+# Max-heap property ensures the largest element is always at index 0 with  Negate again to get the original values
+print("Max-Heap:", [-x for x in max_heap])  # Output: [1, 7, 14, 10]
+
+print(-heapq.heappop(max_heap))
+print(-heapq.heappop(max_heap))

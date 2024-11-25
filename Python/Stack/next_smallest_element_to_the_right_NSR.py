@@ -7,7 +7,7 @@ def nextGreaterElementLeft(arr):
         while stack:
             
             if stack[-1] < arr[i]:
-                ngl[i] = stack[-1]
+                NSR[i] = stack[-1]
                 break
             
             stack.pop()

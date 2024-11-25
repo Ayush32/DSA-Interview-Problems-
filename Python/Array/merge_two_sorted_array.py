@@ -5,7 +5,7 @@ def mergeTwoSorted(arr1,arr2):
     n = len(arr1)
     m = len(arr2)
     size = m * n
-    arr3 = [None] * (n + m)
+    arr3 = [0] * (n + m)
     
     while i < n and j < m:
         if arr1[i] < arr2[j]:

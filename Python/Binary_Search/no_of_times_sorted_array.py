@@ -18,4 +18,5 @@ def rotatedArray(arr):
     return -1
 
 arr = [11,12,15,18,2,5,6,8]
+sorted_arr = [2,5,6,8,11,12,15,18]
 print(rotatedArray(arr))

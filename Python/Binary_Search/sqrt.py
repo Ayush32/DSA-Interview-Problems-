@@ -18,3 +18,4 @@ def optimalSol(n):
 
 n = 8
 print(optimalSol(n))
+

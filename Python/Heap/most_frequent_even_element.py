@@ -23,4 +23,4 @@ class Solution:
             return -1
         return frequent_element 
 
-        
+
