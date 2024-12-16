@@ -1,15 +1,19 @@
 l1 = [1,2,3,4,5,6,2,7]
 
+# list - A list in Python is a built-in, dynamic, mutable, and ordered collection of elements enclosed within square brackets [].
+
 ##############################   Apppend and Extend Method ###################################
 
 # insert new element at the end of list
 # append function take only one argument
 l1.append(8)
+# l1.append([1,2,3,4,5])
 print(l1)
 
 l2 = [9,10,11,12]
 # append one list to another list and the second list will be unpack
 l1.extend(l2)
+# l1.extend((1,2,3))
 print(l1)
 
 # if we append list into another list then using append method then l2 will append as whole list
@@ -17,6 +21,7 @@ l1.append(l2)
 print(l1)
 # is same as extend method l1 + l2
 sumlist = l1 + l2
+# print()
 print("sumlist " ,sumlist)
 print("another opeation")
 print(l1)
@@ -121,13 +126,12 @@ print(l1)
 l1.sort(reverse=True)
 print(l1)
 
-# based on the length of the wore
+# based on the length of the word
 l2 = ["ayush","gg","aaa","kkkk","a"]
 l2.sort(key=len)
 print(l2)
 l2.sort(key=len,reverse=True)
 print(l2)
-
 ##############################   Sorted Function ###################################
 
 '''Returns a new sorted list.
@@ -138,12 +142,13 @@ print(sorted(lst))
 # also option to sort in descending order
 print(sorted(lst,reverse=True))
 
+print("set sorting")
 st = {5,5,2,10,8,8,1,12,11,12}
 # we can aslo sort the set and its will only store one occurence of every element and remove the other occurenece of element
 print(sorted(st))
 
 tup = (5,5,2,10,8,8,1,12,11,12)
-sorted_tuple = sorted(tup)
+# sorted_tuple = sorted(tup)
 print(sorted(tup))
 # convrt back to the tuple
 sorted_tuple = tuple(sorted(tup))
@@ -154,6 +159,8 @@ d = {'a' : 1, 'c' : 4, 'b' : 2 }
 sorted_d = sorted(d)
 print(sorted_d)
 
+s = "string"
+s.split()
 
 '''
 To sort a dictionary by its values, you can use the key parameter:'''
@@ -200,6 +207,7 @@ print(new_list1[1:8:2])
 # Extract elements in reverse order from index 8 to 2:
 print(new_list1[8:1:-1])
 
+print("ope")
 # Extract elements between index 3 and the third element from the end:
 print(new_list1[3:-3])
 # first reverse the list then print every third element index

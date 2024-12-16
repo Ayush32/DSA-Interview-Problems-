@@ -29,7 +29,8 @@ public:
         }
         
         // Approach 2 -
-        // We can maintain a minimum from the start of the array and compare it with every element of the array, if it is greater than the minimum then take the difference and maintain it in max, otherwise update the minimum.
+        // We can maintain a minimum from the start of the array and compare it with every element of the array, if it is greater than the minimum
+        //   then take the difference and maintain it in max, otherwise update the minimum.
         // we remove the inner loop 
         // create a variable maxProfit and initialize with 0
         // Create a variable minPrice and store some larger value(ex: MAX_VALUE) value initially.

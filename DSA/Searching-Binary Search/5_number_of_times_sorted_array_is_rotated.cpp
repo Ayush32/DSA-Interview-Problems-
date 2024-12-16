@@ -28,7 +28,7 @@ int NumberOfRotation(vector<int>&arr)
 int main()
 {
     vector<int>arr = {11,12,15,18,2,5,6,8};
-    
+    // sorted array - (2,5,6,8,11,12,15,18)
     // int target = 8;
     cout << NumberOfRotation(arr);
     return 0;

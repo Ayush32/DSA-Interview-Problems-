@@ -15,7 +15,7 @@ def peakElement(arr):
         mid = low + (high - low)//2
           # # case 2 what if the our first element is peak element we compare the first element with right next element
         if(mid == 0):
-            if arr[mid] < arr[mid + 1]:
+            if arr[mid] > arr[mid + 1]:
                 return arr[mid]
             else:
                 low = mid + 1

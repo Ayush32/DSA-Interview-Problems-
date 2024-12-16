@@ -76,7 +76,7 @@ print(words_uppercase)
 ''' Remove Spaces from Strings in a List '''
 
 strings = ['hello world', '  python  ', 'map lambda']
-
+# The replace() method in Python is used to replace occurrences of a substring with another substring.
 remove_spaces_from_list = list(map(lambda x : x.replace(' ',''),strings))
 
 print(remove_spaces_from_list)

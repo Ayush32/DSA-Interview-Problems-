@@ -5,7 +5,10 @@ void threeSum(vector<int>arr)
 {
     // Approach 1 -  Using Brute Force, T-C - O(N*^3), S.C - O(1)
 
-    // approach 2 - Using Sorting + Two Pointer; T.C - O(N^2logN)
+//     Time Complexity: O(N2 * log(no. of unique triplets)), where N = size of the array.
+// Reason: Here, we are mainly using 3 nested loops. And inserting triplets into the set takes O(log(no. of unique triplets)) time complexity. But we are not considering the time complexity of sorting as we are just sorting 3 elements every time.
+
+// Space Complexity: O(2 * no. of the unique triplets) + O(N) as we are using a set data structure and a list to store the triplets and extra O(N) for storing the array elements in another set.
     int n = arr.size();
     sort(arr.begin(),arr.end());
     set<vector<int>>st;

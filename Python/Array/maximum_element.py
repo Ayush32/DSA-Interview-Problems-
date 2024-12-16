@@ -1,6 +1,7 @@
 def maximumElement(arr):
-    maximum1 = float('-inf') # float('-inf')
+    maximum1 = float('-inf') # float('-inf') // negative infinity and float('inf') // postivie infitnity
     maximum2 = float('-inf') # float('-inf')
+
     
     for i in range(len(arr)):
         if maximum1 < arr[i]:

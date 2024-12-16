@@ -4,6 +4,7 @@ def groupAnagrams(strs):
     
     for s in (strs):
         key = ''.join(sorted(s))
+        # print(sorted(s))
         hashmap[key].append(s)
 
     return list(hashmap.values())

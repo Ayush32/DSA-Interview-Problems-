@@ -30,10 +30,10 @@ public:
         [4,1,2,1,2], O/p =  4
         ans = nums[i] ^ ans;
         i = 0, ans = 4 ^ 0  
-        i = 1, ans = 4 ^ 1
-        i = 2, ans = 2 ^ 5
-        i = 3, ans = 1 ^ 7
-        i = 4, ans = 2 ^ 6 = 4
+        i = 1, ans = 4 ^ 1 100 001
+        i = 2, ans = 2 ^ 5 010 101
+        i = 3, ans = 1 ^ 7 001 111
+        i = 4, ans = 2 ^ 6 = 010 110 = 100
         ans = 4 -> single number
       */
         int n = nums.size();

@@ -7,7 +7,9 @@ def integerToRoman(num):
         for i in range(len(symbol)):
             if num >= value[i]:
                 num = num - value[i]
+                print(num)
                 roman = roman + symbol[i]
+                print(roman)
                 break
     
     return roman

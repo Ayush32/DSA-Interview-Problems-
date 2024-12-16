@@ -13,8 +13,7 @@ def nextGreaterElement(arr):
     #             flag = True
     #             break
         
-    #     if flag == False:
-    #         ngr.append(-1)
+    #        
             
     
     # ngr.append(-1)

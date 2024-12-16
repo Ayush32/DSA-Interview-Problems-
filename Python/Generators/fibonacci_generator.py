@@ -1,4 +1,6 @@
 def fibonacci_number():
+    # a - first fibonacci number
+    # b - second fibonacci number
     a,b= 0,1
     while True:
         yield a
@@ -11,3 +13,4 @@ for _ in range(10):
     ans.append(next(fibo))
 
 print(ans)
+# 0,1,1,2,3,5,8,13,21

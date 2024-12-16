@@ -21,7 +21,7 @@ def peak_element(arr):
                 return mid
             elif arr[mid] < arr[mid + 1]:
                 start = mid + 1
-            else:
+            elif arr[mid - 1] > arr[mid]:
                 end = mid - 1
     return -1
 
@@ -53,7 +53,7 @@ def binary_search_asc(arr, target, start, end):
 
 def main():
     arr = [3, 9, 10, 20, 17, 5, 1]
-    target = 5
+    target = 20
     peak_element_index = peak_element(arr)
     left_part = binary_search_asc(arr, target, 0, peak_element_index - 1)
     right_part = binary_search_desc(arr, target, peak_element_index, len(arr) - 1)

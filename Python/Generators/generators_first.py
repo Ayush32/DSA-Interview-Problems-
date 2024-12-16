@@ -17,8 +17,8 @@ Example:
 def infiniteSequence():
     num = 0
     while True:
-        yield num
         num += 1
+        yield num
 
 ans = infiniteSequence()        
 for _ in range(5):

@@ -3,8 +3,9 @@ using namespace std;
 
 int main() {
  
-    // move zeros to an end
+    move zeros to an end
     vector<int>v1 = {1,1,2,2,1,1,1,1,1,1,1,2,2};
+
     
     // o/p - 1,5,6,,8
     int maximumOnes = INT_MIN;

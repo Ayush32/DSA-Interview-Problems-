@@ -24,5 +24,5 @@ def cub_number(n):
         ans.append(i*i*i)
     # return ans
 
-print(sqaured_number(10000000))
-print(cub_number(10000000))
+sqaured_number(10000000)
+cub_number(10000000)

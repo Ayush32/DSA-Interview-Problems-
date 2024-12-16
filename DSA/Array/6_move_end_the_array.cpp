@@ -21,7 +21,8 @@ public:
 
         // Approach 2 -
          /*
-         We can think of using two pointers ‘i’ and ‘j’, we move left till we don’t get a number arr[left] which is different from 0. As we got a 0 number we will swap arr[left] value with arr[right] value and increase *right pointer
+         We can think of using two pointers ‘i’ and ‘j’, we move left till we don’t get a number arr[left] which is different from 0. As we got a 0 number 
+         we will swap arr[left] value with arr[right] value and increase *right pointer
 
 
         */

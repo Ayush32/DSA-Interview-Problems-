@@ -19,8 +19,8 @@ class Queue:
             print("Queue is Empty Deletion is not possible / underflow Condition")
 
         else:
-            self.queue.pop()
-            self.rear = self.rear - 1
+            self.queue.pop(0)
+            self.rear    = self.rear - 1
 
     def queueDisplay(self):
         if(self.rear == self.front):
@@ -33,7 +33,7 @@ class Queue:
         if(self.rear == self.front):
             print("Queue is Empty", " -1")
         
-        return self.queue[self.front]
+        print(self.queue[self.front])
 
 if __name__ == '__main__':
     # Create a new queue of

@@ -4,16 +4,20 @@ def longestSubstringWithoutcharacter(s):
     end = 0
     n = len(s)
     maxLength = 0
+    substringStart = 0
+    substringend = 0
     while start < n:
         if s[start] not in hashmap:
-            maxLength = max(start - end + 1, maxLength)
+            if maxLength < (start - end + 1):
+                maxLength = start - end + 1
+            
             hashmap.add(s[start])
             start = start + 1
         else:
             hashmap.remove(s[end])
             end = end + 1
-            
-    return maxLength
+    print(s[end:start])     
+    print(maxLength)
     
 s = "abcabcbbefghijjgds"
-print(longestSubstringWithoutcharacter(s))
+longestSubstringWithoutcharacter(s)
