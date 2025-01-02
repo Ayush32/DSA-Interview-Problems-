@@ -6,7 +6,7 @@ select name, salary FROM
 ) as rank_salaries where rank = 3
 
 -- three minimum salaries
-select   distinct salary FROM(
+select  distinct salary FROM(
     SELECT distinct salary, DENSE_RANK() over(order by salary asc) as RANK FROM
     employees
 ) as rank_salaries where RANK <= 3
