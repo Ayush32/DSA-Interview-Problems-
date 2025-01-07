@@ -37,7 +37,7 @@ print(l3 + l4)
 l2.clear()
 print(l2)
 
-##############################   Counr Method ###################################
+##############################   Count Method ###################################
 
 # to the count the frequency in of any element , it return frequency of elment that pass to count function, arugmeent should be integer value
 print(l3.count(4))
@@ -45,13 +45,14 @@ print(l3.count(4))
 ##############################   Copy Method ###################################
 
 # The copy() method in Python creates a shallow copy of a list. This means that any modifications made to the new list won't affect the original list
+org = [1,2,3,4]
 l5 = []
-l5 = l1.copy()
+l5 = org.copy()
 print(l5)
 l5.append(100)
 # any modification in l5 will not reflect to original list l1
 print(l5)
-
+print(org)
 ##############################   Index Method ###################################
 
 # get the index of particular element in list, it always return the first index of given value no matter what the element is present more than twice
@@ -60,6 +61,7 @@ print(l1.index(2))
 # start = starting point of index, end = where you want to search the endpoint
 print(l1.index(2,3,7))
 print(l1.index(2,3))
+print(l1.index(10000))
 
 ##############################   Insert Method ######################################
 
@@ -160,7 +162,7 @@ sorted_d = sorted(d)
 print(sorted_d)
 
 s = "string"
-s.split()
+print(s.split("_"))
 
 '''
 To sort a dictionary by its values, you can use the key parameter:'''

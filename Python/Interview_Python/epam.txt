@@ -1,0 +1,12 @@
+fibonacci sequence creating generator in python
+General python related features such as how memory management works in python. How reference type works etc.
+What are the principles of OOP
+Write a program to calculate average temperature of cities with given input arrays.
+
+Binary search Hash Map Projects Reverse array
+
+first unique character in string, given array move all zeros to right ( core java, arraylist vs linklist, time and space complexity)
+Overriding, overloading examples Types of polymorphism
+
+What is list in Python. What is Dictionary in Python.
+

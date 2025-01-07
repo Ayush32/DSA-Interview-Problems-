@@ -33,6 +33,7 @@ print(squared_numbers_list)
 '''square of every number using map and lambda function '''
 # Use map with a lambda function to square each element
 squared_numbers_l = map(lambda x : x ** 2, l1)
+print(squared_numbers_l)
 # convert into list
 squared_numbers_list_lambda = list(squared_numbers_l)
 print(squared_numbers_list_lambda)
@@ -51,7 +52,7 @@ convert_list_into_string = list(map(lambda x : int(x), list_of_string))
 print(convert_list_into_string)
 
 
-''' combines first name and last name '''
+'''combines first name and last name'''
 
 first_name = ["Ayush","Vyshanvi", "Rohan"]
 last_name = ["Gupta","Jonnala","Shukla"]

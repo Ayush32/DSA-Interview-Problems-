@@ -1,13 +1,13 @@
 s = "samplestring"
 
-# split function - The split() method in Python is used to divide a string into a list of substrings based on a specified separator 
+# split method - The split() method in Python is used to divide a string into a list of substrings based on a specified separator 
 # ---------
 print(s.split('e'))
 s1 = "I am a good boy"
 print(s1.split())
 s2 = "i,am,am.,,a,"
 print(s2.split(','))
-st = "ayush"
+# st = "ayush"/
 
 # The join() method in Python is used to concatenate the elements of an iterable (such as a list, tuple, or set)
 # into a single string with a specified delimiter placed between each element.
@@ -60,6 +60,8 @@ print(s1.isalpha())
 # # islower()	Returns True if all characters in the string are lower case
 # # isnumeric()	Returns True if all characters in the string are numeric
 # # strip()	Returns a trimmed version of the string
+aa = "i am good boy"
+print(aa.title())
 # swapcase()	Swaps cases, lower case becomes upper case and vice versa
 # title()	Converts the first character of each word to upper case
 # translate()	Returns a translated string
@@ -67,3 +69,6 @@ print(s1.isalpha())
 # zfill()	Fills the string with a specified number of 0 values at the beginning
 # rfind()	Searches the string for a specified value and returns the last position of where it was found
 # rindex()	Searches the string for a specified value and returns the last position of where it was found
+a = "abcdeac"
+print(a.find("a"))  # find the first occurence of character
+print(a.rfind("z")) # find the last occurence of character

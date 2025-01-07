@@ -20,6 +20,7 @@ def infiniteSequence():
         num += 1
         yield num
 
-ans = infiniteSequence()        
+ans = infiniteSequence()
+print(ans)        
 for _ in range(5):
     print(next(ans))
