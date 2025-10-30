@@ -21,7 +21,6 @@ def merge(left_arr,right_arr):
 
     return res
         
-
 def mergeSort(arr):
    
    if len(arr) <= 1:
